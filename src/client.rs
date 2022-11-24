@@ -5,6 +5,7 @@ use serde::{Serialize, de::DeserializeOwned, Deserialize};
 
 use crate::{api::ApiResponse, tables_trait::TableTrait};
 
+#[derive(Default)]
 pub struct NClient {
     server_id : u64,
     client : Client,
@@ -98,7 +99,7 @@ impl ApiContext<'_> {
             ("SupplierInvoiceId", supplier_invoice_id.to_string()),
         ];
 
-        let _response = self.client.client.get(endpoint(self.client.server_id,  "api/supplierInvoiceDocument"))
+        let _response = self.client.client.get(self.endpoint("supplierInvoiceDocument"))
             .query(&params)
             .send();
         
@@ -120,7 +121,7 @@ impl ApiContext<'_> {
             ("tocustomer", to_customer_str),
         ];
 
-        let _response = self.client.client.post(endpoint(self.client.server_id,  "api/sendWorkOrderMsg"))
+        let _response = self.client.client.post(self.endpoint("sendWorkOrderMsg"))
             .query(&params)
             .send();
         
@@ -136,7 +137,7 @@ impl ApiContext<'_> {
             ("customercontactid", customer_contact_id),
         ];
             
-        let _response = self.client.client.post(endpoint(self.client.server_id,  "api/sendWorkOrderMsg"))
+        let _response = self.client.client.post(self.endpoint("sendWorkOrderMsg"))
             .query(&params)
             .send();
             
@@ -152,7 +153,7 @@ impl ApiContext<'_> {
             ("customercontactid", customer_contact_id),
         ];
             
-        let _response = self.client.client.post(endpoint(self.client.server_id,  "api/sendWorkOrderMsg"))
+        let _response = self.client.client.post(self.endpoint("sendWorkOrderMsg"))
             .query(&params)
             .send();
             
@@ -187,7 +188,7 @@ impl ApiContext<'_> {
             ("userId", "0".to_string()),
         ];
 
-        let response = self.client.client.get(endpoint(self.client.server_id,  "api/impersonate"))
+        let response = self.client.client.get(self.endpoint("impersonate"))
             .query(&params)
             .send();
 
@@ -214,7 +215,7 @@ impl ApiContext<'_> {
             ("showvat", sv.to_string()),
         ];
 
-        let response = self.client.client.get(endpoint(self.client.server_id,  "api/impersonate"))
+        let response = self.client.client.get(self.endpoint("impersonate"))
             .query(&params)
             .send();
 

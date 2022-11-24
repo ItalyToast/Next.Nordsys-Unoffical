@@ -1,4 +1,4 @@
-mod api;
-mod client;
-mod tables;
-mod tables_trait;
+pub mod api;
+pub mod client;
+pub mod tables;
+pub mod tables_trait;
