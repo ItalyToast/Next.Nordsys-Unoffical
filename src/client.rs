@@ -1,6 +1,6 @@
-use std::{collections::HashMap, marker::PhantomData};
+use std::{collections::HashMap, marker::PhantomData, time::{Instant, UNIX_EPOCH, SystemTime}};
 
-use reqwest::{blocking::{Client, Response}, header};
+use reqwest::{blocking::{Client, Response,ClientBuilder}, header};
 use serde::{Serialize, de::DeserializeOwned, Deserialize};
 
 use crate::{api::ApiResponse, tables_trait::TableTrait};
@@ -14,7 +14,9 @@ pub struct NClient {
 
 impl NClient {
     pub fn login(server_id : u64, username : &str, password : &str) -> NClient {
-        let client = Client::new();
+        let client = ClientBuilder::new()
+            .connection_verbose(true)
+            .build().unwrap();
     
         let form : HashMap<&str, &str> = HashMap::from([
             ("type", "json"),
@@ -22,8 +24,9 @@ impl NClient {
             ("password", password),
         ]);
         
-        let response = client.post(endpoint(server_id, "api/login?_dc=1668982911141"))
+        let response = client.post(endpoint(server_id, "api/login"))
             .form(&form)
+            .query(&dc_only())
             .send().unwrap()
             .json::<ApiResponse<Login>>().unwrap();
     
@@ -41,6 +44,11 @@ impl NClient {
             client: &self, 
             table: PhantomData,
         }
+    }
+
+    /// all the /api functions found in the api
+    pub fn api(&self) -> ApiContext {
+        ApiContext { client: self }
     }
 
     pub fn get_cookie(&self) -> String {
@@ -63,11 +71,6 @@ impl NClient {
         let mut data :Vec<u8>= Vec::new();
         response.copy_to(&mut data).unwrap();
         Ok(data)
-    }
-
-    /// all the /api functions found in the api
-    pub fn api(&self) -> ApiContext {
-        ApiContext { client: self }
     }
 }
 
@@ -94,7 +97,7 @@ impl ApiContext<'_> {
 
     pub fn supplier_invoice_document(&self, supplier_invoice_id : String) -> reqwest::Result<()> {
         let params = [
-            ("_dc", "1668982911141".to_string()),
+            ("_dc", dc()),
             ("type", "binary".to_string()),
             ("SupplierInvoiceId", supplier_invoice_id.to_string()),
         ];
@@ -113,7 +116,7 @@ impl ApiContext<'_> {
         };
         
         let params = [
-            ("_dc", "1668982911141".to_string()),
+            ("_dc", dc()),
             ("type", "json".to_string()),
             ("msgtype", "email".to_string()),
             ("workorderid", my_awo_id),
@@ -130,7 +133,7 @@ impl ApiContext<'_> {
 
     pub fn send_work_order_document(&self, document_id : String, customer_contact_id : String) -> reqwest::Result<()> {
         let params = [
-            ("_dc", "1668982911141".to_string()),
+            ("_dc", dc()),
             ("type", "json".to_string()),
             ("msgtype", "email".to_string()),
             ("workorderdocumentid", document_id),
@@ -146,7 +149,7 @@ impl ApiContext<'_> {
 
     pub fn send_work_order_info_msg(&self, workorder_id : String, customer_contact_id : String) -> reqwest::Result<()>  {
         let params = [
-            ("_dc", "1668982911141".to_string()),
+            ("_dc", dc()),
             ("type", "json".to_string()),
             ("msgtype", "email".to_string()),
             ("workorderid", workorder_id),
@@ -183,7 +186,7 @@ impl ApiContext<'_> {
     pub fn impersonate(&self) -> reqwest::Result<Response>
     {
         let params = [
-            ("_dc", "1668982911141".to_string()),
+            ("_dc", dc()),
             ("type", "json".to_string()),
             ("userId", "0".to_string()),
         ];
@@ -206,7 +209,7 @@ impl ApiContext<'_> {
         };
 
         let params = [
-            ("_dc", "1668982911141".to_string()),
+            ("_dc", dc()),
             ("type", "json".to_string()),
             ("msgtype", "email".to_string()),
             ("workorderid", workorder_id),
@@ -215,7 +218,7 @@ impl ApiContext<'_> {
             ("showvat", sv.to_string()),
         ];
 
-        let response = self.client.client.get(self.endpoint("impersonate"))
+        let _response = self.client.client.get(self.endpoint("impersonate"))
             .query(&params)
             .send();
 
@@ -239,36 +242,36 @@ impl<TABLE> DatastoreContext<'_, TABLE>
         format!("data/store/{}", TABLE::name())
     }
 
-    pub fn get_by_id(&self, id: &str) -> Option<TABLE> {
+    pub fn get_by_id(&self, id: &str) -> reqwest::Result<Option<TABLE>> {
         let params = params_filter_by_id(1, 0, 0, id);
-        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params).unwrap();
-        let single = response.rows?.first().unwrap().clone();
-        Some(single)
+        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params)?;
+        let single = response.rows.unwrap().first().unwrap().clone();
+        Ok(Some(single))
     }
 
-    pub fn get_all(&self) -> Vec<TABLE> {
+    pub fn get_all(&self) -> reqwest::Result<Vec<TABLE>> {
         let params = params(1, 0, 0);
         let response = self.client.get(&Self::endpoint(), &params);
-        response.unwrap().rows.unwrap()
+        Ok(response?.rows.unwrap())
     }
 
-    pub fn get_single(&self, id: &str) -> Option<TABLE> {
+    pub fn get_single(&self, id: &str) -> reqwest::Result<Option<TABLE>> {
         let params = params_filter_by_id(1, 0, 0, id);
-        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params).unwrap();
-        let single = response.rows?.first().unwrap().clone();
-        Some(single)
+        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params)?;
+        let single = response.rows.unwrap().first().unwrap().clone();
+        Ok(Some(single))
     }
 
-    pub fn get_filter(&self, filter: &str) -> Vec<TABLE> {
+    pub fn get_filter(&self, filter: &str) -> reqwest::Result<Vec<TABLE>> {
         let params = params_filter(1, 0, 0, filter);
-        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params).unwrap();
-        response.rows.unwrap()
+        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params)?;
+        Ok(response.rows.unwrap())
     }
 
-    pub fn get_order(&self, order: &str) -> Vec<TABLE> {
+    pub fn get_order(&self, order: &str) -> reqwest::Result<Vec<TABLE>> {
         let params = params_order(1, 0, 0, order);
-        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params).unwrap();
-        response.rows.unwrap()
+        let response : ApiResponse<TABLE> = self.client.get(&Self::endpoint(), &params)?;
+        Ok(response.rows.unwrap())
     }
 
     pub fn put(&self, json : &str, filter: &str) -> reqwest::Result<ApiResponse<TABLE>> {
@@ -304,13 +307,13 @@ impl<TABLE> DatastoreContext<'_, TABLE>
 
 fn dc_only() ->[(&'static str, String); 1]{
     [
-        ("_dc", "1668982911141".to_string()),
+        ("_dc", dc()),
     ]
 }
 
 fn params(page : i32, start : i32, limit : i32) -> [(&'static str, String); 5]{
     [
-        ("_dc", "1668982911141".to_string()),
+        ("_dc", dc()),
         ("type", "json".to_string()),
         ("page", page.to_string()),
         ("start", start.to_string()),
@@ -320,7 +323,7 @@ fn params(page : i32, start : i32, limit : i32) -> [(&'static str, String); 5]{
 
 fn params_filter(page : i32, start : i32, limit : i32, filter : &str) -> [(&'static str, String); 6]{
     [
-        ("_dc", "1668982911141".to_string()),
+        ("_dc", dc()),
         ("filter", filter.to_string()),
         ("type", "json".to_string()),
         ("page", page.to_string()),
@@ -331,7 +334,7 @@ fn params_filter(page : i32, start : i32, limit : i32, filter : &str) -> [(&'sta
 
 fn params_filter_by_id(page : i32, start : i32, limit : i32, id : &str) -> [(&'static str, String); 6]{
     [
-        ("_dc", "1668982911141".to_string()),
+        ("_dc", dc()),
         ("filter", format!("[[\"Id\",\"=\",{}]]",id)),
         ("type", "json".to_string()),
         ("page", page.to_string()),
@@ -342,11 +345,19 @@ fn params_filter_by_id(page : i32, start : i32, limit : i32, id : &str) -> [(&'s
 
 fn params_order(page : i32, start : i32, limit : i32, order : &str) -> [(&'static str, String); 6]{
     [
-        ("_dc", "1668982911141".to_string()),
+        ("_dc", dc()),
         ("order", order.to_string()),
         ("type", "json".to_string()),
         ("page", page.to_string()),
         ("start", start.to_string()),
         ("limit", limit.to_string()),
     ]
+}
+fn dc() -> String {
+    let timestamp = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .unwrap()
+        .as_millis();
+
+    timestamp.to_string()
 }
