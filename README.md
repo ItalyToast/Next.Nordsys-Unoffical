@@ -1,6 +1,8 @@
 # Next.Nordsys-Unoffical
 An unoffical API for "next.nordsys.se".
 
+⚠️**This code is not yet production ready, please use with caution**⚠️
+
 # Usage
 
 ```
