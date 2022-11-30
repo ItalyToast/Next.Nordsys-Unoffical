@@ -1,12 +1,14 @@
 use serde::{Serialize, Deserialize};
 
 use crate::client::NClient;
-use crate::{tables::{WorkOrderStatusStore, UserWorkOrderListStore, WorkOrderStore, UserProjectWorkOrderListStore, WorkOrderDocumentStore, ProjectListStore, UserRightStore, UserSessionStore, UserAccessStore, OfficeCompanyStore, UserListStore, WorkOrderListStore, ProjectLimitedStore, ChecklistRowStore, OptionValueStore}};
+use crate::{tables::{WorkOrderStatusStore, UserWorkOrderListStore, UserProjectWorkOrderListStore, WorkOrderDocumentStore, ProjectListStore, UserRightStore, UserSessionStore, UserAccessStore, OfficeCompanyStore, UserListStore, WorkOrderListStore, ProjectLimitedStore}};
 
 #[derive(Serialize, Deserialize)]
 pub struct ApiResponse<T> {
     pub success : bool,
     pub rows : Option<Vec<T>>,
+    pub errors : Option<String>,
+    pub error_code : Option<i32>,
 }
 
 pub fn work_order_status_store(client : &NClient) -> Vec<WorkOrderStatusStore> {
@@ -15,10 +17,6 @@ pub fn work_order_status_store(client : &NClient) -> Vec<WorkOrderStatusStore> {
 
 pub fn user_work_order_list_store(client : &NClient, user_id : &str) -> Vec<UserWorkOrderListStore> {
     client.datastore().get_filter(&format!("[[\"ProjectStatusCode\",\">=\",10],[\"ProjectStatusCode\",\"<\",90],[\"Addition\",\"=\",false],[\"ResponsibleServiceId\",\"=\",{}]]", user_id)).unwrap()
-}
-
-pub fn work_order_store(client : &NClient, id: &str) -> Vec<WorkOrderStore> {
-    client.datastore().get_filter(&format!("[[\"Id\",\"=\",{}]]", id)).unwrap()
 }
 
 pub fn user_project_work_order_list_store(client : &NClient, id : String) -> Vec<UserProjectWorkOrderListStore> {
@@ -65,10 +63,6 @@ pub fn project_limited_store (client : &NClient, id : &str) -> Option<ProjectLim
     client.datastore().get_by_id(id).unwrap()
 }
 
-pub fn checklist_row_store(client : &NClient, work_order_id : &str) -> Vec<ChecklistRowStore> {
-    client.datastore().get_filter(&format!("[[\"WorkOrderId\",\"=\",{}]]", work_order_id)).unwrap()
-}
-
-pub fn option_value_store(client : &NClient) -> Vec<OptionValueStore> {
+pub fn option_value_store(client : &NClient) -> Vec<crate::tables::OptionValueStore> {
     client.datastore().get_all().unwrap()
 }

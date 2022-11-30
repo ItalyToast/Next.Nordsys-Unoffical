@@ -1,9 +1,9 @@
-use std::{collections::HashMap, marker::PhantomData, time::{Instant, UNIX_EPOCH, SystemTime}};
+use std::{collections::HashMap, marker::PhantomData, time::{UNIX_EPOCH, SystemTime}};
 
 use reqwest::{blocking::{Client, Response,ClientBuilder}, header};
 use serde::{Serialize, de::DeserializeOwned, Deserialize};
 
-use crate::{api::ApiResponse, tables_trait::TableTrait};
+use crate::{api::ApiResponse, tables_trait::TableTrait, tables::{self}};
 
 #[derive(Default)]
 pub struct NClient {
@@ -26,10 +26,15 @@ impl NClient {
         
         let response = client.post(endpoint(server_id, "api/login"))
             .form(&form)
-            .query(&dc_only())
+            .query(&params_dc_only())
             .send().unwrap()
             .json::<ApiResponse<Login>>().unwrap();
     
+        if !response.success {
+            println!("Log in failed: {}", &response.errors.as_ref().unwrap());
+            println!("{:?}", serde_json::to_string_pretty(&response));
+        }
+
         let token = response.rows.unwrap().first().unwrap().Sid.clone();
     
         NClient {
@@ -39,6 +44,13 @@ impl NClient {
         }
     }
 
+    /// all the /data/store functions found in the api
+    /// 
+    /// ## Usage
+    /// 
+    /// ```
+    /// let items = client.datastore::<TableName>().get_all().unwrap()
+    /// ```
     pub fn datastore<T>(&self) -> DatastoreContext<T> {
         DatastoreContext { 
             client: &self, 
@@ -49,6 +61,21 @@ impl NClient {
     /// all the /api functions found in the api
     pub fn api(&self) -> ApiContext {
         ApiContext { client: self }
+    }
+
+    /// get data associated with a workorder
+    pub fn workorder(&self, id : String) -> WorkOrderContext {
+        WorkOrderContext {
+            client: self,
+            workorder_id: id,
+        }
+    }
+
+    pub fn project(&self, id : String) -> ProjectContext {
+        ProjectContext { 
+            client: self, 
+            project_id: id 
+        }
     }
 
     pub fn get_cookie(&self) -> String {
@@ -283,7 +310,7 @@ impl<TABLE> DatastoreContext<'_, TABLE>
 
         self.client.client.put(endpoint(self.client.server_id, &Self::endpoint()))
             .header(header::COOKIE, self.client.get_cookie())
-            .query(&dc_only())
+            .query(&params_dc_only())
             .form(&form)
             .send()?
             .json()
@@ -298,14 +325,139 @@ impl<TABLE> DatastoreContext<'_, TABLE>
 
         self.client.client.put(endpoint(self.client.server_id, &Self::endpoint()))
             .header(header::COOKIE, self.client.get_cookie())
-            .query(&dc_only())
+            .query(&params_dc_only())
             .form(&form)
             .send()?
             .json()
     }
 }
 
-fn dc_only() ->[(&'static str, String); 1]{
+pub struct WorkOrderContext<'a> {
+    client : &'a NClient,
+    workorder_id : String,
+}
+
+impl WorkOrderContext<'_> {
+    pub fn get(&self) -> reqwest::Result<Option<tables::WorkOrderStore>> {
+        self.client.datastore().get_by_id(&self.workorder_id)
+    }
+    
+    ///Returns all documents in WorkOrderDocumentStore associated with the current work order.
+    pub fn documents(&self) -> reqwest::Result<Vec<tables::WorkOrderDocumentStore>> {
+        self.client.datastore().get_filter(&format!("[[\"WorkOrderId\",\"=\",{}]]", self.workorder_id))
+    }
+
+    ///Returns the checklist in ChecklistRowStore associated with the current work order.
+    pub fn checks(&self) -> reqwest::Result<Vec<tables::ChecklistRowStore>> {
+        self.client.datastore().get_filter(&format!("[[\"WorkOrderId\",\"=\",{}]]", self.workorder_id))
+    }
+
+    ///Returns the resources in WorkOrderRowStore associated with the current work order.
+    pub fn rows(&self) -> reqwest::Result<Vec<tables::WorkOrderRowStore>> {
+        self.client.datastore().get_filter(&format!("[[\"WorkOrderId\",\"=\",{}]]", self.workorder_id))
+    }
+}
+
+pub struct ProjectContext<'a> {
+    client : &'a NClient,
+    project_id : String,
+}
+
+impl ProjectContext<'_> {
+    pub fn time(&self) -> reqwest::Result<Vec<tables::TimeStore>> {
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn additional_work_order(&self) -> reqwest::Result<Vec<tables::AdditionalWorkOrderStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn cost(&self) -> reqwest::Result<Vec<tables::CostStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn diary(&self) -> reqwest::Result<Vec<tables::DiaryStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn work_order_document(&self) -> reqwest::Result<Vec<tables::WorkOrderDocumentStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn project_economy_budget(&self) -> reqwest::Result<Vec<tables::ProjectEconomyBudgetStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn project_economy(&self) -> reqwest::Result<Vec<tables::ProjectEconomyStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn project_overview(&self) -> reqwest::Result<Vec<tables::ProjectOverviewStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+    
+    pub fn project_pricelist_item(&self) -> reqwest::Result<Vec<tables::ProjectPricelistItemStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn project_status_history(&self) -> reqwest::Result<Vec<tables::ProjectStatusHistoryStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn revenue(&self) -> reqwest::Result<Vec<tables::RevenueStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn staff_list(&self) -> reqwest::Result<Vec<tables::StaffListStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn user_pool_work_order_list(&self) -> reqwest::Result<Vec<tables::UserPoolWorkOrderListStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn user_work_order_list(&self) -> reqwest::Result<Vec<tables::UserWorkOrderListStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn user_project_work_order_list(&self) -> reqwest::Result<Vec<tables::UserProjectWorkOrderListStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn work_order_assigned_location(&self) -> reqwest::Result<Vec<tables::WorkOrderAssignedLocationStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn work_order_list(&self) -> reqwest::Result<Vec<tables::WorkOrderListStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+    
+    pub fn work_order_location(&self) -> reqwest::Result<Vec<tables::WorkOrderLocationStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn work_order(&self) -> reqwest::Result<Vec<tables::WorkOrderStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn staff_log(&self) -> reqwest::Result<Vec<tables::StaffLogStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn staff_previous_day(&self) -> reqwest::Result<Vec<tables::StaffPreviousDayStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn project_limited(&self) -> reqwest::Result<Vec<tables::ProjectLimitedStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+
+    pub fn work_order_row(&self) -> reqwest::Result<Vec<tables::WorkOrderRowStore>> {  
+        self.client.datastore().get_filter(&format!("[[\"ProjectId\",\"=\",{}]]", self.project_id))
+    }
+}
+
+fn params_dc_only() ->[(&'static str, String); 1]{
     [
         ("_dc", dc()),
     ]
