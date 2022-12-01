@@ -1,20 +1,13 @@
-use std::{io::stdin};
-
 use next_nordsys_unoffical::{client::NClient, tables::{UserSessionStore, UserWorkOrderListStore}};
+use next_nordsys_unoffical::utils;
 use reqwest::StatusCode;
 
 fn main(){
 
-    println!("Please provide your serverid, username and password to retrive your workorders");
+    println!("Please provide your serverid, username and password in credentials.txt");
+    println!("Your serverid is found in the url: https://next.nordsys.se/**server_id**/");
 
-    println!("Server ID:");
-    let server_id : u64 = read_line().parse().unwrap();
-
-    println!("Username:");
-    let username = read_line();
-
-    println!("Password:");
-    let password = read_line();
+    let (server_id, username, password) = utils::get_test_credentials();
 
     let client = NClient::login(server_id, &username, &password);
     let sessions = client.datastore::<UserSessionStore>().get_all().unwrap();
@@ -33,10 +26,4 @@ fn main(){
             println!("status: {} {}", ex.status().unwrap_or(StatusCode::OK), ex.to_string());
         },
     }
-}
-
-fn read_line() -> String {
-    let mut buffer = String::new();
-    stdin().read_line(&mut buffer).unwrap();
-    buffer.trim().to_string()
 }
