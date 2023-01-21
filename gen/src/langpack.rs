@@ -8,8 +8,10 @@ pub fn run_codegen() {
     let entry_regex = RegexBuilder::new("\\[\"([^\"].*?)\",\"([^\"].*?)\"\\]")
         .build().unwrap();
 
+    if !std::path::Path::new("langpacks").exists() {
         std::fs::create_dir("langpacks").unwrap();
-
+    }
+    
     for lang in lang_regex.captures_iter(&data) {
         let lang_code = lang.get(1).unwrap().as_str();
         let body = lang.get(2).unwrap().as_str();
