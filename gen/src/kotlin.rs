@@ -33,7 +33,7 @@ fn gen_class(class : &Class) -> String {
     class_res.push_str("*/\r\n");
 
     class_res.push_str("@Suppress(\"unused\")\r\n");
-    class_res.push_str(&format!("class {}Store (\r\n", &class.class_name));
+    class_res.push_str(&format!("data class {}Store (\r\n", &class.class_name));
 
     for field in &class.fields {
         class_res.push_str(&gen_field(&field));
