@@ -41,6 +41,15 @@ fn gen_class(class : &Class) -> String {
 
     class_res.push_str(")\r\n\r\n");
 
+    class_res.push_str("@Suppress(\"unused\")\r\n");
+    class_res.push_str(&format!("data class {}StoreResponse (\r\n", &class.class_name));
+    class_res.push_str("\tval success: Boolean = false,\r\n");
+    class_res.push_str("\tval errors: String? = null,\r\n");
+    class_res.push_str("\tval error_code: Integer? = null, \r\n");
+    class_res.push_str(&format!("\tval rows: ArrayList<{}Store> = ArrayList()\r\n", &class.class_name));
+    class_res.push_str(")\r\n");
+    class_res.push_str("\r\n");
+
     class_res
 }
 
@@ -48,10 +57,10 @@ fn gen_field(field : &Field) -> String {
     let mut text = String::new();
     match field.nullable {
         true => {
-            text.push_str(&format!("    val {} : String?, //{}\r\n", field.name, field.datatype));
+            text.push_str(&format!("    val {} : String? = null, //{}\r\n", field.name, field.datatype));
         },
         false => {
-            text.push_str(&format!("    val {} : String, //{}\r\n", field.name, field.datatype));
+            text.push_str(&format!("    val {} : String = \"\", //{}\r\n", field.name, field.datatype));
         },
     };
 
