@@ -56,10 +56,14 @@ impl Field {
 pub fn parse_next_js() -> Vec<Class> {
     let data = std::fs::read_to_string("next.js").unwrap();
 
-    CLASS_REGEX.captures_iter(&data)
+    let mut res :Vec<Class>= CLASS_REGEX.captures_iter(&data)
         .map(parse_class)
         .filter(|c| c.class_name != "Base")
-        .collect()
+        .collect();
+
+    res.sort_by_key(|e| e.class_name.clone());
+
+    res
 }
 
 fn parse_class(class_cap :Captures) -> Class {
@@ -71,9 +75,12 @@ fn parse_class(class_cap :Captures) -> Class {
         Field::base("Id", "int"),
         Field::new("Created", "date"),
         Field::new("CreatedId", "string"),
+        Field::new("CreatedName", "string"),
         Field::new("Changed", "date"),
         Field::new("ChangedId", "string"),
         Field::new("Disabled", "boolean"),
+        Field::new("isField", "boolean"),
+        Field::new("isTmpRec", "boolean"),
     ];
 
     let mut fields:  HashMap<String, Field>= HashMap::new();
@@ -86,11 +93,15 @@ fn parse_class(class_cap :Captures) -> Class {
         fields.insert(f.name.clone(), f);
     }
     
-    Class { 
+    let mut res = Class { 
         class_name, 
         class, 
-        fields: fields.values().cloned().collect()
-    }
+        fields: fields.values().cloned().collect(),
+    };
+
+    res.fields.sort_by_key(|f| f.name.clone());
+
+    res
 }
 
 fn parse_field(text :&str) -> Field {

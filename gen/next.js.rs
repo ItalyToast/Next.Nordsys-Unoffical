@@ -30,92 +30,92 @@ pub trait TableTrait {
 
 // Available tables:
 // -AccountChartStore
+// -AdditionalWorkOrderStore
 // -AdditionalWorkOrderRowStore
 // -AdditionalWorkOrderStatusStore
-// -AdditionalWorkOrderStore
-// -ArticleCustomerStore
-// -ArticleCategoryStore
-// -WorkOrderRowStore
 // -ArticleStore
+// -ArticleCategoryStore
+// -ArticleCustomerStore
 // -ChecklistDiaryStore
 // -ChecklistRowStore
 // -ConstructionTypeStore
 // -CostStore
 // -CurrencyStore
+// -CustomerStore
 // -CustomerContactStore
+// -CustomerContactListStore
+// -CustomerFavoriteArticleStore
 // -CustomerListStore
 // -CustomerPricelistItemStore
-// -CustomerStore
 // -CustomerTypeStore
 // -DiaryStore
 // -ExternalWorkOrderStatusStore
-// -FactoryPricelistStore
 // -FactoryArticleItemStore
-// -FrameworkContractStore
-// -FrameworkArticleItemStore
+// -FactoryPricelistStore
+// -FavoriteArticleStore
+// -FavoriteListStore
 // -FormValidationStore
+// -FrameworkArticleItemStore
+// -FrameworkContractStore
 // -GroupStore
 // -HourlyRateStore
 // -InfoMessageStore
 // -InfoNoteStore
-// -InvoiceRowStore
 // -InvoiceStore
+// -InvoiceRowStore
 // -ItemUnitStore
 // -MainMenuStore
-// -MarkupModelItemStore
 // -MarkupModelStore
-// -TimeStore
-// -OptionValueStore
+// -MarkupModelItemStore
 // -OfficeCompanyStore
+// -OptionValueStore
 // -PhraseStore
 // -PriceTypeStore
 // -ProfessionItemStore
-// -WorkOrderDocumentStore
-// -ProjectEconomyBudgetStore
-// -ProjectEconomyStore
-// -ProjectListStore
-// -UserListStore
-// -ProjectOverviewStore
-// -ProjectPricelistItemStore
-// -ProjectPricelistStore
-// -ProjectStatusHistoryStore
 // -ProjectStore
+// -ProjectEconomyStore
+// -ProjectEconomyBudgetStore
+// -ProjectLimitedStore
+// -ProjectListStore
+// -ProjectOverviewStore
+// -ProjectPricelistStore
+// -ProjectPricelistItemStore
+// -ProjectStatusStore
+// -ProjectStatusHistoryStore
 // -ProjectTreeStore
 // -ProjectTypeStore
 // -ResourceStore
 // -RevenueStore
-// -SettingStore
 // -ServiceCategoryStore
+// -SettingStore
 // -StaffListStore
-// -StatusHistoryStore
-// -TagStore
-// -UserPoolWorkOrderListStore
-// -UserWorkOrderListStore
-// -UserProjectWorkOrderListStore
-// -UserRightStore
-// -UserAccessStore
-// -UserSessionStore
-// -UserSettingStore
-// -VatStore
-// -WorkOrderAssignedLocationStore
-// -WorkOrderListStore
-// -WorkOrderLocationStore
-// -WorkOrderStatusStore
-// -WorkOrderStatusRelationsStore
-// -WorkOrderStore
 // -StaffLogStore
 // -StaffPreviousDayStore
+// -StatusHistoryStore
 // -SupplierStore
-// -WorkOrderContactStore
+// -TagStore
+// -TimeStore
 // -UserStore
-// -CustomerContactListStore
-// -ProjectLimitedStore
-// -ProjectStatusStore
-// -UserFavoriteListStore
+// -UserAccessStore
 // -UserFavoriteArticleStore
-// -CustomerFavoriteArticleStore
-// -FavoriteListStore
-// -FavoriteArticleStore
+// -UserFavoriteListStore
+// -UserListStore
+// -UserPoolWorkOrderListStore
+// -UserProjectWorkOrderListStore
+// -UserRightStore
+// -UserSessionStore
+// -UserSettingStore
+// -UserWorkOrderListStore
+// -VatStore
+// -WorkOrderStore
+// -WorkOrderAssignedLocationStore
+// -WorkOrderContactStore
+// -WorkOrderDocumentStore
+// -WorkOrderListStore
+// -WorkOrderLocationStore
+// -WorkOrderRowStore
+// -WorkOrderStatusStore
+// -WorkOrderStatusRelationsStore
 /*
 Ext.define("MEM.model.AccountChart", {
   extend: MEM.model.Base,
@@ -150,157 +150,47 @@ Ext.define("MEM.model.AccountChart", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct AccountChartStore {
     #[serde(default)]
-    pub InvoiceOnImport : String, //bool
+    pub Account : String, //string
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub AccountNo : String, //string
     #[serde(default)]
-    pub Material : String, //bool
-    pub Id : String, //int
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
+    pub ComplementAccount : String, //string
+    #[serde(default)]
+    pub Cost : String, //bool
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub Work : String, //bool
+    pub CreatedName : String, //string
     #[serde(default)]
-    pub ComplementAccount : String, //string
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceOnImport : String, //bool
+    #[serde(default)]
+    pub Material : String, //bool
+    #[serde(default)]
+    pub RotShare : String, //int
     #[serde(default)]
     pub VatCode : String, //string
     #[serde(default)]
     pub VatDuty : String, //bool
     #[serde(default)]
-    pub Changed : String, //date
+    pub Work : String, //bool
     #[serde(default)]
-    pub Account : String, //string
+    pub isField : String, //boolean
     #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub AccountNo : String, //string
-    #[serde(default)]
-    pub RotShare : String, //int
-    #[serde(default)]
-    pub Cost : String, //bool
-    #[serde(default)]
-    pub Created : String, //date
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for AccountChartStore { fn name() -> &'static str { "AccountChartStore" }}/*
-Ext.define("MEM.model.AdditionalWorkOrderRow", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "WorkOrderId", type: "int" },
-      { name: "RowType", type: "string", max: 1 },
-      { name: "CodeNo", type: "string", max: 10 },
-      { name: "Title", type: "string", max: 50 },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "PlannedQty", type: "float" },
-      { name: "UsedQty", type: "float" },
-      { name: "CostUnit", type: "float" },
-      { name: "PriceUnit", type: "float" },
-      { name: "Amount", type: "float", defaultValue: 1 },
-      { name: "DeliveryDate", type: "date", useNull: !0, persist: !1 },
-      { name: "ReturnDate", type: "date", useNull: !0, persist: !1 },
-      { name: "PerformedDate", type: "date", useNull: !0, persist: !1 },
-      { name: "PerformedUserId", type: "int", useNull: !0, persist: !1 },
-      { name: "Comment", type: "string" },
-      { name: "RowFormat", type: "string", max: 3, persist: !1 },
-      { name: "RowStatus", type: "string", max: 1, persist: !1 },
-      { name: "DiaryId", type: "int", persist: !1 },
-      { name: "TimeId", type: "int", persist: !1 },
-      { name: "Invoiced", type: "bool", persist: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct AdditionalWorkOrderRowStore {
-    #[serde(default)]
-    pub Title : String, //string
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Comment : String, //string
-    #[serde(default)]
-    pub PlannedQty : String, //float
-    #[serde(default)]
-    pub UsedQty : String, //float
-    #[serde(default)]
-    pub RowType : String, //string
-    #[serde(default)]
-    pub Amount : String, //float
-    #[serde(default)]
-    pub PerformedUserId : Option<String>, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub RowFormat : String, //string
-    #[serde(default)]
-    pub PerformedDate : Option<String>, //date
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    #[serde(default)]
-    pub AccountNo : String, //string
-    #[serde(default)]
-    pub DeliveryDate : Option<String>, //date
-    #[serde(default)]
-    pub CodeNo : String, //string
-    #[serde(default)]
-    pub RowStatus : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub DiaryId : String, //int
-    pub Id : String, //int
-    #[serde(default)]
-    pub ReturnDate : Option<String>, //date
-    #[serde(default)]
-    pub TimeId : String, //int
-    #[serde(default)]
-    pub Invoiced : String, //bool
-    #[serde(default)]
-    pub CostUnit : String, //float
-}
-
-impl TableTrait for AdditionalWorkOrderRowStore { fn name() -> &'static str { "AdditionalWorkOrderRowStore" }}/*
-Ext.define("MEM.model.AdditionalWorkOrderStatus", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "StatusName", type: "string", max: 50 },
-      { name: "StatusCode", type: "int" },
-      { name: "StatusColor", type: "string", max: 20 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct AdditionalWorkOrderStatusStore {
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Changed : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub StatusCode : String, //int
-    #[serde(default)]
-    pub StatusName : String, //string
-    #[serde(default)]
-    pub StatusColor : String, //string
-}
-
-impl TableTrait for AdditionalWorkOrderStatusStore { fn name() -> &'static str { "AdditionalWorkOrderStatusStore" }}/*
 Ext.define("MEM.model.AdditionalWorkOrder", {
   extend: MEM.model.Base,
   config: {
@@ -575,333 +465,156 @@ Ext.define("MEM.model.AdditionalWorkOrder", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct AdditionalWorkOrderStore {
     #[serde(default)]
-    pub WorkOrderNo : Option<String>, //int
+    pub Addition : String, //bool
+    #[serde(default)]
+    pub AdditionStatus : String, //string
+    #[serde(default)]
+    pub AdditionStatusCode : String, //int
+    #[serde(default)]
+    pub AdditionStatusId : String, //int
     #[serde(default)]
     pub BookedCostTotal : Option<String>, //float
     #[serde(default)]
     pub BookedHoursTotal : Option<String>, //float
     #[serde(default)]
-    pub PriceTypeId : Option<String>, //int
-    #[serde(default)]
-    pub MarkUpTotal : Option<String>, //float
-    #[serde(default)]
-    pub WorkDescription : String, //string
-    #[serde(default)]
-    pub WorkplaceAddress : String, //string
-    #[serde(default)]
-    pub WorkFeedback : String, //string
-    #[serde(default)]
-    pub ContactName : String, //string
-    #[serde(default)]
-    pub ConstructionTypeId : Option<String>, //int
-    #[serde(default)]
-    pub ReportTimestamp : String, //string
-    #[serde(default)]
-    pub Invoiced : String, //bool
-    #[serde(default)]
-    pub CostProjectId : Option<String>, //int
-    pub Id : String, //int
-    #[serde(default)]
-    pub CustomerName : String, //string
-    #[serde(default)]
-    pub CachedWorkRevenue : Option<String>, //float
-    #[serde(default)]
-    pub CreatedId : String, //string
+    pub BudgetLevelId : String, //int
     #[serde(default)]
     pub CachedWorkCost : Option<String>, //float
     #[serde(default)]
-    pub ResponsibleForemanId : Option<String>, //int
+    pub CachedWorkRevenue : Option<String>, //float
+    #[serde(default)]
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub WorkOrderStatusId : String, //int
+    pub ConstructionTypeId : Option<String>, //int
     #[serde(default)]
-    pub ProductionStartClock : Option<String>, //date
+    pub ContactName : String, //string
     #[serde(default)]
-    pub ProductionEndClock : Option<String>, //date
+    pub CostProjectId : Option<String>, //int
     #[serde(default)]
-    pub Name : String, //string
+    pub Created : String, //date
     #[serde(default)]
-    pub ProjectId : String, //int
+    pub CreatedId : String, //string
     #[serde(default)]
-    pub CustomerRefNo : String, //string
-    #[serde(default)]
-    pub District : String, //string
+    pub CreatedName : String, //string
     #[serde(default)]
     pub CreditRisk : String, //boolean
     #[serde(default)]
-    pub OrderDate : String, //date
-    #[serde(default)]
-    pub ReportSign : String, //string
-    #[serde(default)]
-    pub InvoiceDate : Option<String>, //date
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
+    pub CustomerAgentId : Option<String>, //int
     #[serde(default)]
     pub CustomerId : Option<String>, //int
     #[serde(default)]
-    pub GpsX : Option<String>, //int
+    pub CustomerName : String, //string
     #[serde(default)]
-    pub CustomerAgentId : Option<String>, //int
+    pub CustomerRefNo : String, //string
     #[serde(default)]
-    pub InvoiceId : Option<String>, //int
+    pub Disabled : String, //boolean
     #[serde(default)]
-    pub ProductionStart : Option<String>, //date
-    #[serde(default)]
-    pub AdditionStatusId : String, //int
-    #[serde(default)]
-    pub AdditionStatusCode : String, //int
-    #[serde(default)]
-    pub BudgetLevelId : String, //int
-    #[serde(default)]
-    pub OrderAmount : Option<String>, //float
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub GpsY : Option<String>, //int
+    pub District : String, //string
     #[serde(default)]
     pub FixedPrice : String, //bool
     #[serde(default)]
-    pub AdditionStatus : String, //string
+    pub GpsX : Option<String>, //int
     #[serde(default)]
-    pub TenderTotal : Option<String>, //float
+    pub GpsY : Option<String>, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceDate : Option<String>, //date
+    #[serde(default)]
+    pub InvoiceId : Option<String>, //int
+    #[serde(default)]
+    pub Invoiced : String, //bool
+    #[serde(default)]
+    pub MarkUpTotal : Option<String>, //float
     #[serde(default)]
     pub MarkupModelId : Option<String>, //int
     #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub OrderAmount : Option<String>, //float
+    #[serde(default)]
+    pub OrderDate : String, //date
+    #[serde(default)]
+    pub PriceTypeId : Option<String>, //int
+    #[serde(default)]
     pub ProductionEnd : Option<String>, //date
+    #[serde(default)]
+    pub ProductionEndClock : Option<String>, //date
+    #[serde(default)]
+    pub ProductionStart : Option<String>, //date
+    #[serde(default)]
+    pub ProductionStartClock : Option<String>, //date
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub ReportSign : String, //string
+    #[serde(default)]
+    pub ReportTimestamp : String, //string
+    #[serde(default)]
+    pub ResponsibleForemanId : Option<String>, //int
     #[serde(default)]
     pub ResponsibleServiceId : Option<String>, //int
     #[serde(default)]
-    pub Addition : String, //bool
+    pub TenderTotal : Option<String>, //float
+    #[serde(default)]
+    pub WorkDescription : String, //string
+    #[serde(default)]
+    pub WorkFeedback : String, //string
+    #[serde(default)]
+    pub WorkOrderNo : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub WorkplaceAddress : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for AdditionalWorkOrderStore { fn name() -> &'static str { "AdditionalWorkOrderStore" }}/*
-Ext.define("MEM.model.ArticleCustomer", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore");
-          var b;
-          b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return a.get("Description") + " (" + b.get("Description") + ")";
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "CustomerId", type: "int" },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ArticleCustomerStore {
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub AccountNo : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ArticleNo : String, //string
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub Chargeable : String, //bool
-}
-
-impl TableTrait for ArticleCustomerStore { fn name() -> &'static str { "ArticleCustomerStore" }}/*
-Ext.define("MEM.model.ArticleCategory", {
-  extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ArticleCategoryStore {
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Changed : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-}
-
-impl TableTrait for ArticleCategoryStore { fn name() -> &'static str { "ArticleCategoryStore" }}/*
-Ext.define("MEM.model.WorkOrderRow", {
+Ext.define("MEM.model.AdditionalWorkOrderRow", {
   extend: MEM.model.Base,
   config: {
     fields: [
       { name: "WorkOrderId", type: "int" },
-      { name: "RowType", type: "string", max: 1, defaultValue: "" },
-      { name: "ArticleId", type: "int" },
-      { name: "BasePriceUsed", type: "bool" },
-      { name: "CostUnitPricelist", type: "string", max: 50, defaultValue: "" },
-      { name: "PriceUnitPricelist", type: "string", max: 50, defaultValue: "" },
-      {
-        name: "PayoffUnitPricelist",
-        type: "string",
-        max: 50,
-        defaultValue: "",
-      },
-      { name: "CodeNo", type: "string", max: 10, defaultValue: "" },
-      { name: "Title", type: "string", max: 128000, defaultValue: "" },
+      { name: "RowType", type: "string", max: 1 },
+      { name: "CodeNo", type: "string", max: 10 },
+      { name: "Title", type: "string", max: 50 },
       { name: "AccountNo", type: "string", max: 5 },
       { name: "ItemUnitId", type: "int" },
       { name: "PlannedQty", type: "float" },
-      { name: "Days", type: "float" },
-      { name: "StartQty", type: "float" },
-      { name: "EndQty", type: "float" },
       { name: "UsedQty", type: "float" },
       { name: "CostUnit", type: "float" },
       { name: "PriceUnit", type: "float" },
       { name: "Amount", type: "float", defaultValue: 1 },
-      { name: "DeliveryDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "ReturnDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "PerformedDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "PerformedUserId", type: "int", useNull: !0 },
-      { name: "Comment", type: "string", defaultValue: "" },
-      { name: "RowFormat", type: "string", max: 3 },
-      { name: "RowStatus", type: "string", max: 1 },
-      { name: "DiaryId", type: "int" },
-      { name: "TimeId", type: "int", useNull: !0 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-      { name: "Invoiced", type: "bool", defaultValue: !1, persist: !1 },
-      { name: "IsPaidOff", type: "bool", defaultValue: !1, persist: !1 },
-      { name: "ParentIsReadOnly", type: "bool", defaultValue: !1, persist: !1 },
-      {
-        name: "Locked",
-        type: "bool",
-        convert: function (b, a) {
-          return (
-            a.get("Invoiced") || a.get("IsPaidOff") || a.get("ParentIsReadOnly")
-          );
-        },
-      },
-      { name: "CreditProjectId", type: "int", useNull: !0 },
-      { name: "ResourceId", type: "int", useNull: !0 },
-      { name: "FactoryPricelistId", type: "int", useNull: !0 },
-      { name: "ArticleCategoryId", type: "int", useNull: !0 },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      {
-        name: "PlannedQty_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "PlannedQty");
-        },
-      },
-      {
-        name: "Days_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "Days");
-        },
-      },
-      {
-        name: "UsedQty_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "UsedQty");
-        },
-      },
-      { name: "KPIValue", type: "float", allowNull: !0, persist: !1 },
-      {
-        name: "KPIValue_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "KPIValue", 1, this);
-        },
-      },
-      { name: "RelatedWorkOrderRowId", type: "int" },
+      { name: "DeliveryDate", type: "date", useNull: !0, persist: !1 },
+      { name: "ReturnDate", type: "date", useNull: !0, persist: !1 },
+      { name: "PerformedDate", type: "date", useNull: !0, persist: !1 },
+      { name: "PerformedUserId", type: "int", useNull: !0, persist: !1 },
+      { name: "Comment", type: "string" },
+      { name: "RowFormat", type: "string", max: 3, persist: !1 },
+      { name: "RowStatus", type: "string", max: 1, persist: !1 },
+      { name: "DiaryId", type: "int", persist: !1 },
+      { name: "TimeId", type: "int", persist: !1 },
+      { name: "Invoiced", type: "bool", persist: !1 },
     ]*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderRowStore {
-    #[serde(default)]
-    pub PayoffUnitPricelist : String, //string
-    #[serde(default)]
-    pub PlannedQty_fmt : String, //string
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
-    pub DiaryId : String, //int
-    #[serde(default)]
-    pub Days_fmt : String, //string
-    #[serde(default)]
-    pub KPIValue_fmt : String, //string
-    #[serde(default)]
-    pub PriceUnitPricelist : String, //string
-    #[serde(default)]
-    pub Title : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
+pub struct AdditionalWorkOrderRowStore {
     #[serde(default)]
     pub AccountNo : String, //string
     #[serde(default)]
-    pub RelatedWorkOrderRowId : String, //int
+    pub Amount : String, //float
     #[serde(default)]
-    pub ArticleCategoryId : Option<String>, //int
-    #[serde(default)]
-    pub RowFormat : String, //string
-    #[serde(default)]
-    pub BasePriceUsed : String, //bool
-    #[serde(default)]
-    pub PerformedDate : Option<String>, //date
-    #[serde(default)]
-    pub UsedQty : String, //float
-    #[serde(default)]
-    pub TimeId : Option<String>, //int
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub ArticleId : String, //int
+    pub CodeNo : String, //string
     #[serde(default)]
-    pub FactoryPricelistId : Option<String>, //int
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub EndQty : String, //float
-    pub Id : String, //int
-    #[serde(default)]
-    pub ParentIsReadOnly : String, //bool
-    #[serde(default)]
-    pub PerformedUserId : Option<String>, //int
+    pub Comment : String, //string
     #[serde(default)]
     pub CostUnit : String, //float
     #[serde(default)]
@@ -909,52 +622,86 @@ pub struct WorkOrderRowStore {
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub StartQty : String, //float
-    #[serde(default)]
-    pub ReturnDate : Option<String>, //date
-    #[serde(default)]
-    pub IsPaidOff : String, //bool
-    #[serde(default)]
-    pub Locked : String, //bool
-    #[serde(default)]
-    pub ResourceId : Option<String>, //int
+    pub CreatedName : String, //string
     #[serde(default)]
     pub DeliveryDate : Option<String>, //date
     #[serde(default)]
-    pub UsedQty_fmt : String, //string
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub Invoiced : String, //bool
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub PerformedDate : Option<String>, //date
+    #[serde(default)]
+    pub PerformedUserId : Option<String>, //int
     #[serde(default)]
     pub PlannedQty : String, //float
     #[serde(default)]
-    pub Amount : String, //float
+    pub PriceUnit : String, //float
     #[serde(default)]
-    pub Days : String, //float
+    pub ReturnDate : Option<String>, //date
+    #[serde(default)]
+    pub RowFormat : String, //string
     #[serde(default)]
     pub RowStatus : String, //string
     #[serde(default)]
     pub RowType : String, //string
     #[serde(default)]
-    pub Invoiced : String, //bool
+    pub TimeId : String, //int
     #[serde(default)]
-    pub KPIValue : String, //float
+    pub Title : String, //string
     #[serde(default)]
-    pub CodeNo : String, //string
+    pub UsedQty : String, //float
     #[serde(default)]
-    pub CostUnitPricelist : String, //string
+    pub WorkOrderId : String, //int
     #[serde(default)]
-    pub PriceUnit : String, //float
+    pub isField : String, //boolean
     #[serde(default)]
-    pub Comment : String, //string
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub CreditProjectId : Option<String>, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for WorkOrderRowStore { fn name() -> &'static str { "WorkOrderRowStore" }}/*
+impl TableTrait for AdditionalWorkOrderRowStore { fn name() -> &'static str { "AdditionalWorkOrderRowStore" }}/*
+Ext.define("MEM.model.AdditionalWorkOrderStatus", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "StatusName", type: "string", max: 50 },
+      { name: "StatusCode", type: "int" },
+      { name: "StatusColor", type: "string", max: 20 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct AdditionalWorkOrderStatusStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub StatusCode : String, //int
+    #[serde(default)]
+    pub StatusColor : String, //string
+    #[serde(default)]
+    pub StatusName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for AdditionalWorkOrderStatusStore { fn name() -> &'static str { "AdditionalWorkOrderStatusStore" }}/*
 Ext.define("MEM.model.Article", {
   extend: MEM.model.Base,
   config: {
@@ -989,49 +736,149 @@ Ext.define("MEM.model.Article", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ArticleStore {
     #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
     pub AccountNo : String, //string
-    #[serde(default)]
-    pub CostUnit : String, //float
-    #[serde(default)]
-    pub ArticleNo : String, //string
-    #[serde(default)]
-    pub CreditProjectId : Option<String>, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub WorkOrderId : Option<String>, //int
-    #[serde(default)]
-    pub IsKPIRecord : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub HasKPIRelation : String, //bool
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub PriceUnit : String, //float
     #[serde(default)]
     pub ArticleCategoryId : Option<String>, //int
     #[serde(default)]
-    pub WorkOrderProjectId : Option<String>, //int
+    pub ArticleNo : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub CostUnit : String, //float
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditProjectId : Option<String>, //int
+    #[serde(default)]
+    pub Description : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullDescription : String, //string
+    #[serde(default)]
+    pub HasKPIRelation : String, //bool
+    pub Id : String, //int
+    #[serde(default)]
+    pub IsKPIRecord : String, //bool
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub WorkOrderId : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderProjectId : Option<String>, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ArticleStore { fn name() -> &'static str { "ArticleStore" }}/*
+Ext.define("MEM.model.ArticleCategory", {
+  extend: MEM.model.Base,
+  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ArticleCategoryStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for ArticleCategoryStore { fn name() -> &'static str { "ArticleCategoryStore" }}/*
+Ext.define("MEM.model.ArticleCustomer", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore");
+          var b;
+          b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return a.get("Description") + " (" + b.get("Description") + ")";
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "CustomerId", type: "int" },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ArticleCustomerStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub ArticleNo : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for ArticleCustomerStore { fn name() -> &'static str { "ArticleCustomerStore" }}/*
 Ext.define("MEM.model.ChecklistDiary", {
   extend: MEM.model.Base,
   config: {
@@ -1083,30 +930,36 @@ Ext.define("MEM.model.ChecklistDiary", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ChecklistDiaryStore {
     #[serde(default)]
-    pub Created : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub Checked : String, //bool
-    #[serde(default)]
-    pub CheckNote : String, //string
-    #[serde(default)]
-    pub CheckDate : String, //date
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub Changed : String, //date
+    pub CheckDate : String, //date
+    #[serde(default)]
+    pub CheckNote : String, //string
+    #[serde(default)]
+    pub Checked : String, //bool
+    #[serde(default)]
+    pub CheckedById : Option<String>, //int
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub ItemDescription : String, //string
     #[serde(default)]
     pub ItemNo : Option<String>, //string
     #[serde(default)]
-    pub CheckedById : Option<String>, //int
+    pub isField : String, //boolean
     #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub DiaryId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ChecklistDiaryStore { fn name() -> &'static str { "ChecklistDiaryStore" }}/*
@@ -1161,30 +1014,36 @@ Ext.define("MEM.model.ChecklistRow", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ChecklistRowStore {
     #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub CheckDate : String, //date
+    #[serde(default)]
+    pub CheckNote : String, //string
+    #[serde(default)]
+    pub Checked : String, //bool
+    #[serde(default)]
+    pub CheckedById : Option<String>, //int
+    #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
-    #[serde(default)]
-    pub ItemNo : Option<String>, //string
+    pub Id : String, //int
     #[serde(default)]
     pub ItemDescription : String, //string
     #[serde(default)]
-    pub Checked : String, //bool
-    #[serde(default)]
-    pub CheckDate : String, //date
+    pub ItemNo : Option<String>, //string
     #[serde(default)]
     pub WorkOrderId : String, //int
     #[serde(default)]
-    pub CheckedById : Option<String>, //int
+    pub isField : String, //boolean
     #[serde(default)]
-    pub CheckNote : String, //string
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ChecklistRowStore { fn name() -> &'static str { "ChecklistRowStore" }}/*
@@ -1197,16 +1056,22 @@ pub struct ConstructionTypeStore {
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub TypeName : String, //string
-    pub Id : String, //int
-    #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub TypeName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ConstructionTypeStore { fn name() -> &'static str { "ConstructionTypeStore" }}/*
@@ -1303,72 +1168,78 @@ Ext.define("MEM.model.Cost", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CostStore {
     #[serde(default)]
-    pub ExtVerificationId : Option<String>, //string
-    #[serde(default)]
-    pub WorkOrderId : Option<String>, //int
-    #[serde(default)]
     pub AccountNo : String, //string
-    #[serde(default)]
-    pub WorkOrderNo : Option<String>, //int
-    #[serde(default)]
-    pub SupplierInvoiceId : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub LedgerDate : String, //date
-    #[serde(default)]
-    pub Invoiced : String, //bool
-    #[serde(default)]
-    pub CustomerNo : Option<String>, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Locked : String, //bool
-    #[serde(default)]
-    pub CustomerPrice : String, //float
-    #[serde(default)]
-    pub ScannedUrl : Option<String>, //string
-    #[serde(default)]
-    pub InvoiceAmount : String, //float
-    #[serde(default)]
-    pub TransactionType : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Mark2 : Option<String>, //string
     #[serde(default)]
     pub ApprovedByProduction : String, //bool
     #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub InvoiceId : Option<String>, //int
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub IsScanned : String, //bool
+    pub ChangedId : String, //string
     #[serde(default)]
-    pub RevenueTransaction : String, //bool
+    pub Created : String, //date
     #[serde(default)]
-    pub TransactionNote : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerNo : Option<String>, //string
+    #[serde(default)]
+    pub CustomerPrice : String, //float
+    #[serde(default)]
+    pub Disabled : String, //boolean
     #[serde(default)]
     pub ExtInvoiceNo : Option<String>, //string
     #[serde(default)]
-    pub MarkupAmount : String, //float
+    pub ExtVerificationId : Option<String>, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceAmount : String, //float
+    #[serde(default)]
+    pub InvoiceId : Option<String>, //int
     #[serde(default)]
     pub Invoiceable : String, //bool
     #[serde(default)]
-    pub VerificationNo : String, //string
+    pub Invoiced : String, //bool
     #[serde(default)]
-    pub WorkOrderName : Option<String>, //int
+    pub IsScanned : String, //bool
     #[serde(default)]
-    pub VatAmount : String, //float
+    pub LedgerDate : String, //date
+    #[serde(default)]
+    pub Locked : String, //bool
     #[serde(default)]
     pub Mark1 : Option<String>, //string
     #[serde(default)]
+    pub Mark2 : Option<String>, //string
+    #[serde(default)]
+    pub MarkupAmount : String, //float
+    #[serde(default)]
     pub Notes : Option<String>, //string
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub RevenueTransaction : String, //bool
+    #[serde(default)]
+    pub ScannedUrl : Option<String>, //string
+    #[serde(default)]
+    pub SupplierInvoiceId : String, //int
+    #[serde(default)]
+    pub TransactionNote : String, //string
+    #[serde(default)]
+    pub TransactionType : String, //string
+    #[serde(default)]
+    pub VatAmount : String, //float
+    #[serde(default)]
+    pub VerificationNo : String, //string
+    #[serde(default)]
+    pub WorkOrderId : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderName : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderNo : Option<String>, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for CostStore { fn name() -> &'static str { "CostStore" }}/*
@@ -1385,153 +1256,33 @@ Ext.define("MEM.model.Currency", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CurrencyStore {
     #[serde(default)]
+    pub Base : String, //boolean
+    #[serde(default)]
     pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Currency : String, //string
     #[serde(default)]
-    pub Xrate : String, //float
-    #[serde(default)]
-    pub Base : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
     pub CurrencyCode : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub Disabled : String, //boolean
     pub Id : String, //int
+    #[serde(default)]
+    pub Xrate : String, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for CurrencyStore { fn name() -> &'static str { "CurrencyStore" }}/*
-Ext.define("MEM.model.CustomerContact", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerId", type: "int" },
-      { name: "ContactName", type: "string", max: 50 },
-      { name: "Mobile", type: "string", max: 30 },
-      { name: "Phone", type: "string", max: 30 },
-      { name: "Email", type: "string", max: 50 },
-      { name: "OrganizationNo", type: "string", max: 12 },
-      { name: "CustomerRef", type: "string", max: 50 },
-      { name: "DefaultExternalWorkOrderStatusId", type: "int", useNull: !0 },
-      { name: "isSelected", type: "bool", persist: !1, defaultValue: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct CustomerContactStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CustomerRef : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Phone : String, //string
-    #[serde(default)]
-    pub isSelected : String, //bool
-    #[serde(default)]
-    pub Email : String, //string
-    #[serde(default)]
-    pub OrganizationNo : String, //string
-    #[serde(default)]
-    pub DefaultExternalWorkOrderStatusId : Option<String>, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Mobile : String, //string
-    #[serde(default)]
-    pub ContactName : String, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-}
-
-impl TableTrait for CustomerContactStore { fn name() -> &'static str { "CustomerContactStore" }}/*
-Ext.define("MEM.model.CustomerList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
-      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
-      { name: "CreditRisk", type: "boolean" },
-      {
-        name: "CustomerId",
-        type: "int",
-        persist: !1,
-        convert: function (b, a) {
-          return a.get("Id");
-        },
-      },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct CustomerListStore {
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CreditRisk : String, //boolean
-    #[serde(default)]
-    pub CustomerNo : String, //string
-    #[serde(default)]
-    pub CustomerName : String, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-}
-
-impl TableTrait for CustomerListStore { fn name() -> &'static str { "CustomerListStore" }}/*
-Ext.define("MEM.model.CustomerPricelistItem", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerId", type: "int", meType: "meMediumText", useNull: !0 },
-      {
-        name: "ProfessionItemId",
-        type: "int",
-        meType: "meMediumText",
-        useNull: !0,
-      },
-      { name: "PriceUnit", type: "float", meType: "meMoney" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct CustomerPricelistItemStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub ProfessionItemId : Option<String>, //int
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub CustomerId : Option<String>, //int
-}
-
-impl TableTrait for CustomerPricelistItemStore { fn name() -> &'static str { "CustomerPricelistItemStore" }}/*
 Ext.define("MEM.model.Customer", {
   extend: MEM.model.Base,
   config: {
@@ -1580,97 +1331,359 @@ Ext.define("MEM.model.Customer", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerStore {
     #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Phone : String, //string
-    #[serde(default)]
-    pub ConstructionCompany : String, //boolean
-    #[serde(default)]
-    pub BillAddress2 : String, //string
-    #[serde(default)]
     pub ApartmentNo : String, //string
-    #[serde(default)]
-    pub HasFavorites : String, //boolean
     #[serde(default)]
     pub BankAccountNo : String, //string
     #[serde(default)]
-    pub EanCode : String, //string
+    pub BankName : String, //string
     #[serde(default)]
     pub BillAddress1 : String, //string
     #[serde(default)]
-    pub ClearingNo : String, //string
-    #[serde(default)]
-    pub InfoNoteId : Option<String>, //int
-    #[serde(default)]
-    pub CustomerNo : String, //string
-    #[serde(default)]
-    pub WebAddress : String, //string
-    #[serde(default)]
-    pub BankName : String, //string
-    #[serde(default)]
-    pub SupplierNo : String, //string
-    #[serde(default)]
-    pub VatNo : String, //string
-    #[serde(default)]
-    pub CustomerTypeId : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub FrameworkContractId : Option<String>, //int
-    #[serde(default)]
-    pub CustomerNote : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub EdiAddress : String, //string
-    #[serde(default)]
-    pub OrganizationNo : String, //string
-    #[serde(default)]
-    pub BillAddress4 : String, //string
-    #[serde(default)]
-    pub BillAddress6 : String, //string
-    #[serde(default)]
-    pub Email : String, //string
-    #[serde(default)]
-    pub Mobile : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CustomerName2 : String, //string
-    #[serde(default)]
-    pub CurrencyId : String, //int
+    pub BillAddress2 : String, //string
     #[serde(default)]
     pub BillAddress3 : String, //string
     #[serde(default)]
-    pub CustomerName : String, //string
+    pub BillAddress4 : String, //string
     #[serde(default)]
     pub BillAddress5 : String, //string
+    #[serde(default)]
+    pub BillAddress6 : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub ClearingNo : String, //string
+    #[serde(default)]
+    pub ConstructionCompany : String, //boolean
+    #[serde(default)]
+    pub CountryCode : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditRisk : String, //boolean
+    #[serde(default)]
+    pub CurrencyId : String, //int
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub CustomerName2 : String, //string
+    #[serde(default)]
+    pub CustomerNo : String, //string
+    #[serde(default)]
+    pub CustomerNote : String, //string
+    #[serde(default)]
+    pub CustomerTypeId : String, //int
+    #[serde(default)]
+    pub DefaultExternalWorkOrderStatusId : Option<String>, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub EanCode : String, //string
+    #[serde(default)]
+    pub EdiAddress : String, //string
+    #[serde(default)]
+    pub Email : String, //string
+    #[serde(default)]
+    pub Fax : String, //string
+    #[serde(default)]
+    pub FrameworkContractId : Option<String>, //int
+    #[serde(default)]
+    pub HasFavorites : String, //boolean
     #[serde(default)]
     pub HousingCooperativeOrgNo : String, //string
     #[serde(default)]
     pub Iban : String, //string
+    pub Id : String, //int
     #[serde(default)]
-    pub CreditRisk : String, //boolean
+    pub InfoNoteId : Option<String>, //int
     #[serde(default)]
-    pub Fax : String, //string
+    pub Mobile : String, //string
+    #[serde(default)]
+    pub OrganizationNo : String, //string
     #[serde(default)]
     pub OrganizationNo2 : String, //string
     #[serde(default)]
-    pub DefaultExternalWorkOrderStatusId : Option<String>, //int
+    pub PaymentTermsCode : String, //string
+    #[serde(default)]
+    pub Phone : String, //string
     #[serde(default)]
     pub PropertyName : String, //string
     #[serde(default)]
-    pub CountryCode : String, //string
-    #[serde(default)]
-    pub PaymentTermsCode : String, //string
+    pub SupplierNo : String, //string
     #[serde(default)]
     pub SwiftBic : String, //string
+    #[serde(default)]
+    pub VatNo : String, //string
+    #[serde(default)]
+    pub WebAddress : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for CustomerStore { fn name() -> &'static str { "CustomerStore" }}/*
+Ext.define("MEM.model.CustomerContact", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerId", type: "int" },
+      { name: "ContactName", type: "string", max: 50 },
+      { name: "Mobile", type: "string", max: 30 },
+      { name: "Phone", type: "string", max: 30 },
+      { name: "Email", type: "string", max: 50 },
+      { name: "OrganizationNo", type: "string", max: 12 },
+      { name: "CustomerRef", type: "string", max: 50 },
+      { name: "DefaultExternalWorkOrderStatusId", type: "int", useNull: !0 },
+      { name: "isSelected", type: "bool", persist: !1, defaultValue: !1 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct CustomerContactStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub ContactName : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub CustomerRef : String, //string
+    #[serde(default)]
+    pub DefaultExternalWorkOrderStatusId : Option<String>, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub Email : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub Mobile : String, //string
+    #[serde(default)]
+    pub OrganizationNo : String, //string
+    #[serde(default)]
+    pub Phone : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isSelected : String, //bool
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for CustomerContactStore { fn name() -> &'static str { "CustomerContactStore" }}/*
+Ext.define("MEM.model.CustomerContactList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerId", type: "int" },
+      { name: "ContactName", type: "string", max: 50 },
+      { name: "CustomerRef", type: "string", max: 50 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct CustomerContactListStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub ContactName : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub CustomerRef : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for CustomerContactListStore { fn name() -> &'static str { "CustomerContactListStore" }}/*
+Ext.define("MEM.model.CustomerFavoriteArticle", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleId", type: "int" },
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore"),
+            b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return Ext.String.format(
+              "{0} ({1})",
+              a.get("Description"),
+              b.get("Description")
+            );
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "CustomerId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct CustomerFavoriteArticleStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub ArticleId : String, //int
+    #[serde(default)]
+    pub ArticleNo : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FavoriteListId : String, //int
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for CustomerFavoriteArticleStore { fn name() -> &'static str { "CustomerFavoriteArticleStore" }}/*
+Ext.define("MEM.model.CustomerList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
+      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
+      { name: "CreditRisk", type: "boolean" },
+      {
+        name: "CustomerId",
+        type: "int",
+        persist: !1,
+        convert: function (b, a) {
+          return a.get("Id");
+        },
+      },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct CustomerListStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditRisk : String, //boolean
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub CustomerNo : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for CustomerListStore { fn name() -> &'static str { "CustomerListStore" }}/*
+Ext.define("MEM.model.CustomerPricelistItem", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerId", type: "int", meType: "meMediumText", useNull: !0 },
+      {
+        name: "ProfessionItemId",
+        type: "int",
+        meType: "meMediumText",
+        useNull: !0,
+      },
+      { name: "PriceUnit", type: "float", meType: "meMoney" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct CustomerPricelistItemStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : Option<String>, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub ProfessionItemId : Option<String>, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for CustomerPricelistItemStore { fn name() -> &'static str { "CustomerPricelistItemStore" }}/*
 Ext.define("MEM.model.CustomerType", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
@@ -1678,18 +1691,24 @@ Ext.define("MEM.model.CustomerType", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerTypeStore {
     #[serde(default)]
-    pub TypeName : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    pub Id : String, //int
-    #[serde(default)]
     pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub TypeName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for CustomerTypeStore { fn name() -> &'static str { "CustomerTypeStore" }}/*
@@ -1749,58 +1768,64 @@ Ext.define("MEM.model.Diary", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DiaryStore {
     #[serde(default)]
-    pub Temperature2 : String, //float
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub UserId : Option<String>, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub Time1Display : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub FinishedWork : String, //string
-    #[serde(default)]
-    pub Precipitation1 : String, //string
-    #[serde(default)]
-    pub WorkforceNotes : String, //string
-    #[serde(default)]
-    pub Created : String, //date
+    pub ChangeAdditionNotes : String, //string
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Time2Display : String, //string
+    pub ChangedId : String, //string
     #[serde(default)]
-    pub WorkforceCount : String, //int
+    pub Created : String, //date
     #[serde(default)]
-    pub ChangeAdditionNotes : String, //string
+    pub CreatedId : String, //string
     #[serde(default)]
-    pub Time1 : String, //date
+    pub CreatedName : String, //string
     #[serde(default)]
     pub CurrentWork : String, //string
     #[serde(default)]
-    pub Precipitation2 : String, //string
+    pub Disabled : String, //boolean
     #[serde(default)]
-    pub Temperature1 : String, //float
+    pub FinishedWork : String, //string
+    #[serde(default)]
+    pub HasStaffLog : String, //boolean
     pub Id : String, //int
-    #[serde(default)]
-    pub MaterialTemp1 : Option<String>, //float
-    #[serde(default)]
-    pub WorkProblems : String, //string
     #[serde(default)]
     pub KPIName : String, //string
     #[serde(default)]
-    pub RegDate : String, //string
+    pub MaterialTemp1 : Option<String>, //float
     #[serde(default)]
     pub MaterialTemp2 : Option<String>, //float
     #[serde(default)]
+    pub Precipitation1 : String, //string
+    #[serde(default)]
+    pub Precipitation2 : String, //string
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub RegDate : String, //string
+    #[serde(default)]
+    pub Temperature1 : String, //float
+    #[serde(default)]
+    pub Temperature2 : String, //float
+    #[serde(default)]
+    pub Time1 : String, //date
+    #[serde(default)]
+    pub Time1Display : String, //string
+    #[serde(default)]
     pub Time2 : String, //date
     #[serde(default)]
-    pub HasStaffLog : String, //boolean
+    pub Time2Display : String, //string
+    #[serde(default)]
+    pub UserId : Option<String>, //int
+    #[serde(default)]
+    pub WorkProblems : String, //string
+    #[serde(default)]
+    pub WorkforceCount : String, //int
+    #[serde(default)]
+    pub WorkforceNotes : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for DiaryStore { fn name() -> &'static str { "DiaryStore" }}/*
@@ -1818,51 +1843,35 @@ Ext.define("MEM.model.ExternalWorkOrderStatus", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ExternalWorkOrderStatusStore {
     #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub IsDefaultStatus : String, //bool
     #[serde(default)]
-    pub Created : String, //date
+    pub IsSignatureStatus : String, //bool
     #[serde(default)]
-    pub Changed : String, //date
+    pub StatusCode : String, //int
     #[serde(default)]
     pub StatusColor : String, //string
     #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
     pub StatusName : String, //string
     #[serde(default)]
-    pub IsSignatureStatus : String, //bool
-    pub Id : String, //int
+    pub isField : String, //boolean
     #[serde(default)]
-    pub StatusCode : String, //int
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ExternalWorkOrderStatusStore { fn name() -> &'static str { "ExternalWorkOrderStatusStore" }}/*
-Ext.define("MEM.model.FactoryPricelist", {
-  extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct FactoryPricelistStore {
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Name : String, //string
-    pub Id : String, //int
-}
-
-impl TableTrait for FactoryPricelistStore { fn name() -> &'static str { "FactoryPricelistStore" }}/*
 Ext.define("MEM.model.FactoryArticleItem", {
   extend: MEM.model.Base,
   config: {
@@ -1894,68 +1903,226 @@ Ext.define("MEM.model.FactoryArticleItem", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FactoryArticleItemStore {
     #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub FactoryPricelistId : String, //int
-    #[serde(default)]
-    pub Description : String, //string
+    pub AccountNo : String, //string
     #[serde(default)]
     pub ArticleId : Option<String>, //int
-    pub Id : String, //int
+    #[serde(default)]
+    pub ArticleNo : String, //string
     #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    #[serde(default)]
-    pub ItemUnitId : String, //int
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
     pub CostUnit : String, //float
     #[serde(default)]
-    pub AccountNo : String, //string
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ArticleNo : String, //string
+    pub CreatedName : String, //string
     #[serde(default)]
-    pub FullDescription : String, //string
-}
-
-impl TableTrait for FactoryArticleItemStore { fn name() -> &'static str { "FactoryArticleItemStore" }}/*
-Ext.define("MEM.model.FrameworkContract", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Name", type: "string", max: 50 },
-      { name: "CustomerId", type: "int" },
-      { name: "LimitArticles", type: "bool" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct FrameworkContractStore {
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub LimitArticles : String, //bool
-    #[serde(default)]
-    pub Created : String, //date
+    pub Description : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
-    pub CreatedId : String, //string
+    pub FactoryPricelistId : String, //int
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for FactoryArticleItemStore { fn name() -> &'static str { "FactoryArticleItemStore" }}/*
+Ext.define("MEM.model.FactoryPricelist", {
+  extend: MEM.model.Base,
+  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct FactoryPricelistStore {
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Name : String, //string
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
     pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for FrameworkContractStore { fn name() -> &'static str { "FrameworkContractStore" }}/*
+impl TableTrait for FactoryPricelistStore { fn name() -> &'static str { "FactoryPricelistStore" }}/*
+Ext.define("MEM.model.FavoriteArticle", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleId", type: "int" },
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore"),
+            b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return Ext.String.format(
+              "{0} ({1})",
+              a.get("Description"),
+              b.get("Description")
+            );
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct FavoriteArticleStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub ArticleId : String, //int
+    #[serde(default)]
+    pub ArticleNo : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FavoriteListId : String, //int
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for FavoriteArticleStore { fn name() -> &'static str { "FavoriteArticleStore" }}/*
+Ext.define("MEM.model.FavoriteList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Name", type: "string" },
+      { name: "IsCustomerList", type: "bool" },
+      { name: "IsGlobal", type: "bool" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct FavoriteListStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub IsCustomerList : String, //bool
+    #[serde(default)]
+    pub IsGlobal : String, //bool
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for FavoriteListStore { fn name() -> &'static str { "FavoriteListStore" }}/*
+Ext.define("MEM.model.FormValidation", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "StoreName", type: "string", max: 50 },
+      { name: "FieldName", type: "string", max: 50 },
+      { name: "AllowBlank", type: "boolean" },
+      { name: "ValidationType", type: "string", max: 50 },
+      { name: "RegEx", type: "string", max: 1000 },
+      { name: "Hidden", type: "boolean" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct FormValidationStore {
+    #[serde(default)]
+    pub AllowBlank : String, //boolean
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FieldName : String, //string
+    #[serde(default)]
+    pub Hidden : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub RegEx : String, //string
+    #[serde(default)]
+    pub StoreName : String, //string
+    #[serde(default)]
+    pub ValidationType : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for FormValidationStore { fn name() -> &'static str { "FormValidationStore" }}/*
 Ext.define("MEM.model.FrameworkArticleItem", {
   extend: MEM.model.Base,
   config: {
@@ -1988,85 +2155,88 @@ Ext.define("MEM.model.FrameworkArticleItem", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FrameworkArticleItemStore {
     #[serde(default)]
-    pub FrameworkContractId : String, //int
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub CreditProjectId : Option<String>, //int
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    #[serde(default)]
-    pub ArticleId : Option<String>, //int
-    #[serde(default)]
     pub AccountNo : String, //string
-    #[serde(default)]
-    pub CostUnit : String, //float
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ArticleNo : String, //string
     #[serde(default)]
     pub ArticleCategoryId : Option<String>, //int
     #[serde(default)]
-    pub Chargeable : String, //bool
+    pub ArticleId : Option<String>, //int
+    #[serde(default)]
+    pub ArticleNo : String, //string
     #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub Created : String, //date
-    pub Id : String, //int
-}
-
-impl TableTrait for FrameworkArticleItemStore { fn name() -> &'static str { "FrameworkArticleItemStore" }}/*
-Ext.define("MEM.model.FormValidation", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "StoreName", type: "string", max: 50 },
-      { name: "FieldName", type: "string", max: 50 },
-      { name: "AllowBlank", type: "boolean" },
-      { name: "ValidationType", type: "string", max: 50 },
-      { name: "RegEx", type: "string", max: 1000 },
-      { name: "Hidden", type: "boolean" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct FormValidationStore {
-    #[serde(default)]
-    pub Hidden : String, //boolean
-    #[serde(default)]
-    pub StoreName : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub AllowBlank : String, //boolean
+    pub Chargeable : String, //bool
     #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub RegEx : String, //string
-    #[serde(default)]
-    pub FieldName : String, //string
+    pub CostUnit : String, //float
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ValidationType : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditProjectId : Option<String>, //int
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FrameworkContractId : String, //int
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for FormValidationStore { fn name() -> &'static str { "FormValidationStore" }}/*
+impl TableTrait for FrameworkArticleItemStore { fn name() -> &'static str { "FrameworkArticleItemStore" }}/*
+Ext.define("MEM.model.FrameworkContract", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Name", type: "string", max: 50 },
+      { name: "CustomerId", type: "int" },
+      { name: "LimitArticles", type: "bool" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct FrameworkContractStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub LimitArticles : String, //bool
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for FrameworkContractStore { fn name() -> &'static str { "FrameworkContractStore" }}/*
 Ext.define("MEM.model.Group", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "GroupName", type: "string", max: 50 }]*/
@@ -2074,18 +2244,24 @@ Ext.define("MEM.model.Group", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct GroupStore {
     #[serde(default)]
-    pub GroupName : String, //string
-    pub Id : String, //int
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
+    #[serde(default)]
+    pub GroupName : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for GroupStore { fn name() -> &'static str { "GroupStore" }}/*
@@ -2105,30 +2281,36 @@ Ext.define("MEM.model.HourlyRate", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct HourlyRateStore {
     #[serde(default)]
-    pub UnitName : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ProfessionItemId : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub ProfessionCode : String, //string
-    #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub ProfessionDescription : String, //string
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    #[serde(default)]
-    pub CustomerPrice : String, //float
-    #[serde(default)]
-    pub ProjectPrice : String, //float
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerPrice : String, //float
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub ProfessionCode : String, //string
+    #[serde(default)]
+    pub ProfessionDescription : String, //string
+    #[serde(default)]
+    pub ProfessionItemId : String, //int
+    #[serde(default)]
+    pub ProjectPrice : String, //float
+    #[serde(default)]
+    pub UnitName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for HourlyRateStore { fn name() -> &'static str { "HourlyRateStore" }}/*
@@ -2150,25 +2332,31 @@ Ext.define("MEM.model.InfoMessage", {
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InfoMessageStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub ShowInMobile : String, //bool
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Message : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Date : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Date : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
     pub GroupId : String, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub Message : String, //string
+    #[serde(default)]
+    pub ShowInMobile : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for InfoMessageStore { fn name() -> &'static str { "InfoMessageStore" }}/*
@@ -2185,90 +2373,33 @@ Ext.define("MEM.model.InfoNote", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InfoNoteStore {
     #[serde(default)]
-    pub CreatedId : String, //string
-    pub Id : String, //int
+    pub Changed : String, //date
     #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub UserId : String, //int
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub TableName : String, //string
+    pub CreatedId : String, //string
     #[serde(default)]
-    pub Changed : String, //date
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub Note : String, //string
     #[serde(default)]
     pub TableId : String, //int
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub TableName : String, //string
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for InfoNoteStore { fn name() -> &'static str { "InfoNoteStore" }}/*
-Ext.define("MEM.model.InvoiceRow", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "InvoiceId", type: "int" },
-      { name: "RowNo", type: "int" },
-      { name: "RowType", type: "string", max: 1 },
-      { name: "CodeNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      { name: "Unit", type: "string", max: 5 },
-      { name: "Amount", type: "int" },
-      { name: "PriceUnit", type: "float" },
-      { name: "Markup", type: "int" },
-      {
-        name: "TotalPrice",
-        type: "float",
-        persist: !1,
-        readOnly: !0,
-        convert: function (b, a) {
-          return a.get("Amount") * a.get("PriceUnit");
-        },
-      },
-      { name: "RowFormat", type: "string" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct InvoiceRowStore {
-    #[serde(default)]
-    pub RowNo : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Unit : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub TotalPrice : String, //float
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CodeNo : String, //string
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    pub Id : String, //int
-    #[serde(default)]
-    pub RowType : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Amount : String, //int
-    #[serde(default)]
-    pub InvoiceId : String, //int
-    #[serde(default)]
-    pub RowFormat : String, //string
-    #[serde(default)]
-    pub Markup : String, //int
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-}
-
-impl TableTrait for InvoiceRowStore { fn name() -> &'static str { "InvoiceRowStore" }}/*
 Ext.define("MEM.model.Invoice", {
   extend: MEM.model.Base,
   config: {
@@ -2297,41 +2428,116 @@ Ext.define("MEM.model.Invoice", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InvoiceStore {
     #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub InvoiceId : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub RowType : String, //string
-    #[serde(default)]
     pub Amount : String, //int
-    pub Id : String, //int
-    #[serde(default)]
-    pub RowNo : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub TotalPrice : String, //float
-    #[serde(default)]
-    pub PriceUnit : String, //float
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Unit : String, //string
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub CodeNo : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub CreatedId : String, //string
     #[serde(default)]
-    pub RowFormat : String, //string
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceId : String, //int
     #[serde(default)]
     pub Markup : String, //int
     #[serde(default)]
-    pub CodeNo : String, //string
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub RowFormat : String, //string
+    #[serde(default)]
+    pub RowNo : String, //int
+    #[serde(default)]
+    pub RowType : String, //string
+    #[serde(default)]
+    pub TotalPrice : String, //float
+    #[serde(default)]
+    pub Unit : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for InvoiceStore { fn name() -> &'static str { "InvoiceStore" }}/*
+Ext.define("MEM.model.InvoiceRow", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "InvoiceId", type: "int" },
+      { name: "RowNo", type: "int" },
+      { name: "RowType", type: "string", max: 1 },
+      { name: "CodeNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      { name: "Unit", type: "string", max: 5 },
+      { name: "Amount", type: "int" },
+      { name: "PriceUnit", type: "float" },
+      { name: "Markup", type: "int" },
+      {
+        name: "TotalPrice",
+        type: "float",
+        persist: !1,
+        readOnly: !0,
+        convert: function (b, a) {
+          return a.get("Amount") * a.get("PriceUnit");
+        },
+      },
+      { name: "RowFormat", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct InvoiceRowStore {
+    #[serde(default)]
+    pub Amount : String, //int
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub CodeNo : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceId : String, //int
+    #[serde(default)]
+    pub Markup : String, //int
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub RowFormat : String, //string
+    #[serde(default)]
+    pub RowNo : String, //int
+    #[serde(default)]
+    pub RowType : String, //string
+    #[serde(default)]
+    pub TotalPrice : String, //float
+    #[serde(default)]
+    pub Unit : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for InvoiceRowStore { fn name() -> &'static str { "InvoiceRowStore" }}/*
 Ext.define("MEM.model.ItemUnit", {
   extend: MEM.model.Base,
   config: {
@@ -2343,20 +2549,26 @@ Ext.define("MEM.model.ItemUnit", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ItemUnitStore {
     #[serde(default)]
-    pub UnitName : String, //string
-    #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
     pub Description : String, //string
     #[serde(default)]
-    pub CreatedId : String, //string
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub UnitName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ItemUnitStore { fn name() -> &'static str { "ItemUnitStore" }}/*
@@ -2378,17 +2590,57 @@ pub struct MainMenuStore {
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
-    pub Id : String, //int
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for MainMenuStore { fn name() -> &'static str { "MainMenuStore" }}/*
+Ext.define("MEM.model.MarkupModel", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Name", type: "string", max: 50 },
+      { name: "Code", type: "string", max: 10 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct MarkupModelStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Code : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for MarkupModelStore { fn name() -> &'static str { "MarkupModelStore" }}/*
 Ext.define("MEM.model.MarkupModelItem", {
   extend: MEM.model.Base,
   config: {
@@ -2402,285 +2654,33 @@ Ext.define("MEM.model.MarkupModelItem", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct MarkupModelItemStore {
     #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ResourceAccount : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Description : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Changed : String, //date
+    pub Id : String, //int
     #[serde(default)]
     pub MarkupCF : String, //int
     #[serde(default)]
     pub MarkupModelId : String, //int
     #[serde(default)]
-    pub CreatedId : String, //string
+    pub ResourceAccount : String, //string
     #[serde(default)]
-    pub Description : String, //string
+    pub isField : String, //boolean
     #[serde(default)]
-    pub ChangedId : String, //string
-    pub Id : String, //int
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for MarkupModelItemStore { fn name() -> &'static str { "MarkupModelItemStore" }}/*
-Ext.define("MEM.model.MarkupModel", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Name", type: "string", max: 50 },
-      { name: "Code", type: "string", max: 10 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct MarkupModelStore {
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Code : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-}
-
-impl TableTrait for MarkupModelStore { fn name() -> &'static str { "MarkupModelStore" }}/*
-Ext.define("MEM.model.Time", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "FullName", type: "string", max: 100 },
-      { name: "ProjectId", type: "int" },
-      { name: "AbsenceProjectId", type: "int", useNull: !0 },
-      {
-        name: "Absence",
-        type: "bool",
-        convert: function (c, b) {
-          var a = MEM.app.getController("Common");
-          return b.get("ProjectId") != a.absenceProjectId() ? 0 : 1;
-        },
-      },
-      {
-        name: "ProjectName",
-        type: "string",
-        max: 255,
-        sortable: !0,
-        convert: function (b, c) {
-          if (b) {
-            return b;
-          } else {
-            var d = Ext.getStore("MyCloneProjectListAllStore"),
-              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
-            if (a) {
-              return a.get("ProjectName");
-            } else {
-              return "";
-            }
-          }
-        },
-      },
-      {
-        name: "ProjectNo",
-        type: "string",
-        max: 20,
-        sortable: !0,
-        sortType: "asInt",
-        convert: function (b, c) {
-          if (b) {
-            return b;
-          } else {
-            var d = Ext.getStore("MyCloneProjectListAllStore"),
-              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
-            if (a) {
-              return a.get("ProjectNo");
-            } else {
-              return "";
-            }
-          }
-        },
-      },
-      {
-        name: "Project",
-        type: "string",
-        max: 255,
-        convert: function (d, b) {
-          var c = Ext.getStore("MyCloneProjectListAllStore"),
-            a;
-          a = c.findRecord("Id", b.get("ProjectId"), 0, !1, !0, !0);
-          if (a) {
-            return a.get("ProjectNo") + ", " + a.get("ProjectName");
-          }
-        },
-      },
-      {
-        name: "ProjectStatus",
-        type: "string",
-        max: 255,
-        convert: function (e, c) {
-          var d = Ext.getStore("MyCloneProjectListAllStore"),
-            b = Ext.getStore("MyProjectStatusStore"),
-            a;
-          a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
-          if (a) {
-            b = b.findRecord("Id", a.get("ProjectStatusId"), 0, !1, !0, !0);
-            return b.get("StatusCode");
-          } else {
-            return null;
-          }
-        },
-      },
-      { name: "WorkOrderId", type: "int", useNull: !0 },
-      {
-        name: "WorkOrderNo",
-        type: "int",
-        useNull: !0,
-        convert: function (b, c) {
-          var a = Ext.getStore("MyWorkOrderListStore").findRecord(
-            "Id",
-            c.get("WorkOrderId"),
-            0,
-            !1,
-            !0,
-            !0
-          );
-          if (a && a.get("Addition")) {
-            return AWOpad(b, 3);
-          }
-          return b;
-        },
-      },
-      { name: "WOAWONo", type: "string", max: 10, sortable: !0 },
-      { name: "WorkOrderName", type: "string", max: 255, sortable: !0 },
-      { name: "RegDate", type: "string", max: 10, sortType: "asDate" },
-      { name: "Debit", type: "boolean", defaultValue: !0 },
-      { name: "ProfessionItemId", type: "int" },
-      { name: "ProfessionCode", type: "string", max: 20 },
-      { name: "ProfessionAccountNo", type: "string", max: 5 },
-      { name: "Unit", type: "string", max: 5 },
-      {
-        name: "Hours",
-        type: "float",
-        convert: function (a, b) {
-          return a == null ? null : parseFloat(a);
-        },
-      },
-      {
-        name: "BreakTime",
-        type: "float",
-        convert: function (a, b) {
-          return a == null ? null : parseFloat(a);
-        },
-      },
-      {
-        name: "StartTime",
-        useNull: !0,
-        type: "date",
-        dateFormat: "Y-m-d H:i:s",
-        convert: function (b, h) {
-          var f,
-            d = new Date(h.get("RegDate")),
-            c,
-            e = getSetting("Time.Timestamp.Interval"),
-            g = e ? parseInt(e) : 15;
-          if (typeof b == "string") {
-            var a = b.split(/[-:T]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct TimeStore {
-    #[serde(default)]
-    pub Absence : String, //bool
-    #[serde(default)]
-    pub WorkOrderNo : Option<String>, //int
-    #[serde(default)]
-    pub AbsenceProjectId : Option<String>, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Project : String, //string
-    #[serde(default)]
-    pub ProjectStatus : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub FullName : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub WorkOrderName : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ProfessionItemId : String, //int
-    #[serde(default)]
-    pub Hours : String, //float
-    #[serde(default)]
-    pub UserId : String, //int
-    #[serde(default)]
-    pub WorkOrderId : Option<String>, //int
-    #[serde(default)]
-    pub ProfessionAccountNo : String, //string
-    #[serde(default)]
-    pub Unit : String, //string
-    #[serde(default)]
-    pub BreakTime : String, //float
-    #[serde(default)]
-    pub ProjectName : String, //string
-    #[serde(default)]
-    pub ProfessionCode : String, //string
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub ProjectNo : String, //string
-    #[serde(default)]
-    pub WOAWONo : String, //string
-    #[serde(default)]
-    pub RegDate : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Debit : String, //boolean
-}
-
-impl TableTrait for TimeStore { fn name() -> &'static str { "TimeStore" }}/*
-Ext.define("MEM.model.OptionValue", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "SettingKey", type: "string", max: 50 },
-      { name: "SettingValue", type: "string" },
-      { name: "SettingDescription", type: "string" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct OptionValueStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub SettingKey : String, //string
-    #[serde(default)]
-    pub SettingValue : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub SettingDescription : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-}
-
-impl TableTrait for OptionValueStore { fn name() -> &'static str { "OptionValueStore" }}/*
 Ext.define("MEM.model.OfficeCompany", {
   extend: MEM.model.Base,
   config: {
@@ -2692,23 +2692,66 @@ Ext.define("MEM.model.OfficeCompany", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct OfficeCompanyStore {
     #[serde(default)]
-    pub Created : String, //date
-    pub Id : String, //int
-    #[serde(default)]
     pub AbsenceProjectId : String, //int
+    #[serde(default)]
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub CompanyName : String, //string
+    #[serde(default)]
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub CompanyName : String, //string
+    pub CreatedName : String, //string
     #[serde(default)]
-    pub Changed : String, //date
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for OfficeCompanyStore { fn name() -> &'static str { "OfficeCompanyStore" }}/*
+Ext.define("MEM.model.OptionValue", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "SettingKey", type: "string", max: 50 },
+      { name: "SettingValue", type: "string" },
+      { name: "SettingDescription", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct OptionValueStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub SettingDescription : String, //string
+    #[serde(default)]
+    pub SettingKey : String, //string
+    #[serde(default)]
+    pub SettingValue : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for OptionValueStore { fn name() -> &'static str { "OptionValueStore" }}/*
 Ext.define("MEM.model.Phrase", {
   extend: MEM.model.Base,
   config: {
@@ -2723,19 +2766,25 @@ Ext.define("MEM.model.Phrase", {
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct PhraseStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Phrase : String, //string
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub Phrase : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for PhraseStore { fn name() -> &'static str { "PhraseStore" }}/*
@@ -2745,19 +2794,25 @@ Ext.define("MEM.model.PriceType", {
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct PriceTypeStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub TypeName : String, //string
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub TypeName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for PriceTypeStore { fn name() -> &'static str { "PriceTypeStore" }}/*
@@ -2779,17 +2834,11 @@ Ext.define("MEM.model.ProfessionItem", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProfessionItemStore {
     #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ProfessionCode : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
+    pub AccountNo : String, //string
     #[serde(default)]
     pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Chargeable : String, //bool
     #[serde(default)]
@@ -2797,139 +2846,149 @@ pub struct ProfessionItemStore {
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ProfessionDescription : String, //string
+    pub CreatedId : String, //string
     #[serde(default)]
-    pub SalaryNo : String, //string
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
     pub Id : String, //int
     #[serde(default)]
-    pub AccountNo : String, //string
+    pub ItemUnitId : String, //int
     #[serde(default)]
     pub PriceUnit : String, //float
     #[serde(default)]
+    pub ProfessionCode : String, //string
+    #[serde(default)]
+    pub ProfessionDescription : String, //string
+    #[serde(default)]
     pub ProfessionGroup : String, //string
+    #[serde(default)]
+    pub SalaryNo : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProfessionItemStore { fn name() -> &'static str { "ProfessionItemStore" }}/*
-Ext.define("MEM.model.WorkOrderDocument", {
+Ext.define("MEM.model.Project", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "ProjectId", type: "int", meType: "meMediumText" },
-      { name: "WorkOrderId", type: "int", meType: "meMediumText" },
-      { name: "DiaryId", type: "int", meType: "meMediumText" },
-      { name: "DocumentDescription", type: "string", meType: "meLongText" },
-      { name: "Url", type: "string", meType: "meMediumText", max: 255 },
-      { name: "Title", type: "string", meType: "meMediumText", max: 255 },
-      { name: "Filename", type: "string", meType: "meMediumText", max: 255 },
-      {
-        name: "DocumentMimeType",
-        type: "string",
-        meType: "meMediumText",
-        max: 255,
-      },
-      { name: "DocumentSize", type: "int", meType: "meMediumText" },
-      { name: "DocumentData", type: "string" },
-      {
-        name: "ThumbnailMimeType",
-        type: "string",
-        meType: "meMediumText",
-        max: 255,
-      },
-      { name: "ThumbnailData", type: "string", meType: "meLongText" },
-      { name: "ImageWidth", type: "int", meType: "meInt" },
-      { name: "ImageHeight", type: "int", meType: "meInt" },
-      { name: "HideInPDA", type: "bool", persist: !1 },
-      { name: "EnlargeInReports", type: "bool" },
-      { name: "IncludeInReport", type: "bool" },
-      { name: "ShowInPortal", type: "bool" },
-      { name: "RegDate", type: "string" },
+      { name: "ParentProjectId", type: "int", allowBlank: !1, useNull: !0 },
+      { name: "ProjectNo", type: "int", persist: !1, sortType: "asInt" },
+      { name: "ProjectStatusId", type: "int" },
+      { name: "ProjectName", type: "string", max: 50, allowBlank: !1 },
+      { name: "PriceTypeId", type: "int" },
+      { name: "ProjectTypeId", type: "int" },
+      { name: "ProjectManagerId", type: "int" },
+      { name: "WorkLeaderId", type: "int" },
+      { name: "TagField1Id", type: "int", useNull: !0 },
+      { name: "TagField2Id", type: "int", useNull: !0 },
+      { name: "ProjectNote", type: "string", useNull: !0 },
+      { name: "CustomerId", type: "int", useNull: !0 },
+      { name: "CustomerName", type: "string" },
+      { name: "CreditRisk", type: "boolean" },
+      { name: "ContactName", type: "string" },
+      { name: "CustomerAgentId", type: "int", useNull: !0 },
+      { name: "CustomerRef", type: "string", max: 50 },
+      { name: "ProjectStart", type: "date", dateFormat: "Y-m-d" },
+      { name: "ProjectEnd", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "MarkupModelId", type: "int", allowBlank: !1 },
+      { name: "WorkplaceAddress1", type: "string", max: 50 },
+      { name: "WorkplaceAddress2", type: "string", max: 50 },
+      { name: "WorkplaceZipcode", type: "string", max: 50 },
+      { name: "WorkplaceCity", type: "string", max: 50 },
+      { name: "WorkplaceDistance", type: "int" },
+      { name: "FinalInspectionDate", type: "date", dateFormat: "Y-m-d" },
+      { name: "GuaranteeTime", type: "int" },
+      { name: "GuaranteeInspectionDate", type: "date", dateFormat: "Y-m-d" },
+      { name: "WOFavorite", type: "boolean", persist: !1 },
+      { name: "FrameworkContractId", type: "int", useNull: !0 },
     ]*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderDocumentStore {
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub DocumentMimeType : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Filename : String, //string
+pub struct ProjectStore {
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub ImageWidth : String, //int
+    pub ChangedId : String, //string
     #[serde(default)]
-    pub ImageHeight : String, //int
-    #[serde(default)]
-    pub ShowInPortal : String, //bool
-    #[serde(default)]
-    pub DocumentSize : String, //int
-    #[serde(default)]
-    pub EnlargeInReports : String, //bool
-    #[serde(default)]
-    pub Url : String, //string
-    #[serde(default)]
-    pub DocumentDescription : String, //string
+    pub ContactName : String, //string
     #[serde(default)]
     pub Created : String, //date
-    #[serde(default)]
-    pub Title : String, //string
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub HideInPDA : String, //bool
-    #[serde(default)]
-    pub ThumbnailData : String, //string
-    #[serde(default)]
-    pub DiaryId : String, //int
-    #[serde(default)]
-    pub DocumentData : String, //string
-    #[serde(default)]
-    pub ThumbnailMimeType : String, //string
-    #[serde(default)]
-    pub RegDate : String, //string
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub IncludeInReport : String, //bool
-}
-
-impl TableTrait for WorkOrderDocumentStore { fn name() -> &'static str { "WorkOrderDocumentStore" }}/*
-Ext.define("MEM.model.ProjectEconomyBudget", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int" },
-      { name: "BudgetCost", type: "float" },
-      { name: "BudgetRevenue", type: "float" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ProjectEconomyBudgetStore {
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditRisk : String, //boolean
+    #[serde(default)]
+    pub CustomerAgentId : Option<String>, //int
+    #[serde(default)]
+    pub CustomerId : Option<String>, //int
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub CustomerRef : String, //string
+    #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
-    pub BudgetCost : String, //float
+    pub FinalInspectionDate : String, //date
     #[serde(default)]
-    pub Created : String, //date
+    pub FrameworkContractId : Option<String>, //int
+    #[serde(default)]
+    pub GuaranteeInspectionDate : String, //date
+    #[serde(default)]
+    pub GuaranteeTime : String, //int
     pub Id : String, //int
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub MarkupModelId : String, //int
     #[serde(default)]
-    pub ProjectId : String, //int
+    pub ParentProjectId : Option<String>, //int
     #[serde(default)]
-    pub Changed : String, //date
+    pub PriceTypeId : String, //int
     #[serde(default)]
-    pub BudgetRevenue : String, //float
+    pub ProjectEnd : Option<String>, //date
+    #[serde(default)]
+    pub ProjectManagerId : String, //int
+    #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
+    pub ProjectNo : String, //int
+    #[serde(default)]
+    pub ProjectNote : Option<String>, //string
+    #[serde(default)]
+    pub ProjectStart : String, //date
+    #[serde(default)]
+    pub ProjectStatusId : String, //int
+    #[serde(default)]
+    pub ProjectTypeId : String, //int
+    #[serde(default)]
+    pub TagField1Id : Option<String>, //int
+    #[serde(default)]
+    pub TagField2Id : Option<String>, //int
+    #[serde(default)]
+    pub WOFavorite : String, //boolean
+    #[serde(default)]
+    pub WorkLeaderId : String, //int
+    #[serde(default)]
+    pub WorkplaceAddress1 : String, //string
+    #[serde(default)]
+    pub WorkplaceAddress2 : String, //string
+    #[serde(default)]
+    pub WorkplaceCity : String, //string
+    #[serde(default)]
+    pub WorkplaceDistance : String, //int
+    #[serde(default)]
+    pub WorkplaceZipcode : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for ProjectEconomyBudgetStore { fn name() -> &'static str { "ProjectEconomyBudgetStore" }}/*
+impl TableTrait for ProjectStore { fn name() -> &'static str { "ProjectStore" }}/*
 Ext.define("MEM.model.ProjectEconomy", {
   extend: MEM.model.Base,
   config: {
@@ -2945,31 +3004,319 @@ Ext.define("MEM.model.ProjectEconomy", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectEconomyStore {
     #[serde(default)]
-    pub LineType : String, //int
-    #[serde(default)]
-    pub ContributionMargin : String, //float
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub Cost : String, //float
-    #[serde(default)]
-    pub Revenue : String, //float
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ContributionMarginPercent : String, //float
-    pub Id : String, //int
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub ProjectId : String, //int
+    pub ContributionMargin : String, //float
+    #[serde(default)]
+    pub ContributionMarginPercent : String, //float
+    #[serde(default)]
+    pub Cost : String, //float
+    #[serde(default)]
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub LineType : String, //int
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub Revenue : String, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectEconomyStore { fn name() -> &'static str { "ProjectEconomyStore" }}/*
+Ext.define("MEM.model.ProjectEconomyBudget", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int" },
+      { name: "BudgetCost", type: "float" },
+      { name: "BudgetRevenue", type: "float" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ProjectEconomyBudgetStore {
+    #[serde(default)]
+    pub BudgetCost : String, //float
+    #[serde(default)]
+    pub BudgetRevenue : String, //float
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for ProjectEconomyBudgetStore { fn name() -> &'static str { "ProjectEconomyBudgetStore" }}/*
+Ext.define("MEM.model.ProjectLimited", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      {
+        name: "Project",
+        type: "string",
+        convert: function (b, a) {
+          return a.data.ProjectNo + ", " + a.data.ProjectName;
+        },
+      },
+      {
+        name: "ParentProjectId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Parent Project No"),
+      },
+      {
+        name: "ProjectNo",
+        type: "string",
+        meType: "meShortText",
+        max: 10,
+        persist: !0,
+        display: T("Project No"),
+      },
+      {
+        name: "ProjectStatusId",
+        type: "int",
+        meType: "meMediumText",
+        display: T("Project status") + T("Code"),
+      },
+      {
+        name: "ProjectStatusCode",
+        type: "int",
+        meType: "meMediumText",
+        display: T("Project status") + T("Code"),
+      },
+      {
+        name: "ProjectName",
+        type: "string",
+        meType: "meMediumText",
+        max: 50,
+        display: T("Project Name"),
+      },
+      {
+        name: "PriceTypeId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Pricetype") + T("Code"),
+      },
+      {
+        name: "ProjectTypeId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Project type") + T("Code"),
+      },
+      {
+        name: "ProjectManagerId",
+        type: "int",
+        meType: "meMediumText",
+        display: T("Project manager") + " " + T("Username"),
+      },
+      {
+        name: "WorkLeaderId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Work leader") + " " + T("Username"),
+      },
+      {
+        name: "TagField1Id",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Tag field 1"),
+      },
+      {
+        name: "TagField2Id",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Tag field 2"),
+      },
+      {
+        name: "CustomerId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Customer no"),
+      },
+      {
+        name: "CustomerAgentId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Customer Contact"),
+      },
+      {
+        name: "CustomerRef",
+        type: "string",
+        meType: "meMediumText",
+        max: 50,
+        display: T("Customer ref."),
+      },
+      {
+        name: "MarkupModelId",
+        type: "int",
+        meType: "meShortText",
+        display: T("Markup model"),
+      },
+      {
+        name: "CostCenterId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Costcenter"),
+      },
+      {
+        name: "SellerId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Seller") + " " + T("Username"),
+      },
+      {
+        name: "FrameworkContractId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Framework contract"),
+        translate: T("FrameworkContract"),
+      },
+      {
+        name: "PartnerSupplierId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Partner supplier"),
+      },
+      {
+        name: "ProjectResourceGroupId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("ProjectResourceGroupProject"),
+      },
+      {
+        name: "WorkplaceId",
+        type: "string",
+        meType: "meMediumText",
+        max: 50,
+        allowNull: !0,
+        display: T("WorkplaceId"),
+      },
+      {
+        name: "BasicScopeId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+      },
+      {
+        name: "KPIRuleId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("KPI rule"),
+      },
+      { name: "WOFavorite", type: "boolean", persist: !1 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ProjectLimitedStore {
+    #[serde(default)]
+    pub BasicScopeId : String, //int
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub CostCenterId : String, //int
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerAgentId : String, //int
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub CustomerRef : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FrameworkContractId : String, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub KPIRuleId : String, //int
+    #[serde(default)]
+    pub MarkupModelId : String, //int
+    #[serde(default)]
+    pub ParentProjectId : String, //int
+    #[serde(default)]
+    pub PartnerSupplierId : String, //int
+    #[serde(default)]
+    pub PriceTypeId : String, //int
+    #[serde(default)]
+    pub Project : String, //string
+    #[serde(default)]
+    pub ProjectManagerId : String, //int
+    #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
+    pub ProjectNo : String, //string
+    #[serde(default)]
+    pub ProjectResourceGroupId : String, //int
+    #[serde(default)]
+    pub ProjectStatusCode : String, //int
+    #[serde(default)]
+    pub ProjectStatusId : String, //int
+    #[serde(default)]
+    pub ProjectTypeId : String, //int
+    #[serde(default)]
+    pub SellerId : String, //int
+    #[serde(default)]
+    pub TagField1Id : String, //int
+    #[serde(default)]
+    pub TagField2Id : String, //int
+    #[serde(default)]
+    pub WOFavorite : String, //boolean
+    #[serde(default)]
+    pub WorkLeaderId : String, //int
+    #[serde(default)]
+    pub WorkplaceId : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for ProjectLimitedStore { fn name() -> &'static str { "ProjectLimitedStore" }}/*
 Ext.define("MEM.model.ProjectList", {
   extend: MEM.model.Base,
   config: {
@@ -3009,87 +3356,47 @@ Ext.define("MEM.model.ProjectList", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectListStore {
     #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub StatusCode : String, //string
-    #[serde(default)]
-    pub ProjectStatusId : String, //int
-    #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub WorkplaceId : String, //string
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub ProjectName : String, //string
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ProjectStatus : String, //string
+    pub CreatedName : String, //string
     #[serde(default)]
-    pub ProjectNo : String, //string
-    #[serde(default)]
-    pub KPIRuleId : Option<String>, //int
+    pub CustomerId : String, //int
     #[serde(default)]
     pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
-    pub SecReadOnly : String, //bool
+    pub KPIRuleId : Option<String>, //int
     #[serde(default)]
     pub Piecework : String, //bool
     #[serde(default)]
     pub Project : String, //string
-    pub Id : String, //int
+    #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
+    pub ProjectNo : String, //string
+    #[serde(default)]
+    pub ProjectStatus : String, //string
+    #[serde(default)]
+    pub ProjectStatusId : String, //int
+    #[serde(default)]
+    pub SecReadOnly : String, //bool
+    #[serde(default)]
+    pub StatusCode : String, //string
+    #[serde(default)]
+    pub WorkplaceId : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectListStore { fn name() -> &'static str { "ProjectListStore" }}/*
-Ext.define("MEM.model.UserList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "FullName", type: "string" },
-      { name: "Signature", type: "string" },
-      { name: "EmployeeNo", type: "string" },
-      { name: "PersonalNo", type: "string" },
-      { name: "ProfessionCode", type: "string" },
-      { name: "ProfessionItemId", type: "int" },
-      { name: "OrganizationalProjectId", type: "int" },
-      { name: "PartnerSupplier", type: "bool" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserListStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub EmployeeNo : String, //string
-    #[serde(default)]
-    pub PartnerSupplier : String, //bool
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub FullName : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ProfessionItemId : String, //int
-    #[serde(default)]
-    pub OrganizationalProjectId : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub PersonalNo : String, //string
-    #[serde(default)]
-    pub ProfessionCode : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Signature : String, //string
-}
-
-impl TableTrait for UserListStore { fn name() -> &'static str { "UserListStore" }}/*
 Ext.define("MEM.model.ProjectOverview", {
   extend: MEM.model.Base,
   config: {
@@ -3375,85 +3682,128 @@ Ext.define("MEM.model.ProjectOverview", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectOverviewStore {
     #[serde(default)]
-    pub ContributionMarginPercentSLP : Option<String>, //int
+    pub BookedCost : Option<String>, //float
     #[serde(default)]
-    pub EarnedRevenue : Option<String>, //float
+    pub BookedHours : Option<String>, //int
     #[serde(default)]
-    pub ProjectId : Option<String>, //int
+    pub BookedRevenue : Option<String>, //float
     #[serde(default)]
     pub BudgetCost : Option<String>, //float
     #[serde(default)]
-    pub BookedCost : Option<String>, //float
+    pub BudgetHours : Option<String>, //int
     #[serde(default)]
-    pub ContributionMarginAmountSLP : Option<String>, //float
+    pub BudgetRevenue : Option<String>, //float
+    #[serde(default)]
+    pub BudgetRevenueWithTax : Option<String>, //float
+    #[serde(default)]
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub SLPCost : Option<String>, //float
+    pub ContributionMarginAmount : Option<String>, //float
     #[serde(default)]
-    pub BookedHours : Option<String>, //int
+    pub ContributionMarginAmountSLP : Option<String>, //float
+    #[serde(default)]
+    pub ContributionMarginPercent : Option<String>, //int
+    #[serde(default)]
+    pub ContributionMarginPercentSLP : Option<String>, //int
+    #[serde(default)]
+    pub ContributionMarginWO : Option<String>, //float
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : Option<String>, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub EarnedRevenue : Option<String>, //float
     #[serde(default)]
     pub EarnedRevenueNotInvoiced : Option<String>, //float
     #[serde(default)]
     pub EarnedRevenueNotInvoicedWithTax : Option<String>, //float
     #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub SLPRevenue : Option<String>, //float
-    #[serde(default)]
-    pub ContributionMarginWO : Option<String>, //float
-    #[serde(default)]
-    pub ProjectStart : Option<String>, //date
-    #[serde(default)]
-    pub BudgetHours : Option<String>, //int
-    #[serde(default)]
-    pub ContributionMarginAmount : Option<String>, //float
-    #[serde(default)]
-    pub ProjectName : String, //string
-    #[serde(default)]
     pub EarnedRevenueWithTax : Option<String>, //float
     pub Id : String, //int
     #[serde(default)]
-    pub WorkCost : Option<String>, //float
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub BudgetRevenue : Option<String>, //float
-    #[serde(default)]
-    pub TagField1Id : Option<String>, //int
-    #[serde(default)]
-    pub ContributionMarginPercent : Option<String>, //int
-    #[serde(default)]
-    pub TagField2Id : Option<String>, //int
-    #[serde(default)]
-    pub BudgetRevenueWithTax : Option<String>, //float
-    #[serde(default)]
-    pub WorkOrderCost : Option<String>, //float
-    #[serde(default)]
     pub MaterialCost : Option<String>, //float
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub WorkOrderRevenue : Option<String>, //float
     #[serde(default)]
     pub ProjectEnd : Option<String>, //date
     #[serde(default)]
-    pub WorkCostWithTax : Option<String>, //float
+    pub ProjectId : Option<String>, //int
     #[serde(default)]
     pub ProjectManagerId : Option<String>, //int
     #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
     pub ProjectNo : String, //string
     #[serde(default)]
-    pub CustomerId : Option<String>, //int
+    pub ProjectStart : Option<String>, //date
     #[serde(default)]
     pub ProjectStatusId : Option<String>, //int
     #[serde(default)]
-    pub BookedRevenue : Option<String>, //float
+    pub SLPCost : Option<String>, //float
+    #[serde(default)]
+    pub SLPRevenue : Option<String>, //float
+    #[serde(default)]
+    pub TagField1Id : Option<String>, //int
+    #[serde(default)]
+    pub TagField2Id : Option<String>, //int
+    #[serde(default)]
+    pub WorkCost : Option<String>, //float
+    #[serde(default)]
+    pub WorkCostWithTax : Option<String>, //float
+    #[serde(default)]
+    pub WorkOrderCost : Option<String>, //float
+    #[serde(default)]
+    pub WorkOrderRevenue : Option<String>, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectOverviewStore { fn name() -> &'static str { "ProjectOverviewStore" }}/*
+Ext.define("MEM.model.ProjectPricelist", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int" },
+      { name: "ServiceCarPriceDay", type: "float" },
+      { name: "ServiceCarPriceKm", type: "float" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ProjectPricelistStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub ServiceCarPriceDay : String, //float
+    #[serde(default)]
+    pub ServiceCarPriceKm : String, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for ProjectPricelistStore { fn name() -> &'static str { "ProjectPricelistStore" }}/*
 Ext.define("MEM.model.ProjectPricelistItem", {
   extend: MEM.model.Base,
   config: {
@@ -3471,56 +3821,68 @@ Ext.define("MEM.model.ProjectPricelistItem", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectPricelistItemStore {
     #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub PriceUnit : String, //float
     #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
     pub ProfessionItemId : Option<String>, //int
     #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
     pub ProjectId : Option<String>, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectPricelistItemStore { fn name() -> &'static str { "ProjectPricelistItemStore" }}/*
-Ext.define("MEM.model.ProjectPricelist", {
+Ext.define("MEM.model.ProjectStatus", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "ProjectId", type: "int" },
-      { name: "ServiceCarPriceDay", type: "float" },
-      { name: "ServiceCarPriceKm", type: "float" },
+      { name: "StatusName", type: "string", max: 50 },
+      { name: "StatusCode", type: "int" },
+      { name: "StatusColor", type: "string", max: 20 },
     ]*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
-pub struct ProjectPricelistStore {
+pub struct ProjectStatusStore {
     #[serde(default)]
-    pub ServiceCarPriceKm : String, //float
-    #[serde(default)]
-    pub Created : String, //date
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    pub Id : String, //int
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ServiceCarPriceDay : String, //float
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub StatusCode : String, //int
+    #[serde(default)]
+    pub StatusColor : String, //string
+    #[serde(default)]
+    pub StatusName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for ProjectPricelistStore { fn name() -> &'static str { "ProjectPricelistStore" }}/*
+impl TableTrait for ProjectStatusStore { fn name() -> &'static str { "ProjectStatusStore" }}/*
 Ext.define("MEM.model.ProjectStatusHistory", {
   extend: MEM.model.Base,
   config: {
@@ -3537,142 +3899,36 @@ Ext.define("MEM.model.ProjectStatusHistory", {
 pub struct ProjectStatusHistoryStore {
     #[serde(default)]
     pub Changed : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub StatusName : String, //string
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullName : String, //string
+    pub Id : String, //int
     #[serde(default)]
     pub ProjectId : String, //int
+    #[serde(default)]
+    pub ProjectStatusHistoryId : String, //int
     #[serde(default)]
     pub StatusCode : String, //int
     #[serde(default)]
     pub StatusColor : String, //string
     #[serde(default)]
-    pub ProjectStatusHistoryId : String, //int
+    pub StatusName : String, //string
     #[serde(default)]
-    pub FullName : String, //string
+    pub isField : String, //boolean
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectStatusHistoryStore { fn name() -> &'static str { "ProjectStatusHistoryStore" }}/*
-Ext.define("MEM.model.Project", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ParentProjectId", type: "int", allowBlank: !1, useNull: !0 },
-      { name: "ProjectNo", type: "int", persist: !1, sortType: "asInt" },
-      { name: "ProjectStatusId", type: "int" },
-      { name: "ProjectName", type: "string", max: 50, allowBlank: !1 },
-      { name: "PriceTypeId", type: "int" },
-      { name: "ProjectTypeId", type: "int" },
-      { name: "ProjectManagerId", type: "int" },
-      { name: "WorkLeaderId", type: "int" },
-      { name: "TagField1Id", type: "int", useNull: !0 },
-      { name: "TagField2Id", type: "int", useNull: !0 },
-      { name: "ProjectNote", type: "string", useNull: !0 },
-      { name: "CustomerId", type: "int", useNull: !0 },
-      { name: "CustomerName", type: "string" },
-      { name: "CreditRisk", type: "boolean" },
-      { name: "ContactName", type: "string" },
-      { name: "CustomerAgentId", type: "int", useNull: !0 },
-      { name: "CustomerRef", type: "string", max: 50 },
-      { name: "ProjectStart", type: "date", dateFormat: "Y-m-d" },
-      { name: "ProjectEnd", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "MarkupModelId", type: "int", allowBlank: !1 },
-      { name: "WorkplaceAddress1", type: "string", max: 50 },
-      { name: "WorkplaceAddress2", type: "string", max: 50 },
-      { name: "WorkplaceZipcode", type: "string", max: 50 },
-      { name: "WorkplaceCity", type: "string", max: 50 },
-      { name: "WorkplaceDistance", type: "int" },
-      { name: "FinalInspectionDate", type: "date", dateFormat: "Y-m-d" },
-      { name: "GuaranteeTime", type: "int" },
-      { name: "GuaranteeInspectionDate", type: "date", dateFormat: "Y-m-d" },
-      { name: "WOFavorite", type: "boolean", persist: !1 },
-      { name: "FrameworkContractId", type: "int", useNull: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ProjectStore {
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub TagField1Id : Option<String>, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub CustomerAgentId : Option<String>, //int
-    pub Id : String, //int
-    #[serde(default)]
-    pub ProjectNo : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreditRisk : String, //boolean
-    #[serde(default)]
-    pub PriceTypeId : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ProjectStatusId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CustomerId : Option<String>, //int
-    #[serde(default)]
-    pub CustomerName : String, //string
-    #[serde(default)]
-    pub MarkupModelId : String, //int
-    #[serde(default)]
-    pub WorkplaceAddress1 : String, //string
-    #[serde(default)]
-    pub WorkplaceZipcode : String, //string
-    #[serde(default)]
-    pub GuaranteeInspectionDate : String, //date
-    #[serde(default)]
-    pub TagField2Id : Option<String>, //int
-    #[serde(default)]
-    pub ParentProjectId : Option<String>, //int
-    #[serde(default)]
-    pub ProjectManagerId : String, //int
-    #[serde(default)]
-    pub ProjectNote : Option<String>, //string
-    #[serde(default)]
-    pub ProjectEnd : Option<String>, //date
-    #[serde(default)]
-    pub ProjectStart : String, //date
-    #[serde(default)]
-    pub ProjectName : String, //string
-    #[serde(default)]
-    pub WorkplaceCity : String, //string
-    #[serde(default)]
-    pub FinalInspectionDate : String, //date
-    #[serde(default)]
-    pub GuaranteeTime : String, //int
-    #[serde(default)]
-    pub ProjectTypeId : String, //int
-    #[serde(default)]
-    pub WorkplaceAddress2 : String, //string
-    #[serde(default)]
-    pub FrameworkContractId : Option<String>, //int
-    #[serde(default)]
-    pub ContactName : String, //string
-    #[serde(default)]
-    pub WorkplaceDistance : String, //int
-    #[serde(default)]
-    pub WorkLeaderId : String, //int
-    #[serde(default)]
-    pub CustomerRef : String, //string
-    #[serde(default)]
-    pub WOFavorite : String, //boolean
-}
-
-impl TableTrait for ProjectStore { fn name() -> &'static str { "ProjectStore" }}/*
 Ext.define("MEM.model.ProjectTree", {
   extend: MEM.model.Base,
   config: {
@@ -3684,23 +3940,29 @@ Ext.define("MEM.model.ProjectTree", {
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectTreeStore {
-    pub Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ProjectNo : String, //string
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub ProjectStatusId : String, //int
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub ProjectName : String, //string
+    #[serde(default)]
+    pub ProjectNo : String, //string
+    #[serde(default)]
+    pub ProjectStatusId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectTreeStore { fn name() -> &'static str { "ProjectTreeStore" }}/*
@@ -3713,16 +3975,22 @@ pub struct ProjectTypeStore {
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub TypeName : String, //string
-    pub Id : String, //int
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub TypeName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ProjectTypeStore { fn name() -> &'static str { "ProjectTypeStore" }}/*
@@ -3748,28 +4016,34 @@ Ext.define("MEM.model.Resource", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ResourceStore {
     #[serde(default)]
-    pub CreditProjectId : String, //int
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub CreditProjectName : String, //string
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ResourceNo : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditProjectId : String, //int
+    #[serde(default)]
+    pub CreditProjectName : String, //string
     #[serde(default)]
     pub CreditProjectNo : String, //string
     #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
     pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullDescription : String, //string
     pub Id : String, //int
+    #[serde(default)]
+    pub ResourceNo : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ResourceStore { fn name() -> &'static str { "ResourceStore" }}/*
@@ -3859,93 +4133,79 @@ Ext.define("MEM.model.Revenue", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct RevenueStore {
     #[serde(default)]
-    pub InvoiceAmount : String, //float
-    #[serde(default)]
-    pub Locked : String, //bool
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub VerificationNo : String, //string
-    #[serde(default)]
     pub AccountNo : String, //string
-    #[serde(default)]
-    pub WorkOrderNo : Option<String>, //int
-    #[serde(default)]
-    pub WorkOrderId : Option<String>, //int
-    #[serde(default)]
-    pub ExtInvoiceNo : Option<String>, //string
-    #[serde(default)]
-    pub TransactionType : String, //string
-    #[serde(default)]
-    pub Notes : Option<String>, //string
-    #[serde(default)]
-    pub SupplierInvoiceId : String, //int
     #[serde(default)]
     pub ApprovedByProduction : String, //bool
     #[serde(default)]
-    pub Invoiceable : String, //bool
-    #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub IsScanned : String, //bool
-    #[serde(default)]
-    pub CustomerNo : Option<String>, //string
-    #[serde(default)]
-    pub ExtVerificationId : Option<String>, //string
-    #[serde(default)]
-    pub ScannedUrl : Option<String>, //string
-    #[serde(default)]
-    pub InvoiceId : Option<String>, //int
-    #[serde(default)]
-    pub WorkOrderName : Option<String>, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CustomerPrice : String, //float
-    #[serde(default)]
-    pub Invoiced : String, //bool
-    #[serde(default)]
-    pub RevenueTransaction : String, //bool
-    #[serde(default)]
-    pub Mark2 : Option<String>, //string
-    #[serde(default)]
-    pub TransactionNote : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub LedgerDate : String, //date
-    #[serde(default)]
-    pub Mark1 : Option<String>, //string
-    #[serde(default)]
-    pub MarkupAmount : String, //float
-}
-
-impl TableTrait for RevenueStore { fn name() -> &'static str { "RevenueStore" }}/*
-Ext.define("MEM.model.Setting", {
-  extend: Ext.data.Model,
-  config: { fields: [{ name: "Name" }, { name: "Value" }]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct SettingStore {
-    pub Id : String, //int
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub Changed : String, //date
+    pub CreatedName : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub CustomerNo : Option<String>, //string
+    #[serde(default)]
+    pub CustomerPrice : String, //float
     #[serde(default)]
     pub Disabled : String, //boolean
+    #[serde(default)]
+    pub ExtInvoiceNo : Option<String>, //string
+    #[serde(default)]
+    pub ExtVerificationId : Option<String>, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceAmount : String, //float
+    #[serde(default)]
+    pub InvoiceId : Option<String>, //int
+    #[serde(default)]
+    pub Invoiceable : String, //bool
+    #[serde(default)]
+    pub Invoiced : String, //bool
+    #[serde(default)]
+    pub IsScanned : String, //bool
+    #[serde(default)]
+    pub LedgerDate : String, //date
+    #[serde(default)]
+    pub Locked : String, //bool
+    #[serde(default)]
+    pub Mark1 : Option<String>, //string
+    #[serde(default)]
+    pub Mark2 : Option<String>, //string
+    #[serde(default)]
+    pub MarkupAmount : String, //float
+    #[serde(default)]
+    pub Notes : Option<String>, //string
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub RevenueTransaction : String, //bool
+    #[serde(default)]
+    pub ScannedUrl : Option<String>, //string
+    #[serde(default)]
+    pub SupplierInvoiceId : String, //int
+    #[serde(default)]
+    pub TransactionNote : String, //string
+    #[serde(default)]
+    pub TransactionType : String, //string
+    #[serde(default)]
+    pub VerificationNo : String, //string
+    #[serde(default)]
+    pub WorkOrderId : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderName : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderNo : Option<String>, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for SettingStore { fn name() -> &'static str { "SettingStore" }}/*
+impl TableTrait for RevenueStore { fn name() -> &'static str { "RevenueStore" }}/*
 Ext.define("MEM.model.ServiceCategory", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
@@ -3953,21 +4213,53 @@ Ext.define("MEM.model.ServiceCategory", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ServiceCategoryStore {
     #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
     pub ChangedId : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
     pub Name : String, //string
     #[serde(default)]
-    pub Changed : String, //date
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for ServiceCategoryStore { fn name() -> &'static str { "ServiceCategoryStore" }}/*
+Ext.define("MEM.model.Setting", {
+  extend: Ext.data.Model,
+  config: { fields: [{ name: "Name" }, { name: "Value" }]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct SettingStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for SettingStore { fn name() -> &'static str { "SettingStore" }}/*
 Ext.define("MEM.model.StaffList", {
   extend: MEM.model.Base,
   config: {
@@ -4014,49 +4306,165 @@ Ext.define("MEM.model.StaffList", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct StaffListStore {
     #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub CheckedIn : String, //date
+    #[serde(default)]
+    pub CheckedInTime : String, //string
+    #[serde(default)]
+    pub CheckedOut : String, //date
+    #[serde(default)]
+    pub CheckedOutTime : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
     pub CustomerName : String, //string
+    #[serde(default)]
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullName : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub IdNo : String, //string
+    #[serde(default)]
+    pub LogId : String, //int
+    #[serde(default)]
+    pub Origin : Option<String>, //string
     #[serde(default)]
     pub OriginId : String, //int
     #[serde(default)]
+    pub Present : String, //string
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub isEmployee : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for StaffListStore { fn name() -> &'static str { "StaffListStore" }}/*
+Ext.define("MEM.model.StaffLog", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "Created", type: "string", dateFormat: "time" },
+      { name: "CreatedId", type: "int" },
+      { name: "Changed", type: "string", dateFormat: "time" },
+      { name: "ChangedId", type: "int" },
+      { name: "DiaryId", type: "int" },
+      { name: "ProjectId", type: "int" },
+      { name: "IdNo", type: "string" },
+      { name: "Origin", type: "string", useNull: !0 },
+      { name: "OriginId", type: "int" },
+      { name: "CheckedIn", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
+      {
+        name: "CheckedInTime",
+        type: "string",
+        convert: function (b, a) {
+          return a.timeDisplay(b, a, "CheckedIn");
+        },
+      },
+      { name: "CheckedOut", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
+      { name: "FullName", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct StaffLogStore {
+    #[serde(default)]
+    pub Changed : String, //string
+    #[serde(default)]
+    pub ChangedId : String, //int
+    #[serde(default)]
+    pub CheckedIn : String, //date
+    #[serde(default)]
+    pub CheckedInTime : String, //string
+    #[serde(default)]
+    pub CheckedOut : String, //date
+    #[serde(default)]
+    pub Created : String, //string
+    #[serde(default)]
+    pub CreatedId : String, //int
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
     pub FullName : String, //string
     #[serde(default)]
-    pub Present : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub IdNo : String, //string
+    #[serde(default)]
+    pub Origin : Option<String>, //string
+    #[serde(default)]
+    pub OriginId : String, //int
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for StaffLogStore { fn name() -> &'static str { "StaffLogStore" }}/*
+Ext.define("MEM.model.StaffPreviousDay", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "Created", type: "string", dateFormat: "time" },
+      { name: "CreatedId", type: "int" },
+      { name: "Changed", type: "string", dateFormat: "time" },
+      { name: "ChangedId", type: "int" },
+      { name: "IdNo", type: "string" },
+      { name: "DiaryId", type: "int" },
+      { name: "ProjectId", type: "int" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct StaffPreviousDayStore {
+    #[serde(default)]
+    pub Changed : String, //string
+    #[serde(default)]
+    pub ChangedId : String, //int
+    #[serde(default)]
+    pub Created : String, //string
+    #[serde(default)]
+    pub CreatedId : String, //int
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub Id : String, //int
     #[serde(default)]
     pub IdNo : String, //string
     #[serde(default)]
     pub ProjectId : String, //int
     #[serde(default)]
-    pub CheckedIn : String, //date
-    pub Id : String, //int
+    pub isField : String, //boolean
     #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub CheckedInTime : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CheckedOut : String, //date
-    #[serde(default)]
-    pub DiaryId : String, //int
-    #[serde(default)]
-    pub LogId : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CheckedOutTime : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Origin : Option<String>, //string
-    #[serde(default)]
-    pub isEmployee : String, //bool
-    #[serde(default)]
-    pub Disabled : String, //boolean
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for StaffListStore { fn name() -> &'static str { "StaffListStore" }}/*
+impl TableTrait for StaffPreviousDayStore { fn name() -> &'static str { "StaffPreviousDayStore" }}/*
 Ext.define("MEM.model.StatusHistory", {
   extend: MEM.model.Base,
   config: {
@@ -4070,25 +4478,70 @@ Ext.define("MEM.model.StatusHistory", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct StatusHistoryStore {
     #[serde(default)]
-    pub Created : String, //date
+    pub Changed : String, //data
     #[serde(default)]
     pub ChangedId : String, //string
-    pub Id : String, //int
+    #[serde(default)]
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
-    pub Changed : String, //data
+    pub FullName : String, //string
+    pub Id : String, //int
     #[serde(default)]
     pub ProjectStatusHistoryId : String, //int
     #[serde(default)]
-    pub FullName : String, //string
-    #[serde(default)]
     pub StatusName : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for StatusHistoryStore { fn name() -> &'static str { "StatusHistoryStore" }}/*
+Ext.define("MEM.model.Supplier", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
+      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
+      { name: "OrganizationNo", type: "string", max: 15 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct SupplierStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub CustomerNo : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub Id : String, //int
+    #[serde(default)]
+    pub OrganizationNo : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for SupplierStore { fn name() -> &'static str { "SupplierStore" }}/*
 Ext.define("MEM.model.Tag", {
   extend: MEM.model.Base,
   config: {
@@ -4100,23 +4553,493 @@ Ext.define("MEM.model.Tag", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct TagStore {
     #[serde(default)]
-    pub TagValue : String, //string
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub TagName : String, //string
+    #[serde(default)]
+    pub TagValue : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for TagStore { fn name() -> &'static str { "TagStore" }}/*
+Ext.define("MEM.model.Time", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "FullName", type: "string", max: 100 },
+      { name: "ProjectId", type: "int" },
+      { name: "AbsenceProjectId", type: "int", useNull: !0 },
+      {
+        name: "Absence",
+        type: "bool",
+        convert: function (c, b) {
+          var a = MEM.app.getController("Common");
+          return b.get("ProjectId") != a.absenceProjectId() ? 0 : 1;
+        },
+      },
+      {
+        name: "ProjectName",
+        type: "string",
+        max: 255,
+        sortable: !0,
+        convert: function (b, c) {
+          if (b) {
+            return b;
+          } else {
+            var d = Ext.getStore("MyCloneProjectListAllStore"),
+              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
+            if (a) {
+              return a.get("ProjectName");
+            } else {
+              return "";
+            }
+          }
+        },
+      },
+      {
+        name: "ProjectNo",
+        type: "string",
+        max: 20,
+        sortable: !0,
+        sortType: "asInt",
+        convert: function (b, c) {
+          if (b) {
+            return b;
+          } else {
+            var d = Ext.getStore("MyCloneProjectListAllStore"),
+              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
+            if (a) {
+              return a.get("ProjectNo");
+            } else {
+              return "";
+            }
+          }
+        },
+      },
+      {
+        name: "Project",
+        type: "string",
+        max: 255,
+        convert: function (d, b) {
+          var c = Ext.getStore("MyCloneProjectListAllStore"),
+            a;
+          a = c.findRecord("Id", b.get("ProjectId"), 0, !1, !0, !0);
+          if (a) {
+            return a.get("ProjectNo") + ", " + a.get("ProjectName");
+          }
+        },
+      },
+      {
+        name: "ProjectStatus",
+        type: "string",
+        max: 255,
+        convert: function (e, c) {
+          var d = Ext.getStore("MyCloneProjectListAllStore"),
+            b = Ext.getStore("MyProjectStatusStore"),
+            a;
+          a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
+          if (a) {
+            b = b.findRecord("Id", a.get("ProjectStatusId"), 0, !1, !0, !0);
+            return b.get("StatusCode");
+          } else {
+            return null;
+          }
+        },
+      },
+      { name: "WorkOrderId", type: "int", useNull: !0 },
+      {
+        name: "WorkOrderNo",
+        type: "int",
+        useNull: !0,
+        convert: function (b, c) {
+          var a = Ext.getStore("MyWorkOrderListStore").findRecord(
+            "Id",
+            c.get("WorkOrderId"),
+            0,
+            !1,
+            !0,
+            !0
+          );
+          if (a && a.get("Addition")) {
+            return AWOpad(b, 3);
+          }
+          return b;
+        },
+      },
+      { name: "WOAWONo", type: "string", max: 10, sortable: !0 },
+      { name: "WorkOrderName", type: "string", max: 255, sortable: !0 },
+      { name: "RegDate", type: "string", max: 10, sortType: "asDate" },
+      { name: "Debit", type: "boolean", defaultValue: !0 },
+      { name: "ProfessionItemId", type: "int" },
+      { name: "ProfessionCode", type: "string", max: 20 },
+      { name: "ProfessionAccountNo", type: "string", max: 5 },
+      { name: "Unit", type: "string", max: 5 },
+      {
+        name: "Hours",
+        type: "float",
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      {
+        name: "BreakTime",
+        type: "float",
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      {
+        name: "StartTime",
+        useNull: !0,
+        type: "date",
+        dateFormat: "Y-m-d H:i:s",
+        convert: function (b, h) {
+          var f,
+            d = new Date(h.get("RegDate")),
+            c,
+            e = getSetting("Time.Timestamp.Interval"),
+            g = e ? parseInt(e) : 15;
+          if (typeof b == "string") {
+            var a = b.split(/[-:T]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct TimeStore {
+    #[serde(default)]
+    pub Absence : String, //bool
+    #[serde(default)]
+    pub AbsenceProjectId : Option<String>, //int
+    #[serde(default)]
+    pub BreakTime : String, //float
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub TagName : String, //string
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Debit : String, //boolean
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullName : String, //string
+    #[serde(default)]
+    pub Hours : String, //float
+    pub Id : String, //int
+    #[serde(default)]
+    pub ProfessionAccountNo : String, //string
+    #[serde(default)]
+    pub ProfessionCode : String, //string
+    #[serde(default)]
+    pub ProfessionItemId : String, //int
+    #[serde(default)]
+    pub Project : String, //string
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
+    pub ProjectNo : String, //string
+    #[serde(default)]
+    pub ProjectStatus : String, //string
+    #[serde(default)]
+    pub RegDate : String, //string
+    #[serde(default)]
+    pub Unit : String, //string
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub WOAWONo : String, //string
+    #[serde(default)]
+    pub WorkOrderId : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderName : String, //string
+    #[serde(default)]
+    pub WorkOrderNo : Option<String>, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for TagStore { fn name() -> &'static str { "TagStore" }}/*
+impl TableTrait for TimeStore { fn name() -> &'static str { "TimeStore" }}/*
+Ext.define("MEM.model.User", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "FullName", type: "string" },
+      { name: "UserLogin", type: "string" },
+      { name: "PersonalNo", type: "string" },
+      { name: "Languagecode", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullName : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub Languagecode : String, //string
+    #[serde(default)]
+    pub PersonalNo : String, //string
+    #[serde(default)]
+    pub UserLogin : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserStore { fn name() -> &'static str { "UserStore" }}/*
+Ext.define("MEM.model.UserAccess", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "ObjectRightId", type: "int" },
+      { name: "ObjectRightName", type: "string", max: 50 },
+      { name: "ObjectName", type: "string", max: 50 },
+      { name: "IsProjectRight", type: "bool" },
+      { name: "AccessRight", type: "int" },
+      { name: "WriteRight", type: "int" },
+      { name: "ReadRight", type: "int" },
+      { name: "OwnRight", type: "int" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserAccessStore {
+    #[serde(default)]
+    pub AccessRight : String, //int
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub IsProjectRight : String, //bool
+    #[serde(default)]
+    pub ObjectName : String, //string
+    #[serde(default)]
+    pub ObjectRightId : String, //int
+    #[serde(default)]
+    pub ObjectRightName : String, //string
+    #[serde(default)]
+    pub OwnRight : String, //int
+    #[serde(default)]
+    pub ReadRight : String, //int
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub WriteRight : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserAccessStore { fn name() -> &'static str { "UserAccessStore" }}/*
+Ext.define("MEM.model.UserFavoriteArticle", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleId", type: "int" },
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore"),
+            b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return Ext.String.format(
+              "{0} ({1})",
+              a.get("Description"),
+              b.get("Description")
+            );
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "UserId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserFavoriteArticleStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub ArticleId : String, //int
+    #[serde(default)]
+    pub ArticleNo : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FavoriteListId : String, //int
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserFavoriteArticleStore { fn name() -> &'static str { "UserFavoriteArticleStore" }}/*
+Ext.define("MEM.model.UserFavoriteList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "Name", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserFavoriteListStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FavoriteListId : String, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserFavoriteListStore { fn name() -> &'static str { "UserFavoriteListStore" }}/*
+Ext.define("MEM.model.UserList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "FullName", type: "string" },
+      { name: "Signature", type: "string" },
+      { name: "EmployeeNo", type: "string" },
+      { name: "PersonalNo", type: "string" },
+      { name: "ProfessionCode", type: "string" },
+      { name: "ProfessionItemId", type: "int" },
+      { name: "OrganizationalProjectId", type: "int" },
+      { name: "PartnerSupplier", type: "bool" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserListStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub EmployeeNo : String, //string
+    #[serde(default)]
+    pub FullName : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub OrganizationalProjectId : String, //int
+    #[serde(default)]
+    pub PartnerSupplier : String, //bool
+    #[serde(default)]
+    pub PersonalNo : String, //string
+    #[serde(default)]
+    pub ProfessionCode : String, //string
+    #[serde(default)]
+    pub ProfessionItemId : String, //int
+    #[serde(default)]
+    pub Signature : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserListStore { fn name() -> &'static str { "UserListStore" }}/*
 Ext.define("MEM.model.UserPoolWorkOrderList", {
   extend: MEM.model.Base,
   config: {
@@ -4200,65 +5123,307 @@ Ext.define("MEM.model.UserPoolWorkOrderList", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserPoolWorkOrderListStore {
     #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Project : String, //string
-    #[serde(default)]
-    pub WorkOrderNo : String, //int
-    #[serde(default)]
-    pub WorkOrderStatusCode : String, //int
-    #[serde(default)]
-    pub HaveDocument : String, //bool
-    #[serde(default)]
-    pub ResponsibleForemanId : String, //int
-    #[serde(default)]
-    pub CustomerFavoriteArticlePrice : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ProjectStatusCode : String, //int
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
-    pub ProductionStartDateDisplay : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ProductionStart : Option<String>, //date
+    pub Addition : String, //bool
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub ProjectFavorite : String, //boolean
+    pub ChangedId : String, //string
     #[serde(default)]
-    pub ProjectId : String, //int
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerFavoriteArticlePrice : String, //boolean
     #[serde(default)]
     pub CustomerFavoritePriceList : String, //boolean
-    #[serde(default)]
-    pub ResponsibleServiceId : String, //int
-    #[serde(default)]
-    pub Addition : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub ProjectNo : String, //string
-    #[serde(default)]
-    pub Name : String, //string
     #[serde(default)]
     pub CustomerName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
-    pub ProjectName : String, //string
+    pub HaveDocument : String, //bool
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub ProductionEnd : Option<String>, //date
+    #[serde(default)]
+    pub ProductionStart : Option<String>, //date
+    #[serde(default)]
+    pub ProductionStartDateDisplay : String, //string
     #[serde(default)]
     pub ProductionStartTimeDisplay : String, //string
     #[serde(default)]
     pub ProductionStartWeekDay : String, //string
     #[serde(default)]
-    pub ProductionEnd : Option<String>, //date
+    pub Project : String, //string
+    #[serde(default)]
+    pub ProjectFavorite : String, //boolean
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
+    pub ProjectNo : String, //string
+    #[serde(default)]
+    pub ProjectStatusCode : String, //int
+    #[serde(default)]
+    pub ResponsibleForemanId : String, //int
+    #[serde(default)]
+    pub ResponsibleServiceId : String, //int
+    #[serde(default)]
+    pub WorkOrderId : String, //int
+    #[serde(default)]
+    pub WorkOrderNo : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusCode : String, //int
     #[serde(default)]
     pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for UserPoolWorkOrderListStore { fn name() -> &'static str { "UserPoolWorkOrderListStore" }}/*
+Ext.define("MEM.model.UserProjectWorkOrderList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int" },
+      { name: "ResponsibleServiceId", type: "int" },
+      { name: "WorkPoolId", type: "int" },
+      { name: "WorkOrderStatusId", type: "int" },
+      { name: "ProjectName", type: "string", max: 50 },
+      { name: "WorkOrderNo", type: "int", readOnly: !0 },
+      {
+        name: "BasicScope",
+        type: "bool",
+        readOnly: !0,
+        convert: function (b, a) {
+          if (a.get("WorkOrderNo") == 1) {
+            return !0;
+          }
+          return !1;
+        },
+      },
+      { name: "Addition", type: "bool", defaultValue: !1 },
+      { name: "Name", type: "string", max: 100 },
+      {
+        name: "FullName",
+        type: "string",
+        max: 100,
+        convert: function (b, a) {
+          if (a.get("Addition")) {
+            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          } else {
+            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          }
+        },
+      },
+      { name: "CustomerId", type: "int", persist: !1 },
+      { name: "CustomerFavoritePriceList", type: "boolean", persist: !1 },
+      { name: "CustomerFavoriteArticlePrice", type: "boolean", persist: !1 },
+      { name: "ProjectFavorite", type: "boolean", persist: !1 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserProjectWorkOrderListStore {
+    #[serde(default)]
+    pub Addition : String, //bool
+    #[serde(default)]
+    pub BasicScope : String, //bool
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerFavoriteArticlePrice : String, //boolean
+    #[serde(default)]
+    pub CustomerFavoritePriceList : String, //boolean
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullName : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub ProjectFavorite : String, //boolean
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub ProjectName : String, //string
+    #[serde(default)]
+    pub ResponsibleServiceId : String, //int
+    #[serde(default)]
+    pub WorkOrderNo : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub WorkPoolId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserProjectWorkOrderListStore { fn name() -> &'static str { "UserProjectWorkOrderListStore" }}/*
+Ext.define("MEM.model.UserRight", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "ObjectRightId", type: "int" },
+      { name: "ObjectRightName", type: "string", max: 50 },
+      { name: "ObjectName", type: "string", max: 50 },
+      { name: "WebClient", type: "bool" },
+      { name: "MobileClient", type: "bool" },
+      { name: "ApiClient", type: "bool" },
+      { name: "AdminClient", type: "bool" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserRightStore {
+    #[serde(default)]
+    pub AdminClient : String, //bool
+    #[serde(default)]
+    pub ApiClient : String, //bool
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub MobileClient : String, //bool
+    #[serde(default)]
+    pub ObjectName : String, //string
+    #[serde(default)]
+    pub ObjectRightId : String, //int
+    #[serde(default)]
+    pub ObjectRightName : String, //string
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub WebClient : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserRightStore { fn name() -> &'static str { "UserRightStore" }}/*
+Ext.define("MEM.model.UserSession", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "SessionId", type: "string", max: 128 },
+      { name: "SessionUserId", type: "int" },
+      { name: "ImpersonatedUserId", type: "int" },
+      { name: "Languagecode", type: "string" },
+      {
+        name: "FullName",
+        type: "string",
+        max: 50,
+        convert: function (d, b) {
+          var c = Ext.getStore("MyUserListStore"),
+            a;
+          a = c.findRecord("Id", b.get("ImpersonatedUserId"), 0, !1, !0, !0);
+          if (a) {
+            return a.get("FullName");
+          }
+          return "";
+        },
+      },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserSessionStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullName : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ImpersonatedUserId : String, //int
+    #[serde(default)]
+    pub Languagecode : String, //string
+    #[serde(default)]
+    pub SessionId : String, //string
+    #[serde(default)]
+    pub SessionUserId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserSessionStore { fn name() -> &'static str { "UserSessionStore" }}/*
+Ext.define("MEM.model.UserSetting", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "SettingKey", type: "string", max: 50 },
+      { name: "SettingValue", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct UserSettingStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    pub Id : String, //int
+    #[serde(default)]
+    pub SettingKey : String, //string
+    #[serde(default)]
+    pub SettingValue : String, //string
+    #[serde(default)]
+    pub UserId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for UserSettingStore { fn name() -> &'static str { "UserSettingStore" }}/*
 Ext.define("MEM.model.UserWorkOrderList", {
   extend: MEM.model.Base,
   config: {
@@ -4351,322 +5516,67 @@ Ext.define("MEM.model.UserWorkOrderList", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserWorkOrderListStore {
     #[serde(default)]
-    pub ResponsibleServiceId : String, //int
-    #[serde(default)]
-    pub ProjectStatusCode : String, //int
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
     pub Addition : String, //bool
     #[serde(default)]
-    pub ProductionStart : Option<String>, //date
+    pub Changed : String, //date
     #[serde(default)]
-    pub ProductionStartTimeDisplay : String, //string
-    #[serde(default)]
-    pub FullName : String, //string
+    pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub ProductionStartWeekDay : String, //string
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
     pub CreatedId : String, //string
-    pub Id : String, //int
     #[serde(default)]
-    pub ResponsibleForemanId : String, //int
+    pub CreatedName : String, //string
     #[serde(default)]
-    pub ProjectName : String, //string
-    #[serde(default)]
-    pub Project : String, //string
-    #[serde(default)]
-    pub WorkOrderStatusCode : String, //int
-    #[serde(default)]
-    pub HaveDocument : String, //bool
+    pub CustomerName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
-    pub ProjectNo : String, //string
+    pub FullName : String, //string
     #[serde(default)]
-    pub Changed : String, //date
+    pub HaveDocument : String, //bool
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
     #[serde(default)]
     pub ProductionEnd : Option<String>, //date
     #[serde(default)]
-    pub WorkOrderStatusId : String, //int
-    #[serde(default)]
-    pub WorkOrderNo : String, //int
+    pub ProductionStart : Option<String>, //date
     #[serde(default)]
     pub ProductionStartDateDisplay : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub ProductionStartTimeDisplay : String, //string
     #[serde(default)]
-    pub CustomerName : String, //string
-}
-
-impl TableTrait for UserWorkOrderListStore { fn name() -> &'static str { "UserWorkOrderListStore" }}/*
-Ext.define("MEM.model.UserProjectWorkOrderList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int" },
-      { name: "ResponsibleServiceId", type: "int" },
-      { name: "WorkPoolId", type: "int" },
-      { name: "WorkOrderStatusId", type: "int" },
-      { name: "ProjectName", type: "string", max: 50 },
-      { name: "WorkOrderNo", type: "int", readOnly: !0 },
-      {
-        name: "BasicScope",
-        type: "bool",
-        readOnly: !0,
-        convert: function (b, a) {
-          if (a.get("WorkOrderNo") == 1) {
-            return !0;
-          }
-          return !1;
-        },
-      },
-      { name: "Addition", type: "bool", defaultValue: !1 },
-      { name: "Name", type: "string", max: 100 },
-      {
-        name: "FullName",
-        type: "string",
-        max: 100,
-        convert: function (b, a) {
-          if (a.get("Addition")) {
-            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          } else {
-            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          }
-        },
-      },
-      { name: "CustomerId", type: "int", persist: !1 },
-      { name: "CustomerFavoritePriceList", type: "boolean", persist: !1 },
-      { name: "CustomerFavoriteArticlePrice", type: "boolean", persist: !1 },
-      { name: "ProjectFavorite", type: "boolean", persist: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserProjectWorkOrderListStore {
+    pub ProductionStartWeekDay : String, //string
     #[serde(default)]
-    pub CustomerId : String, //int
+    pub Project : String, //string
     #[serde(default)]
     pub ProjectId : String, //int
     #[serde(default)]
-    pub CreatedId : String, //string
+    pub ProjectName : String, //string
     #[serde(default)]
-    pub WorkOrderStatusId : String, //int
+    pub ProjectNo : String, //string
+    #[serde(default)]
+    pub ProjectStatusCode : String, //int
+    #[serde(default)]
+    pub ResponsibleForemanId : String, //int
     #[serde(default)]
     pub ResponsibleServiceId : String, //int
     #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Addition : String, //bool
-    #[serde(default)]
-    pub CustomerFavoritePriceList : String, //boolean
-    #[serde(default)]
-    pub WorkPoolId : String, //int
-    #[serde(default)]
-    pub CustomerFavoriteArticlePrice : String, //boolean
-    #[serde(default)]
-    pub BasicScope : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ProjectFavorite : String, //boolean
+    pub WorkOrderId : String, //int
     #[serde(default)]
     pub WorkOrderNo : String, //int
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub WorkOrderStatusCode : String, //int
     #[serde(default)]
-    pub Name : String, //string
+    pub WorkOrderStatusId : String, //int
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub isField : String, //boolean
     #[serde(default)]
-    pub FullName : String, //string
-    #[serde(default)]
-    pub ProjectName : String, //string
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for UserProjectWorkOrderListStore { fn name() -> &'static str { "UserProjectWorkOrderListStore" }}/*
-Ext.define("MEM.model.UserRight", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "ObjectRightId", type: "int" },
-      { name: "ObjectRightName", type: "string", max: 50 },
-      { name: "ObjectName", type: "string", max: 50 },
-      { name: "WebClient", type: "bool" },
-      { name: "MobileClient", type: "bool" },
-      { name: "ApiClient", type: "bool" },
-      { name: "AdminClient", type: "bool" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserRightStore {
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ApiClient : String, //bool
-    #[serde(default)]
-    pub ObjectRightId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ObjectName : String, //string
-    #[serde(default)]
-    pub WebClient : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub UserId : String, //int
-    #[serde(default)]
-    pub ObjectRightName : String, //string
-    #[serde(default)]
-    pub MobileClient : String, //bool
-    #[serde(default)]
-    pub AdminClient : String, //bool
-}
-
-impl TableTrait for UserRightStore { fn name() -> &'static str { "UserRightStore" }}/*
-Ext.define("MEM.model.UserAccess", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "ObjectRightId", type: "int" },
-      { name: "ObjectRightName", type: "string", max: 50 },
-      { name: "ObjectName", type: "string", max: 50 },
-      { name: "IsProjectRight", type: "bool" },
-      { name: "AccessRight", type: "int" },
-      { name: "WriteRight", type: "int" },
-      { name: "ReadRight", type: "int" },
-      { name: "OwnRight", type: "int" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserAccessStore {
-    #[serde(default)]
-    pub ObjectName : String, //string
-    #[serde(default)]
-    pub WriteRight : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub AccessRight : String, //int
-    #[serde(default)]
-    pub ObjectRightId : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ReadRight : String, //int
-    #[serde(default)]
-    pub UserId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub IsProjectRight : String, //bool
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ObjectRightName : String, //string
-    #[serde(default)]
-    pub OwnRight : String, //int
-}
-
-impl TableTrait for UserAccessStore { fn name() -> &'static str { "UserAccessStore" }}/*
-Ext.define("MEM.model.UserSession", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "SessionId", type: "string", max: 128 },
-      { name: "SessionUserId", type: "int" },
-      { name: "ImpersonatedUserId", type: "int" },
-      { name: "Languagecode", type: "string" },
-      {
-        name: "FullName",
-        type: "string",
-        max: 50,
-        convert: function (d, b) {
-          var c = Ext.getStore("MyUserListStore"),
-            a;
-          a = c.findRecord("Id", b.get("ImpersonatedUserId"), 0, !1, !0, !0);
-          if (a) {
-            return a.get("FullName");
-          }
-          return "";
-        },
-      },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserSessionStore {
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub FullName : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub SessionUserId : String, //int
-    #[serde(default)]
-    pub ImpersonatedUserId : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Languagecode : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub SessionId : String, //string
-}
-
-impl TableTrait for UserSessionStore { fn name() -> &'static str { "UserSessionStore" }}/*
-Ext.define("MEM.model.UserSetting", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "SettingKey", type: "string", max: 50 },
-      { name: "SettingValue", type: "string" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserSettingStore {
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub UserId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub SettingValue : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub SettingKey : String, //string
-}
-
-impl TableTrait for UserSettingStore { fn name() -> &'static str { "UserSettingStore" }}/*
+impl TableTrait for UserWorkOrderListStore { fn name() -> &'static str { "UserWorkOrderListStore" }}/*
 Ext.define("MEM.model.Vat", {
   extend: MEM.model.Base,
   config: {
@@ -4689,7 +5599,6 @@ Ext.define("MEM.model.Vat", {
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct VatStore {
-    pub Id : String, //int
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
@@ -4698,324 +5607,22 @@ pub struct VatStore {
     pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Description : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub VatPercent : Option<String>, //float
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
 impl TableTrait for VatStore { fn name() -> &'static str { "VatStore" }}/*
-Ext.define("MEM.model.WorkOrderAssignedLocation", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int", useNull: !0 },
-      { name: "WorkOrderNo", type: "int", max: 10 },
-      {
-        name: "WOAWONo",
-        type: "int",
-        meType: "meShortText",
-        persist: !1,
-        useNull: !0,
-        convert: function (b, a) {
-          if (a.get("Addition") == 1) {
-            return (
-              getSetting("System.Prefix.VariationNo") +
-              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
-            );
-          } else {
-            return a.get("WorkOrderNo");
-          }
-        },
-      },
-      { name: "Name", type: "string", meType: "meLongText", max: 100 },
-      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
-      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
-      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
-      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
-      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
-      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
-      { name: "ProjectStatusCode", type: "int" },
-      { name: "ProjectStatusId", type: "int" },
-      { name: "ResponsibleServiceId", type: "int" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderAssignedLocationStore {
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub GpsY : Option<String>, //int
-    #[serde(default)]
-    pub WorkOrderNo : String, //int
-    #[serde(default)]
-    pub WorkOrderStatusId : String, //int
-    #[serde(default)]
-    pub WorkOrderStatusCode : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CustomerName : String, //string
-    #[serde(default)]
-    pub WorkplaceAddress : String, //string
-    #[serde(default)]
-    pub ProjectId : Option<String>, //int
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub GpsX : Option<String>, //int
-    #[serde(default)]
-    pub ResponsibleServiceId : String, //int
-    #[serde(default)]
-    pub ProjectStatusCode : String, //int
-    #[serde(default)]
-    pub WOAWONo : Option<String>, //int
-    #[serde(default)]
-    pub ProjectStatusId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    pub Id : String, //int
-}
-
-impl TableTrait for WorkOrderAssignedLocationStore { fn name() -> &'static str { "WorkOrderAssignedLocationStore" }}/*
-Ext.define("MEM.model.WorkOrderList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "ProjectId", type: "int" },
-      {
-        name: "WorkOrderId",
-        type: "int",
-        convert: function (a, b) {
-          if (a) {
-            return a;
-          }
-          return b.get("Id");
-        },
-      },
-      { name: "ResponsibleServiceId", type: "int" },
-      { name: "ResponsibleForemanId", type: "int" },
-      { name: "CustomerId", type: "int" },
-      { name: "WorkPoolId", type: "int" },
-      { name: "WorkOrderStatusId", type: "int" },
-      { name: "ProjectNo", type: "string", max: 50 },
-      { name: "ProjectName", type: "string", max: 50 },
-      { name: "WorkOrderNo", type: "int", readOnly: !0 },
-      {
-        name: "BasicScope",
-        type: "bool",
-        readOnly: !0,
-        convert: function (b, a) {
-          if (a.get("WorkOrderNo") == 1) {
-            return !0;
-          }
-          return !1;
-        },
-      },
-      { name: "Addition", type: "bool", defaultValue: !1 },
-      { name: "Name", type: "string", max: 100 },
-      {
-        name: "FullName",
-        type: "string",
-        max: 100,
-        convert: function (b, a) {
-          if (a.get("Addition")) {
-            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          } else {
-            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          }
-        },
-      },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderListStore {
-    #[serde(default)]
-    pub Id : String, //int
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
-    pub WorkOrderStatusId : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ProjectName : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub ProjectNo : String, //string
-    #[serde(default)]
-    pub ResponsibleServiceId : String, //int
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub WorkOrderNo : String, //int
-    #[serde(default)]
-    pub BasicScope : String, //bool
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ResponsibleForemanId : String, //int
-    #[serde(default)]
-    pub Addition : String, //bool
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub WorkPoolId : String, //int
-    #[serde(default)]
-    pub FullName : String, //string
-}
-
-impl TableTrait for WorkOrderListStore { fn name() -> &'static str { "WorkOrderListStore" }}/*
-Ext.define("MEM.model.WorkOrderLocation", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int", useNull: !0 },
-      { name: "WorkOrderNo", type: "int", max: 10 },
-      {
-        name: "WOAWONo",
-        type: "int",
-        meType: "meShortText",
-        persist: !1,
-        useNull: !0,
-        convert: function (b, a) {
-          if (a.get("Addition") == 1) {
-            return (
-              getSetting("System.Prefix.VariationNo") +
-              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
-            );
-          } else {
-            return a.get("WorkOrderNo");
-          }
-        },
-      },
-      { name: "Name", type: "string", meType: "meLongText", max: 100 },
-      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
-      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
-      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
-      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
-      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
-      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderLocationStore {
-    #[serde(default)]
-    pub GpsX : Option<String>, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CustomerName : String, //string
-    #[serde(default)]
-    pub WorkOrderNo : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub WOAWONo : Option<String>, //int
-    pub Id : String, //int
-    #[serde(default)]
-    pub ProjectId : Option<String>, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub GpsY : Option<String>, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub WorkOrderStatusId : String, //int
-    #[serde(default)]
-    pub WorkOrderStatusCode : String, //int
-    #[serde(default)]
-    pub WorkplaceAddress : String, //string
-}
-
-impl TableTrait for WorkOrderLocationStore { fn name() -> &'static str { "WorkOrderLocationStore" }}/*
-Ext.define("MEM.model.WorkOrderStatus", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "StatusName", type: "string", max: 50 },
-      { name: "StatusCode", type: "int", sortable: !0, sortType: "asInt" },
-      { name: "StatusColor", type: "string", max: 20 },
-      { name: "TempRec", type: "bool", persist: !1, defaultValue: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderStatusStore {
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub StatusName : String, //string
-    #[serde(default)]
-    pub StatusColor : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub TempRec : String, //bool
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub StatusCode : String, //int
-}
-
-impl TableTrait for WorkOrderStatusStore { fn name() -> &'static str { "WorkOrderStatusStore" }}/*
-Ext.define("MEM.model.WorkOrderStatusRelations", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "WorkOrderStatusId", type: "int", useNull: !0 },
-      { name: "ExternalWorkOrderStatusId", type: "int", useNull: !0 },
-      { name: "AllowExternal", type: "bool", defaultValue: !1 },
-      { name: "RequireExternal", type: "bool", defaultValue: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct WorkOrderStatusRelationsStore {
-    #[serde(default)]
-    pub AllowExternal : String, //bool
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub RequireExternal : String, //bool
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub WorkOrderStatusId : Option<String>, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ExternalWorkOrderStatusId : Option<String>, //int
-}
-
-impl TableTrait for WorkOrderStatusRelationsStore { fn name() -> &'static str { "WorkOrderStatusRelationsStore" }}/*
 Ext.define("MEM.model.WorkOrder", {
   extend: MEM.model.Base,
   config: {
@@ -5117,250 +5724,208 @@ Ext.define("MEM.model.WorkOrder", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderStore {
     #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub GpsX : Option<String>, //int
-    #[serde(default)]
-    pub CustomerRefNo : String, //string
-    #[serde(default)]
-    pub CustomerName : String, //string
-    #[serde(default)]
-    pub WorkFeedback : String, //string
-    #[serde(default)]
-    pub WorkPoolId : Option<String>, //int
-    #[serde(default)]
-    pub CustomerAgentId : Option<String>, //int
-    pub Id : String, //int
-    #[serde(default)]
-    pub OrderDate : String, //date
-    #[serde(default)]
-    pub ReportTimestamp : String, //string
-    #[serde(default)]
-    pub ContactName : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub InvoiceId : Option<String>, //int
-    #[serde(default)]
-    pub CachedWorkCost : Option<String>, //float
-    #[serde(default)]
-    pub FrameworkContractId : Option<String>, //int
-    #[serde(default)]
-    pub ServiceCategoryId : Option<String>, //int
-    #[serde(default)]
-    pub GpsY : Option<String>, //int
-    #[serde(default)]
-    pub ResponsibleForemanId : Option<String>, //int
-    #[serde(default)]
-    pub ProductionEndClockXX : Option<String>, //string
-    #[serde(default)]
-    pub ExternalStatusName : String, //string
-    #[serde(default)]
-    pub WorkOrderDocumentId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub WorkplaceAddress : String, //string
-    #[serde(default)]
-    pub UpdatePrices : String, //bool
-    #[serde(default)]
-    pub WorkOrderNo : String, //int
-    #[serde(default)]
-    pub CreditRisk : String, //boolean
-    #[serde(default)]
-    pub ProductionStartClockXX : Option<String>, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub InvoiceDate : Option<String>, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub WorkOrderStatusCode : String, //int
-    #[serde(default)]
-    pub ResponsibleServiceId : Option<String>, //int
-    #[serde(default)]
-    pub ProductionEnd : Option<String>, //date
-    #[serde(default)]
-    pub CostProjectId : String, //int
-    #[serde(default)]
-    pub ExternalStatusComment : String, //string
-    #[serde(default)]
-    pub ProductionStart : Option<String>, //date
-    #[serde(default)]
-    pub KPIName : String, //string
-    #[serde(default)]
     pub Addition : String, //bool
-    #[serde(default)]
-    pub Invoiced : String, //bool
-    #[serde(default)]
-    pub MarkupModelId : String, //int
-    #[serde(default)]
-    pub OrderAmount : Option<String>, //float
-    #[serde(default)]
-    pub KPIRuleId : Option<String>, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub WorkDescription : String, //string
-    #[serde(default)]
-    pub WorkOrderStatusId : String, //int
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub ExternalWorkOrderStatusId : Option<String>, //int
-    #[serde(default)]
-    pub District : String, //string
-    #[serde(default)]
-    pub ReportSign : String, //string
-    #[serde(default)]
-    pub CachedWorkRevenue : Option<String>, //float
     #[serde(default)]
     pub AdditionStatusId : String, //int
     #[serde(default)]
-    pub ConstructionTypeId : String, //int
-    #[serde(default)]
-    pub FixedPrice : String, //bool
-    #[serde(default)]
-    pub SignOnSite : String, //bool
-    #[serde(default)]
     pub BudgetLevelId : String, //int
-}
-
-impl TableTrait for WorkOrderStore { fn name() -> &'static str { "WorkOrderStore" }}/*
-Ext.define("MEM.model.StaffLog", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "Created", type: "string", dateFormat: "time" },
-      { name: "CreatedId", type: "int" },
-      { name: "Changed", type: "string", dateFormat: "time" },
-      { name: "ChangedId", type: "int" },
-      { name: "DiaryId", type: "int" },
-      { name: "ProjectId", type: "int" },
-      { name: "IdNo", type: "string" },
-      { name: "Origin", type: "string", useNull: !0 },
-      { name: "OriginId", type: "int" },
-      { name: "CheckedIn", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
-      {
-        name: "CheckedInTime",
-        type: "string",
-        convert: function (b, a) {
-          return a.timeDisplay(b, a, "CheckedIn");
-        },
-      },
-      { name: "CheckedOut", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
-      { name: "FullName", type: "string" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct StaffLogStore {
     #[serde(default)]
-    pub FullName : String, //string
+    pub CachedWorkCost : Option<String>, //float
     #[serde(default)]
-    pub Created : String, //string
-    #[serde(default)]
-    pub Changed : String, //string
-    #[serde(default)]
-    pub CheckedOut : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CheckedIn : String, //date
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub Origin : Option<String>, //string
-    #[serde(default)]
-    pub DiaryId : String, //int
-    #[serde(default)]
-    pub IdNo : String, //string
-    #[serde(default)]
-    pub OriginId : String, //int
-    #[serde(default)]
-    pub ChangedId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //int
-    #[serde(default)]
-    pub CheckedInTime : String, //string
-    #[serde(default)]
-    pub Id : String, //int
-}
-
-impl TableTrait for StaffLogStore { fn name() -> &'static str { "StaffLogStore" }}/*
-Ext.define("MEM.model.StaffPreviousDay", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "Created", type: "string", dateFormat: "time" },
-      { name: "CreatedId", type: "int" },
-      { name: "Changed", type: "string", dateFormat: "time" },
-      { name: "ChangedId", type: "int" },
-      { name: "IdNo", type: "string" },
-      { name: "DiaryId", type: "int" },
-      { name: "ProjectId", type: "int" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct StaffPreviousDayStore {
-    #[serde(default)]
-    pub ChangedId : String, //int
-    #[serde(default)]
-    pub ProjectId : String, //int
-    #[serde(default)]
-    pub Created : String, //string
-    #[serde(default)]
-    pub Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub CreatedId : String, //int
-    #[serde(default)]
-    pub IdNo : String, //string
-    #[serde(default)]
-    pub DiaryId : String, //int
-    #[serde(default)]
-    pub Changed : String, //string
-}
-
-impl TableTrait for StaffPreviousDayStore { fn name() -> &'static str { "StaffPreviousDayStore" }}/*
-Ext.define("MEM.model.Supplier", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
-      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
-      { name: "OrganizationNo", type: "string", max: 15 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct SupplierStore {
-    #[serde(default)]
-    pub Id : String, //int
-    #[serde(default)]
-    pub CustomerNo : String, //string
+    pub CachedWorkRevenue : Option<String>, //float
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Disabled : String, //boolean
+    pub ChangedId : String, //string
     #[serde(default)]
-    pub OrganizationNo : String, //string
+    pub ConstructionTypeId : String, //int
+    #[serde(default)]
+    pub ContactName : String, //string
+    #[serde(default)]
+    pub CostProjectId : String, //int
+    #[serde(default)]
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditRisk : String, //boolean
+    #[serde(default)]
+    pub CustomerAgentId : Option<String>, //int
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub CustomerRefNo : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub District : String, //string
+    #[serde(default)]
+    pub ExternalStatusComment : String, //string
+    #[serde(default)]
+    pub ExternalStatusName : String, //string
+    #[serde(default)]
+    pub ExternalWorkOrderStatusId : Option<String>, //int
+    #[serde(default)]
+    pub FixedPrice : String, //bool
+    #[serde(default)]
+    pub FrameworkContractId : Option<String>, //int
+    #[serde(default)]
+    pub GpsX : Option<String>, //int
+    #[serde(default)]
+    pub GpsY : Option<String>, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub InvoiceDate : Option<String>, //date
+    #[serde(default)]
+    pub InvoiceId : Option<String>, //int
+    #[serde(default)]
+    pub Invoiced : String, //bool
+    #[serde(default)]
+    pub KPIName : String, //string
+    #[serde(default)]
+    pub KPIRuleId : Option<String>, //int
+    #[serde(default)]
+    pub MarkupModelId : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub OrderAmount : Option<String>, //float
+    #[serde(default)]
+    pub OrderDate : String, //date
+    #[serde(default)]
+    pub ProductionEnd : Option<String>, //date
+    #[serde(default)]
+    pub ProductionEndClockXX : Option<String>, //string
+    #[serde(default)]
+    pub ProductionStart : Option<String>, //date
+    #[serde(default)]
+    pub ProductionStartClockXX : Option<String>, //string
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub ReportSign : String, //string
+    #[serde(default)]
+    pub ReportTimestamp : String, //string
+    #[serde(default)]
+    pub ResponsibleForemanId : Option<String>, //int
+    #[serde(default)]
+    pub ResponsibleServiceId : Option<String>, //int
+    #[serde(default)]
+    pub ServiceCategoryId : Option<String>, //int
+    #[serde(default)]
+    pub SignOnSite : String, //bool
+    #[serde(default)]
+    pub UpdatePrices : String, //bool
+    #[serde(default)]
+    pub WorkDescription : String, //string
+    #[serde(default)]
+    pub WorkFeedback : String, //string
+    #[serde(default)]
+    pub WorkOrderDocumentId : String, //int
+    #[serde(default)]
+    pub WorkOrderNo : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusCode : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub WorkPoolId : Option<String>, //int
+    #[serde(default)]
+    pub WorkplaceAddress : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for WorkOrderStore { fn name() -> &'static str { "WorkOrderStore" }}/*
+Ext.define("MEM.model.WorkOrderAssignedLocation", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int", useNull: !0 },
+      { name: "WorkOrderNo", type: "int", max: 10 },
+      {
+        name: "WOAWONo",
+        type: "int",
+        meType: "meShortText",
+        persist: !1,
+        useNull: !0,
+        convert: function (b, a) {
+          if (a.get("Addition") == 1) {
+            return (
+              getSetting("System.Prefix.VariationNo") +
+              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
+            );
+          } else {
+            return a.get("WorkOrderNo");
+          }
+        },
+      },
+      { name: "Name", type: "string", meType: "meLongText", max: 100 },
+      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
+      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
+      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
+      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
+      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
+      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
+      { name: "ProjectStatusCode", type: "int" },
+      { name: "ProjectStatusId", type: "int" },
+      { name: "ResponsibleServiceId", type: "int" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct WorkOrderAssignedLocationStore {
+    #[serde(default)]
+    pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
     pub CustomerName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub GpsX : Option<String>, //int
+    #[serde(default)]
+    pub GpsY : Option<String>, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub ProjectId : Option<String>, //int
+    #[serde(default)]
+    pub ProjectStatusCode : String, //int
+    #[serde(default)]
+    pub ProjectStatusId : String, //int
+    #[serde(default)]
+    pub ResponsibleServiceId : String, //int
+    #[serde(default)]
+    pub WOAWONo : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderNo : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusCode : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub WorkplaceAddress : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for SupplierStore { fn name() -> &'static str { "SupplierStore" }}/*
+impl TableTrait for WorkOrderAssignedLocationStore { fn name() -> &'static str { "WorkOrderAssignedLocationStore" }}/*
 Ext.define("MEM.model.WorkOrderContact", {
   extend: MEM.model.Base,
   config: {
@@ -5378,633 +5943,590 @@ Ext.define("MEM.model.WorkOrderContact", {
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderContactStore {
     #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Mobile : String, //string
-    #[serde(default)]
-    pub Email : String, //string
-    #[serde(default)]
     pub Changed : String, //date
-    #[serde(default)]
-    pub WorkOrderId : String, //int
-    #[serde(default)]
-    pub Phone : String, //string
-    #[serde(default)]
-    pub CustomerName : String, //string
-    pub Id : String, //int
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
-    pub CustomerAgentId : String, //int
-    #[serde(default)]
     pub ContactName : String, //string
-}
-
-impl TableTrait for WorkOrderContactStore { fn name() -> &'static str { "WorkOrderContactStore" }}/*
-Ext.define("MEM.model.User", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "FullName", type: "string" },
-      { name: "UserLogin", type: "string" },
-      { name: "PersonalNo", type: "string" },
-      { name: "Languagecode", type: "string" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserStore {
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub UserLogin : String, //string
+    pub CreatedId : String, //string
     #[serde(default)]
-    pub PersonalNo : String, //string
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerAgentId : String, //int
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub Email : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub Mobile : String, //string
+    #[serde(default)]
+    pub Phone : String, //string
+    #[serde(default)]
+    pub WorkOrderId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for WorkOrderContactStore { fn name() -> &'static str { "WorkOrderContactStore" }}/*
+Ext.define("MEM.model.WorkOrderDocument", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int", meType: "meMediumText" },
+      { name: "WorkOrderId", type: "int", meType: "meMediumText" },
+      { name: "DiaryId", type: "int", meType: "meMediumText" },
+      { name: "DocumentDescription", type: "string", meType: "meLongText" },
+      { name: "Url", type: "string", meType: "meMediumText", max: 255 },
+      { name: "Title", type: "string", meType: "meMediumText", max: 255 },
+      { name: "Filename", type: "string", meType: "meMediumText", max: 255 },
+      {
+        name: "DocumentMimeType",
+        type: "string",
+        meType: "meMediumText",
+        max: 255,
+      },
+      { name: "DocumentSize", type: "int", meType: "meMediumText" },
+      { name: "DocumentData", type: "string" },
+      {
+        name: "ThumbnailMimeType",
+        type: "string",
+        meType: "meMediumText",
+        max: 255,
+      },
+      { name: "ThumbnailData", type: "string", meType: "meLongText" },
+      { name: "ImageWidth", type: "int", meType: "meInt" },
+      { name: "ImageHeight", type: "int", meType: "meInt" },
+      { name: "HideInPDA", type: "bool", persist: !1 },
+      { name: "EnlargeInReports", type: "bool" },
+      { name: "IncludeInReport", type: "bool" },
+      { name: "ShowInPortal", type: "bool" },
+      { name: "RegDate", type: "string" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct WorkOrderDocumentStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub DocumentData : String, //string
+    #[serde(default)]
+    pub DocumentDescription : String, //string
+    #[serde(default)]
+    pub DocumentMimeType : String, //string
+    #[serde(default)]
+    pub DocumentSize : String, //int
+    #[serde(default)]
+    pub EnlargeInReports : String, //bool
+    #[serde(default)]
+    pub Filename : String, //string
+    #[serde(default)]
+    pub HideInPDA : String, //bool
+    pub Id : String, //int
+    #[serde(default)]
+    pub ImageHeight : String, //int
+    #[serde(default)]
+    pub ImageWidth : String, //int
+    #[serde(default)]
+    pub IncludeInReport : String, //bool
+    #[serde(default)]
+    pub ProjectId : String, //int
+    #[serde(default)]
+    pub RegDate : String, //string
+    #[serde(default)]
+    pub ShowInPortal : String, //bool
+    #[serde(default)]
+    pub ThumbnailData : String, //string
+    #[serde(default)]
+    pub ThumbnailMimeType : String, //string
+    #[serde(default)]
+    pub Title : String, //string
+    #[serde(default)]
+    pub Url : String, //string
+    #[serde(default)]
+    pub WorkOrderId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for WorkOrderDocumentStore { fn name() -> &'static str { "WorkOrderDocumentStore" }}/*
+Ext.define("MEM.model.WorkOrderList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "ProjectId", type: "int" },
+      {
+        name: "WorkOrderId",
+        type: "int",
+        convert: function (a, b) {
+          if (a) {
+            return a;
+          }
+          return b.get("Id");
+        },
+      },
+      { name: "ResponsibleServiceId", type: "int" },
+      { name: "ResponsibleForemanId", type: "int" },
+      { name: "CustomerId", type: "int" },
+      { name: "WorkPoolId", type: "int" },
+      { name: "WorkOrderStatusId", type: "int" },
+      { name: "ProjectNo", type: "string", max: 50 },
+      { name: "ProjectName", type: "string", max: 50 },
+      { name: "WorkOrderNo", type: "int", readOnly: !0 },
+      {
+        name: "BasicScope",
+        type: "bool",
+        readOnly: !0,
+        convert: function (b, a) {
+          if (a.get("WorkOrderNo") == 1) {
+            return !0;
+          }
+          return !1;
+        },
+      },
+      { name: "Addition", type: "bool", defaultValue: !1 },
+      { name: "Name", type: "string", max: 100 },
+      {
+        name: "FullName",
+        type: "string",
+        max: 100,
+        convert: function (b, a) {
+          if (a.get("Addition")) {
+            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          } else {
+            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          }
+        },
+      },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct WorkOrderListStore {
+    #[serde(default)]
+    pub Addition : String, //bool
+    #[serde(default)]
+    pub BasicScope : String, //bool
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
     #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
     pub FullName : String, //string
     #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Languagecode : String, //string
-    pub Id : String, //int
-}
-
-impl TableTrait for UserStore { fn name() -> &'static str { "UserStore" }}/*
-Ext.define("MEM.model.CustomerContactList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerId", type: "int" },
-      { name: "ContactName", type: "string", max: 50 },
-      { name: "CustomerRef", type: "string", max: 50 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct CustomerContactListStore {
     pub Id : String, //int
     #[serde(default)]
-    pub CreatedId : String, //string
+    pub Name : String, //string
     #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub ContactName : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CustomerRef : String, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-}
-
-impl TableTrait for CustomerContactListStore { fn name() -> &'static str { "CustomerContactListStore" }}/*
-Ext.define("MEM.model.ProjectLimited", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      {
-        name: "Project",
-        type: "string",
-        convert: function (b, a) {
-          return a.data.ProjectNo + ", " + a.data.ProjectName;
-        },
-      },
-      {
-        name: "ParentProjectId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Parent Project No"),
-      },
-      {
-        name: "ProjectNo",
-        type: "string",
-        meType: "meShortText",
-        max: 10,
-        persist: !0,
-        display: T("Project No"),
-      },
-      {
-        name: "ProjectStatusId",
-        type: "int",
-        meType: "meMediumText",
-        display: T("Project status") + T("Code"),
-      },
-      {
-        name: "ProjectStatusCode",
-        type: "int",
-        meType: "meMediumText",
-        display: T("Project status") + T("Code"),
-      },
-      {
-        name: "ProjectName",
-        type: "string",
-        meType: "meMediumText",
-        max: 50,
-        display: T("Project Name"),
-      },
-      {
-        name: "PriceTypeId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Pricetype") + T("Code"),
-      },
-      {
-        name: "ProjectTypeId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Project type") + T("Code"),
-      },
-      {
-        name: "ProjectManagerId",
-        type: "int",
-        meType: "meMediumText",
-        display: T("Project manager") + " " + T("Username"),
-      },
-      {
-        name: "WorkLeaderId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Work leader") + " " + T("Username"),
-      },
-      {
-        name: "TagField1Id",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Tag field 1"),
-      },
-      {
-        name: "TagField2Id",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Tag field 2"),
-      },
-      {
-        name: "CustomerId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Customer no"),
-      },
-      {
-        name: "CustomerAgentId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Customer Contact"),
-      },
-      {
-        name: "CustomerRef",
-        type: "string",
-        meType: "meMediumText",
-        max: 50,
-        display: T("Customer ref."),
-      },
-      {
-        name: "MarkupModelId",
-        type: "int",
-        meType: "meShortText",
-        display: T("Markup model"),
-      },
-      {
-        name: "CostCenterId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Costcenter"),
-      },
-      {
-        name: "SellerId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Seller") + " " + T("Username"),
-      },
-      {
-        name: "FrameworkContractId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Framework contract"),
-        translate: T("FrameworkContract"),
-      },
-      {
-        name: "PartnerSupplierId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Partner supplier"),
-      },
-      {
-        name: "ProjectResourceGroupId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("ProjectResourceGroupProject"),
-      },
-      {
-        name: "WorkplaceId",
-        type: "string",
-        meType: "meMediumText",
-        max: 50,
-        allowNull: !0,
-        display: T("WorkplaceId"),
-      },
-      {
-        name: "BasicScopeId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-      },
-      {
-        name: "KPIRuleId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("KPI rule"),
-      },
-      { name: "WOFavorite", type: "boolean", persist: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ProjectLimitedStore {
-    #[serde(default)]
-    pub TagField2Id : String, //int
-    #[serde(default)]
-    pub ParentProjectId : String, //int
-    #[serde(default)]
-    pub PartnerSupplierId : String, //int
-    #[serde(default)]
-    pub WorkplaceId : String, //string
-    #[serde(default)]
-    pub CostCenterId : String, //int
-    #[serde(default)]
-    pub ProjectNo : String, //string
-    #[serde(default)]
-    pub TagField1Id : String, //int
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub ProjectManagerId : String, //int
-    #[serde(default)]
-    pub ProjectStatusCode : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub CustomerRef : String, //string
-    #[serde(default)]
-    pub ProjectTypeId : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub ProjectStatusId : String, //int
-    #[serde(default)]
-    pub WorkLeaderId : String, //int
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub MarkupModelId : String, //int
-    #[serde(default)]
-    pub SellerId : String, //int
-    #[serde(default)]
-    pub BasicScopeId : String, //int
-    #[serde(default)]
-    pub KPIRuleId : String, //int
-    #[serde(default)]
-    pub Project : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub FrameworkContractId : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CustomerAgentId : String, //int
-    #[serde(default)]
-    pub WOFavorite : String, //boolean
+    pub ProjectId : String, //int
     #[serde(default)]
     pub ProjectName : String, //string
     #[serde(default)]
-    pub PriceTypeId : String, //int
+    pub ProjectNo : String, //string
     #[serde(default)]
-    pub ProjectResourceGroupId : String, //int
+    pub ResponsibleForemanId : String, //int
+    #[serde(default)]
+    pub ResponsibleServiceId : String, //int
+    #[serde(default)]
+    pub WorkOrderId : String, //int
+    #[serde(default)]
+    pub WorkOrderNo : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub WorkPoolId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for ProjectLimitedStore { fn name() -> &'static str { "ProjectLimitedStore" }}/*
-Ext.define("MEM.model.ProjectStatus", {
+impl TableTrait for WorkOrderListStore { fn name() -> &'static str { "WorkOrderListStore" }}/*
+Ext.define("MEM.model.WorkOrderLocation", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int", useNull: !0 },
+      { name: "WorkOrderNo", type: "int", max: 10 },
+      {
+        name: "WOAWONo",
+        type: "int",
+        meType: "meShortText",
+        persist: !1,
+        useNull: !0,
+        convert: function (b, a) {
+          if (a.get("Addition") == 1) {
+            return (
+              getSetting("System.Prefix.VariationNo") +
+              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
+            );
+          } else {
+            return a.get("WorkOrderNo");
+          }
+        },
+      },
+      { name: "Name", type: "string", meType: "meLongText", max: 100 },
+      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
+      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
+      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
+      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
+      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
+      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct WorkOrderLocationStore {
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerName : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub GpsX : Option<String>, //int
+    #[serde(default)]
+    pub GpsY : Option<String>, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub ProjectId : Option<String>, //int
+    #[serde(default)]
+    pub WOAWONo : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderNo : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusCode : String, //int
+    #[serde(default)]
+    pub WorkOrderStatusId : String, //int
+    #[serde(default)]
+    pub WorkplaceAddress : String, //string
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for WorkOrderLocationStore { fn name() -> &'static str { "WorkOrderLocationStore" }}/*
+Ext.define("MEM.model.WorkOrderRow", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "WorkOrderId", type: "int" },
+      { name: "RowType", type: "string", max: 1, defaultValue: "" },
+      { name: "ArticleId", type: "int" },
+      { name: "BasePriceUsed", type: "bool" },
+      { name: "CostUnitPricelist", type: "string", max: 50, defaultValue: "" },
+      { name: "PriceUnitPricelist", type: "string", max: 50, defaultValue: "" },
+      {
+        name: "PayoffUnitPricelist",
+        type: "string",
+        max: 50,
+        defaultValue: "",
+      },
+      { name: "CodeNo", type: "string", max: 10, defaultValue: "" },
+      { name: "Title", type: "string", max: 128000, defaultValue: "" },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "PlannedQty", type: "float" },
+      { name: "Days", type: "float" },
+      { name: "StartQty", type: "float" },
+      { name: "EndQty", type: "float" },
+      { name: "UsedQty", type: "float" },
+      { name: "CostUnit", type: "float" },
+      { name: "PriceUnit", type: "float" },
+      { name: "Amount", type: "float", defaultValue: 1 },
+      { name: "DeliveryDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "ReturnDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "PerformedDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "PerformedUserId", type: "int", useNull: !0 },
+      { name: "Comment", type: "string", defaultValue: "" },
+      { name: "RowFormat", type: "string", max: 3 },
+      { name: "RowStatus", type: "string", max: 1 },
+      { name: "DiaryId", type: "int" },
+      { name: "TimeId", type: "int", useNull: !0 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+      { name: "Invoiced", type: "bool", defaultValue: !1, persist: !1 },
+      { name: "IsPaidOff", type: "bool", defaultValue: !1, persist: !1 },
+      { name: "ParentIsReadOnly", type: "bool", defaultValue: !1, persist: !1 },
+      {
+        name: "Locked",
+        type: "bool",
+        convert: function (b, a) {
+          return (
+            a.get("Invoiced") || a.get("IsPaidOff") || a.get("ParentIsReadOnly")
+          );
+        },
+      },
+      { name: "CreditProjectId", type: "int", useNull: !0 },
+      { name: "ResourceId", type: "int", useNull: !0 },
+      { name: "FactoryPricelistId", type: "int", useNull: !0 },
+      { name: "ArticleCategoryId", type: "int", useNull: !0 },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      {
+        name: "PlannedQty_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "PlannedQty");
+        },
+      },
+      {
+        name: "Days_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "Days");
+        },
+      },
+      {
+        name: "UsedQty_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "UsedQty");
+        },
+      },
+      { name: "KPIValue", type: "float", allowNull: !0, persist: !1 },
+      {
+        name: "KPIValue_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "KPIValue", 1, this);
+        },
+      },
+      { name: "RelatedWorkOrderRowId", type: "int" },
+    ]*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct WorkOrderRowStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub Amount : String, //float
+    #[serde(default)]
+    pub ArticleCategoryId : Option<String>, //int
+    #[serde(default)]
+    pub ArticleId : String, //int
+    #[serde(default)]
+    pub BasePriceUsed : String, //bool
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub CodeNo : String, //string
+    #[serde(default)]
+    pub Comment : String, //string
+    #[serde(default)]
+    pub CostUnit : String, //float
+    #[serde(default)]
+    pub CostUnitPricelist : String, //string
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CreditProjectId : Option<String>, //int
+    #[serde(default)]
+    pub Days : String, //float
+    #[serde(default)]
+    pub Days_fmt : String, //string
+    #[serde(default)]
+    pub DeliveryDate : Option<String>, //date
+    #[serde(default)]
+    pub DiaryId : String, //int
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub EndQty : String, //float
+    #[serde(default)]
+    pub FactoryPricelistId : Option<String>, //int
+    pub Id : String, //int
+    #[serde(default)]
+    pub Invoiced : String, //bool
+    #[serde(default)]
+    pub IsPaidOff : String, //bool
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub KPIValue : String, //float
+    #[serde(default)]
+    pub KPIValue_fmt : String, //string
+    #[serde(default)]
+    pub Locked : String, //bool
+    #[serde(default)]
+    pub ParentIsReadOnly : String, //bool
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub PayoffUnitPricelist : String, //string
+    #[serde(default)]
+    pub PerformedDate : Option<String>, //date
+    #[serde(default)]
+    pub PerformedUserId : Option<String>, //int
+    #[serde(default)]
+    pub PlannedQty : String, //float
+    #[serde(default)]
+    pub PlannedQty_fmt : String, //string
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub PriceUnitPricelist : String, //string
+    #[serde(default)]
+    pub RelatedWorkOrderRowId : String, //int
+    #[serde(default)]
+    pub ResourceId : Option<String>, //int
+    #[serde(default)]
+    pub ReturnDate : Option<String>, //date
+    #[serde(default)]
+    pub RowFormat : String, //string
+    #[serde(default)]
+    pub RowStatus : String, //string
+    #[serde(default)]
+    pub RowType : String, //string
+    #[serde(default)]
+    pub StartQty : String, //float
+    #[serde(default)]
+    pub TimeId : Option<String>, //int
+    #[serde(default)]
+    pub Title : String, //string
+    #[serde(default)]
+    pub UsedQty : String, //float
+    #[serde(default)]
+    pub UsedQty_fmt : String, //string
+    #[serde(default)]
+    pub WorkOrderId : String, //int
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for WorkOrderRowStore { fn name() -> &'static str { "WorkOrderRowStore" }}/*
+Ext.define("MEM.model.WorkOrderStatus", {
   extend: MEM.model.Base,
   config: {
     fields: [
       { name: "StatusName", type: "string", max: 50 },
-      { name: "StatusCode", type: "int" },
+      { name: "StatusCode", type: "int", sortable: !0, sortType: "asInt" },
       { name: "StatusColor", type: "string", max: 20 },
+      { name: "TempRec", type: "bool", persist: !1, defaultValue: !1 },
     ]*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
-pub struct ProjectStatusStore {
+pub struct WorkOrderStatusStore {
     #[serde(default)]
-    pub StatusColor : String, //string
-    pub Id : String, //int
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
     pub Disabled : String, //boolean
+    pub Id : String, //int
     #[serde(default)]
     pub StatusCode : String, //int
     #[serde(default)]
+    pub StatusColor : String, //string
+    #[serde(default)]
     pub StatusName : String, //string
     #[serde(default)]
-    pub Created : String, //date
+    pub TempRec : String, //bool
     #[serde(default)]
-    pub ChangedId : String, //string
+    pub isField : String, //boolean
     #[serde(default)]
-    pub Changed : String, //date
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for ProjectStatusStore { fn name() -> &'static str { "ProjectStatusStore" }}/*
-Ext.define("MEM.model.UserFavoriteList", {
+impl TableTrait for WorkOrderStatusStore { fn name() -> &'static str { "WorkOrderStatusStore" }}/*
+Ext.define("MEM.model.WorkOrderStatusRelations", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "UserId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "Name", type: "string" },
+      { name: "WorkOrderStatusId", type: "int", useNull: !0 },
+      { name: "ExternalWorkOrderStatusId", type: "int", useNull: !0 },
+      { name: "AllowExternal", type: "bool", defaultValue: !1 },
+      { name: "RequireExternal", type: "bool", defaultValue: !1 },
     ]*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
-pub struct UserFavoriteListStore {
+pub struct WorkOrderStatusRelationsStore {
+    #[serde(default)]
+    pub AllowExternal : String, //bool
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub UserId : String, //int
-    #[serde(default)]
     pub ChangedId : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub FavoriteListId : String, //int
-}
-
-impl TableTrait for UserFavoriteListStore { fn name() -> &'static str { "UserFavoriteListStore" }}/*
-Ext.define("MEM.model.UserFavoriteArticle", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleId", type: "int" },
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore"),
-            b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return Ext.String.format(
-              "{0} ({1})",
-              a.get("Description"),
-              b.get("Description")
-            );
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "UserId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct UserFavoriteArticleStore {
     #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
-    pub Payoff : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub UserId : String, //int
-    #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
-    pub ArticleId : String, //int
-    #[serde(default)]
-    pub ArticleNo : String, //string
-    #[serde(default)]
-    pub FavoriteListId : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub AccountNo : String, //string
+    pub CreatedName : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Description : String, //string
-}
-
-impl TableTrait for UserFavoriteArticleStore { fn name() -> &'static str { "UserFavoriteArticleStore" }}/*
-Ext.define("MEM.model.CustomerFavoriteArticle", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleId", type: "int" },
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore"),
-            b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return Ext.String.format(
-              "{0} ({1})",
-              a.get("Description"),
-              b.get("Description")
-            );
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "CustomerId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct CustomerFavoriteArticleStore {
+    pub ExternalWorkOrderStatusId : Option<String>, //int
     pub Id : String, //int
     #[serde(default)]
-    pub ArticleNo : String, //string
+    pub RequireExternal : String, //bool
     #[serde(default)]
-    pub AccountNo : String, //string
+    pub WorkOrderStatusId : Option<String>, //int
     #[serde(default)]
-    pub CustomerId : String, //int
+    pub isField : String, //boolean
     #[serde(default)]
-    pub FavoriteListId : String, //int
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub ArticleId : String, //int
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ItemUnitId : String, //int
+    pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for CustomerFavoriteArticleStore { fn name() -> &'static str { "CustomerFavoriteArticleStore" }}/*
-Ext.define("MEM.model.FavoriteList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Name", type: "string" },
-      { name: "IsCustomerList", type: "bool" },
-      { name: "IsGlobal", type: "bool" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct FavoriteListStore {
-    #[serde(default)]
-    pub IsGlobal : String, //bool
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    pub Id : String, //int
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub IsCustomerList : String, //bool
-}
-
-impl TableTrait for FavoriteListStore { fn name() -> &'static str { "FavoriteListStore" }}/*
-Ext.define("MEM.model.FavoriteArticle", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleId", type: "int" },
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore"),
-            b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return Ext.String.format(
-              "{0} ({1})",
-              a.get("Description"),
-              b.get("Description")
-            );
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct FavoriteArticleStore {
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub ArticleId : String, //int
-    #[serde(default)]
-    pub FavoriteListId : String, //int
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub ArticleNo : String, //string
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub AccountNo : String, //string
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-}
-
-impl TableTrait for FavoriteArticleStore { fn name() -> &'static str { "FavoriteArticleStore" }}
+impl TableTrait for WorkOrderStatusRelationsStore { fn name() -> &'static str { "WorkOrderStatusRelationsStore" }}

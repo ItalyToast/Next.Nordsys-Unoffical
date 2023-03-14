@@ -24,92 +24,92 @@ SOFTWARE. */
 
 // Available tables:
 // -AccountChartStore
+// -AdditionalWorkOrderStore
 // -AdditionalWorkOrderRowStore
 // -AdditionalWorkOrderStatusStore
-// -AdditionalWorkOrderStore
-// -ArticleCustomerStore
-// -ArticleCategoryStore
-// -WorkOrderRowStore
 // -ArticleStore
+// -ArticleCategoryStore
+// -ArticleCustomerStore
 // -ChecklistDiaryStore
 // -ChecklistRowStore
 // -ConstructionTypeStore
 // -CostStore
 // -CurrencyStore
+// -CustomerStore
 // -CustomerContactStore
+// -CustomerContactListStore
+// -CustomerFavoriteArticleStore
 // -CustomerListStore
 // -CustomerPricelistItemStore
-// -CustomerStore
 // -CustomerTypeStore
 // -DiaryStore
 // -ExternalWorkOrderStatusStore
-// -FactoryPricelistStore
 // -FactoryArticleItemStore
-// -FrameworkContractStore
-// -FrameworkArticleItemStore
+// -FactoryPricelistStore
+// -FavoriteArticleStore
+// -FavoriteListStore
 // -FormValidationStore
+// -FrameworkArticleItemStore
+// -FrameworkContractStore
 // -GroupStore
 // -HourlyRateStore
 // -InfoMessageStore
 // -InfoNoteStore
-// -InvoiceRowStore
 // -InvoiceStore
+// -InvoiceRowStore
 // -ItemUnitStore
 // -MainMenuStore
-// -MarkupModelItemStore
 // -MarkupModelStore
-// -TimeStore
-// -OptionValueStore
+// -MarkupModelItemStore
 // -OfficeCompanyStore
+// -OptionValueStore
 // -PhraseStore
 // -PriceTypeStore
 // -ProfessionItemStore
-// -WorkOrderDocumentStore
-// -ProjectEconomyBudgetStore
-// -ProjectEconomyStore
-// -ProjectListStore
-// -UserListStore
-// -ProjectOverviewStore
-// -ProjectPricelistItemStore
-// -ProjectPricelistStore
-// -ProjectStatusHistoryStore
 // -ProjectStore
+// -ProjectEconomyStore
+// -ProjectEconomyBudgetStore
+// -ProjectLimitedStore
+// -ProjectListStore
+// -ProjectOverviewStore
+// -ProjectPricelistStore
+// -ProjectPricelistItemStore
+// -ProjectStatusStore
+// -ProjectStatusHistoryStore
 // -ProjectTreeStore
 // -ProjectTypeStore
 // -ResourceStore
 // -RevenueStore
-// -SettingStore
 // -ServiceCategoryStore
+// -SettingStore
 // -StaffListStore
-// -StatusHistoryStore
-// -TagStore
-// -UserPoolWorkOrderListStore
-// -UserWorkOrderListStore
-// -UserProjectWorkOrderListStore
-// -UserRightStore
-// -UserAccessStore
-// -UserSessionStore
-// -UserSettingStore
-// -VatStore
-// -WorkOrderAssignedLocationStore
-// -WorkOrderListStore
-// -WorkOrderLocationStore
-// -WorkOrderStatusStore
-// -WorkOrderStatusRelationsStore
-// -WorkOrderStore
 // -StaffLogStore
 // -StaffPreviousDayStore
+// -StatusHistoryStore
 // -SupplierStore
-// -WorkOrderContactStore
+// -TagStore
+// -TimeStore
 // -UserStore
-// -CustomerContactListStore
-// -ProjectLimitedStore
-// -ProjectStatusStore
-// -UserFavoriteListStore
+// -UserAccessStore
 // -UserFavoriteArticleStore
-// -CustomerFavoriteArticleStore
-// -FavoriteListStore
-// -FavoriteArticleStore
+// -UserFavoriteListStore
+// -UserListStore
+// -UserPoolWorkOrderListStore
+// -UserProjectWorkOrderListStore
+// -UserRightStore
+// -UserSessionStore
+// -UserSettingStore
+// -UserWorkOrderListStore
+// -VatStore
+// -WorkOrderStore
+// -WorkOrderAssignedLocationStore
+// -WorkOrderContactStore
+// -WorkOrderDocumentStore
+// -WorkOrderListStore
+// -WorkOrderLocationStore
+// -WorkOrderRowStore
+// -WorkOrderStatusStore
+// -WorkOrderStatusRelationsStore
 
 /*
 Ext.define("MEM.model.AccountChart", {
@@ -142,104 +142,35 @@ Ext.define("MEM.model.AccountChart", {
       { name: "RotShare", type: "int", meType: "meInt" },
     ]*/
 @Suppress("unused")
-class AccountChartStore (
-    val AccountNo : String, //string
-    val Account : String, //string
-    val Description : String, //string
-    val CreatedId : String, //string
-    val InvoiceOnImport : String, //bool
-    val Changed : String, //date
-    val Cost : String, //bool
-    val Id : String, //int
-    val VatCode : String, //string
-    val Disabled : String, //boolean
-    val Work : String, //bool
-    val RotShare : String, //int
-    val ChangedId : String, //string
-    val VatDuty : String, //bool
-    val ComplementAccount : String, //string
-    val Created : String, //date
-    val Material : String, //bool
+data class AccountChartStore (
+    val Account : String = "", //string
+    val AccountNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ComplementAccount : String = "", //string
+    val Cost : String = "", //bool
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val InvoiceOnImport : String = "", //bool
+    val Material : String = "", //bool
+    val RotShare : String = "", //int
+    val VatCode : String = "", //string
+    val VatDuty : String = "", //bool
+    val Work : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.AdditionalWorkOrderRow", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "WorkOrderId", type: "int" },
-      { name: "RowType", type: "string", max: 1 },
-      { name: "CodeNo", type: "string", max: 10 },
-      { name: "Title", type: "string", max: 50 },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "PlannedQty", type: "float" },
-      { name: "UsedQty", type: "float" },
-      { name: "CostUnit", type: "float" },
-      { name: "PriceUnit", type: "float" },
-      { name: "Amount", type: "float", defaultValue: 1 },
-      { name: "DeliveryDate", type: "date", useNull: !0, persist: !1 },
-      { name: "ReturnDate", type: "date", useNull: !0, persist: !1 },
-      { name: "PerformedDate", type: "date", useNull: !0, persist: !1 },
-      { name: "PerformedUserId", type: "int", useNull: !0, persist: !1 },
-      { name: "Comment", type: "string" },
-      { name: "RowFormat", type: "string", max: 3, persist: !1 },
-      { name: "RowStatus", type: "string", max: 1, persist: !1 },
-      { name: "DiaryId", type: "int", persist: !1 },
-      { name: "TimeId", type: "int", persist: !1 },
-      { name: "Invoiced", type: "bool", persist: !1 },
-    ]*/
 @Suppress("unused")
-class AdditionalWorkOrderRowStore (
-    val PriceUnit : String, //float
-    val Created : String, //date
-    val AccountNo : String, //string
-    val RowStatus : String, //string
-    val RowFormat : String, //string
-    val CreatedId : String, //string
-    val TimeId : String, //int
-    val UsedQty : String, //float
-    val RowType : String, //string
-    val CodeNo : String, //string
-    val PlannedQty : String, //float
-    val CostUnit : String, //float
-    val Disabled : String, //boolean
-    val WorkOrderId : String, //int
-    val Amount : String, //float
-    val DeliveryDate : String?, //date
-    val Title : String, //string
-    val ReturnDate : String?, //date
-    val Comment : String, //string
-    val ItemUnitId : String, //int
-    val PerformedDate : String?, //date
-    val PerformedUserId : String?, //int
-    val DiaryId : String, //int
-    val Invoiced : String, //bool
-    val ChangedId : String, //string
-    val Changed : String, //date
-    val Id : String, //int
-)
-
-/*
-Ext.define("MEM.model.AdditionalWorkOrderStatus", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "StatusName", type: "string", max: 50 },
-      { name: "StatusCode", type: "int" },
-      { name: "StatusColor", type: "string", max: 20 },
-    ]*/
-@Suppress("unused")
-class AdditionalWorkOrderStatusStore (
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val StatusColor : String, //string
-    val Id : String, //int
-    val Changed : String, //date
-    val Created : String, //date
-    val StatusCode : String, //int
-    val StatusName : String, //string
+data class AccountChartStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<AccountChartStore> = ArrayList()
 )
 
 /*
@@ -514,264 +445,171 @@ Ext.define("MEM.model.AdditionalWorkOrder", {
       { name: "PriceTypeId", type: "int", meType: "meMediumText", useNull: !0 },
     ]*/
 @Suppress("unused")
-class AdditionalWorkOrderStore (
-    val ResponsibleServiceId : String?, //int
-    val InvoiceId : String?, //int
-    val CustomerAgentId : String?, //int
-    val Id : String, //int
-    val ProductionStart : String?, //date
-    val AdditionStatusCode : String, //int
-    val FixedPrice : String, //bool
-    val CostProjectId : String?, //int
-    val MarkUpTotal : String?, //float
-    val BookedCostTotal : String?, //float
-    val WorkOrderNo : String?, //int
-    val Invoiced : String, //bool
-    val AdditionStatus : String, //string
-    val CachedWorkRevenue : String?, //float
-    val BudgetLevelId : String, //int
-    val OrderDate : String, //date
-    val WorkFeedback : String, //string
-    val ReportSign : String, //string
-    val MarkupModelId : String?, //int
-    val ProductionStartClock : String?, //date
-    val CustomerRefNo : String, //string
-    val CustomerName : String, //string
-    val ProductionEndClock : String?, //date
-    val ResponsibleForemanId : String?, //int
-    val CustomerId : String?, //int
-    val CachedWorkCost : String?, //float
-    val WorkplaceAddress : String, //string
-    val WorkDescription : String, //string
-    val WorkOrderStatusId : String, //int
-    val Addition : String, //bool
-    val ReportTimestamp : String, //string
-    val Changed : String, //date
-    val InvoiceDate : String?, //date
-    val Created : String, //date
-    val Name : String, //string
-    val OrderAmount : String?, //float
-    val ContactName : String, //string
-    val ConstructionTypeId : String?, //int
-    val BookedHoursTotal : String?, //float
-    val ChangedId : String, //string
-    val PriceTypeId : String?, //int
-    val ProjectId : String, //int
-    val ProductionEnd : String?, //date
-    val Disabled : String, //boolean
-    val GpsY : String?, //int
-    val CreatedId : String, //string
-    val District : String, //string
-    val AdditionStatusId : String, //int
-    val TenderTotal : String?, //float
-    val CreditRisk : String, //boolean
-    val GpsX : String?, //int
+data class AdditionalWorkOrderStore (
+    val Addition : String = "", //bool
+    val AdditionStatus : String = "", //string
+    val AdditionStatusCode : String = "", //int
+    val AdditionStatusId : String = "", //int
+    val BookedCostTotal : String? = null, //float
+    val BookedHoursTotal : String? = null, //float
+    val BudgetLevelId : String = "", //int
+    val CachedWorkCost : String? = null, //float
+    val CachedWorkRevenue : String? = null, //float
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ConstructionTypeId : String? = null, //int
+    val ContactName : String = "", //string
+    val CostProjectId : String? = null, //int
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditRisk : String = "", //boolean
+    val CustomerAgentId : String? = null, //int
+    val CustomerId : String? = null, //int
+    val CustomerName : String = "", //string
+    val CustomerRefNo : String = "", //string
+    val Disabled : String = "", //boolean
+    val District : String = "", //string
+    val FixedPrice : String = "", //bool
+    val GpsX : String? = null, //int
+    val GpsY : String? = null, //int
+    val Id : String = "", //int
+    val InvoiceDate : String? = null, //date
+    val InvoiceId : String? = null, //int
+    val Invoiced : String = "", //bool
+    val MarkUpTotal : String? = null, //float
+    val MarkupModelId : String? = null, //int
+    val Name : String = "", //string
+    val OrderAmount : String? = null, //float
+    val OrderDate : String = "", //date
+    val PriceTypeId : String? = null, //int
+    val ProductionEnd : String? = null, //date
+    val ProductionEndClock : String? = null, //date
+    val ProductionStart : String? = null, //date
+    val ProductionStartClock : String? = null, //date
+    val ProjectId : String = "", //int
+    val ReportSign : String = "", //string
+    val ReportTimestamp : String = "", //string
+    val ResponsibleForemanId : String? = null, //int
+    val ResponsibleServiceId : String? = null, //int
+    val TenderTotal : String? = null, //float
+    val WorkDescription : String = "", //string
+    val WorkFeedback : String = "", //string
+    val WorkOrderNo : String? = null, //int
+    val WorkOrderStatusId : String = "", //int
+    val WorkplaceAddress : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.ArticleCustomer", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore");
-          var b;
-          b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return a.get("Description") + " (" + b.get("Description") + ")";
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "CustomerId", type: "int" },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
 @Suppress("unused")
-class ArticleCustomerStore (
-    val CustomerId : String, //int
-    val Description : String, //string
-    val ArticleNo : String, //string
-    val Id : String, //int
-    val ItemUnitId : String, //int
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Payoff : String, //bool
-    val AccountNo : String, //string
-    val Chargeable : String, //bool
-    val FullDescription : String, //string
-    val Created : String, //date
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
+data class AdditionalWorkOrderStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<AdditionalWorkOrderStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.ArticleCategory", {
-  extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
-@Suppress("unused")
-class ArticleCategoryStore (
-    val Id : String, //int
-    val ChangedId : String, //string
-    val Created : String, //date
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val Disabled : String, //boolean
-    val Name : String, //string
-)
-
-/*
-Ext.define("MEM.model.WorkOrderRow", {
+Ext.define("MEM.model.AdditionalWorkOrderRow", {
   extend: MEM.model.Base,
   config: {
     fields: [
       { name: "WorkOrderId", type: "int" },
-      { name: "RowType", type: "string", max: 1, defaultValue: "" },
-      { name: "ArticleId", type: "int" },
-      { name: "BasePriceUsed", type: "bool" },
-      { name: "CostUnitPricelist", type: "string", max: 50, defaultValue: "" },
-      { name: "PriceUnitPricelist", type: "string", max: 50, defaultValue: "" },
-      {
-        name: "PayoffUnitPricelist",
-        type: "string",
-        max: 50,
-        defaultValue: "",
-      },
-      { name: "CodeNo", type: "string", max: 10, defaultValue: "" },
-      { name: "Title", type: "string", max: 128000, defaultValue: "" },
+      { name: "RowType", type: "string", max: 1 },
+      { name: "CodeNo", type: "string", max: 10 },
+      { name: "Title", type: "string", max: 50 },
       { name: "AccountNo", type: "string", max: 5 },
       { name: "ItemUnitId", type: "int" },
       { name: "PlannedQty", type: "float" },
-      { name: "Days", type: "float" },
-      { name: "StartQty", type: "float" },
-      { name: "EndQty", type: "float" },
       { name: "UsedQty", type: "float" },
       { name: "CostUnit", type: "float" },
       { name: "PriceUnit", type: "float" },
       { name: "Amount", type: "float", defaultValue: 1 },
-      { name: "DeliveryDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "ReturnDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "PerformedDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "PerformedUserId", type: "int", useNull: !0 },
-      { name: "Comment", type: "string", defaultValue: "" },
-      { name: "RowFormat", type: "string", max: 3 },
-      { name: "RowStatus", type: "string", max: 1 },
-      { name: "DiaryId", type: "int" },
-      { name: "TimeId", type: "int", useNull: !0 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-      { name: "Invoiced", type: "bool", defaultValue: !1, persist: !1 },
-      { name: "IsPaidOff", type: "bool", defaultValue: !1, persist: !1 },
-      { name: "ParentIsReadOnly", type: "bool", defaultValue: !1, persist: !1 },
-      {
-        name: "Locked",
-        type: "bool",
-        convert: function (b, a) {
-          return (
-            a.get("Invoiced") || a.get("IsPaidOff") || a.get("ParentIsReadOnly")
-          );
-        },
-      },
-      { name: "CreditProjectId", type: "int", useNull: !0 },
-      { name: "ResourceId", type: "int", useNull: !0 },
-      { name: "FactoryPricelistId", type: "int", useNull: !0 },
-      { name: "ArticleCategoryId", type: "int", useNull: !0 },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      {
-        name: "PlannedQty_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "PlannedQty");
-        },
-      },
-      {
-        name: "Days_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "Days");
-        },
-      },
-      {
-        name: "UsedQty_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "UsedQty");
-        },
-      },
-      { name: "KPIValue", type: "float", allowNull: !0, persist: !1 },
-      {
-        name: "KPIValue_fmt",
-        type: "string",
-        persist: !1,
-        convert: function (b, a) {
-          return getFormattedNumeric(a, "KPIValue", 1, this);
-        },
-      },
-      { name: "RelatedWorkOrderRowId", type: "int" },
+      { name: "DeliveryDate", type: "date", useNull: !0, persist: !1 },
+      { name: "ReturnDate", type: "date", useNull: !0, persist: !1 },
+      { name: "PerformedDate", type: "date", useNull: !0, persist: !1 },
+      { name: "PerformedUserId", type: "int", useNull: !0, persist: !1 },
+      { name: "Comment", type: "string" },
+      { name: "RowFormat", type: "string", max: 3, persist: !1 },
+      { name: "RowStatus", type: "string", max: 1, persist: !1 },
+      { name: "DiaryId", type: "int", persist: !1 },
+      { name: "TimeId", type: "int", persist: !1 },
+      { name: "Invoiced", type: "bool", persist: !1 },
     ]*/
 @Suppress("unused")
-class WorkOrderRowStore (
-    val KPIValue : String, //float
-    val KPIValue_fmt : String, //string
-    val Comment : String, //string
-    val PerformedDate : String?, //date
-    val DiaryId : String, //int
-    val Invoiced : String, //bool
-    val CostUnit : String, //float
-    val ReturnDate : String?, //date
-    val Locked : String, //bool
-    val CreditProjectId : String?, //int
-    val RowFormat : String, //string
-    val Id : String, //int
-    val StartQty : String, //float
-    val BasePriceUsed : String, //bool
-    val FactoryPricelistId : String?, //int
-    val Chargeable : String, //bool
-    val ParentIsReadOnly : String, //bool
-    val WorkOrderId : String, //int
-    val AccountNo : String, //string
-    val IsPaidOff : String, //bool
-    val UsedQty_fmt : String, //string
-    val Amount : String, //float
-    val DeliveryDate : String?, //date
-    val PerformedUserId : String?, //int
-    val RelatedWorkOrderRowId : String, //int
-    val Payoff : String, //bool
-    val ChangedId : String, //string
-    val RowStatus : String, //string
-    val PayoffUnitPricelist : String, //string
-    val Changed : String, //date
-    val PlannedQty : String, //float
-    val Title : String, //string
-    val RowType : String, //string
-    val UsedQty : String, //float
-    val PriceUnitPricelist : String, //string
-    val ItemUnitId : String, //int
-    val Days : String, //float
-    val EndQty : String, //float
-    val Disabled : String, //boolean
-    val CostUnitPricelist : String, //string
-    val ArticleId : String, //int
-    val PriceUnit : String, //float
-    val TimeId : String?, //int
-    val ResourceId : String?, //int
-    val Created : String, //date
-    val CodeNo : String, //string
-    val ArticleCategoryId : String?, //int
-    val Days_fmt : String, //string
-    val CreatedId : String, //string
-    val PlannedQty_fmt : String, //string
+data class AdditionalWorkOrderRowStore (
+    val AccountNo : String = "", //string
+    val Amount : String = "", //float
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CodeNo : String = "", //string
+    val Comment : String = "", //string
+    val CostUnit : String = "", //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val DeliveryDate : String? = null, //date
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Invoiced : String = "", //bool
+    val ItemUnitId : String = "", //int
+    val PerformedDate : String? = null, //date
+    val PerformedUserId : String? = null, //int
+    val PlannedQty : String = "", //float
+    val PriceUnit : String = "", //float
+    val ReturnDate : String? = null, //date
+    val RowFormat : String = "", //string
+    val RowStatus : String = "", //string
+    val RowType : String = "", //string
+    val TimeId : String = "", //int
+    val Title : String = "", //string
+    val UsedQty : String = "", //float
+    val WorkOrderId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class AdditionalWorkOrderRowStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<AdditionalWorkOrderRowStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.AdditionalWorkOrderStatus", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "StatusName", type: "string", max: 50 },
+      { name: "StatusCode", type: "int" },
+      { name: "StatusColor", type: "string", max: 20 },
+    ]*/
+@Suppress("unused")
+data class AdditionalWorkOrderStatusStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val StatusCode : String = "", //int
+    val StatusColor : String = "", //string
+    val StatusName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class AdditionalWorkOrderStatusStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<AdditionalWorkOrderStatusStore> = ArrayList()
 )
 
 /*
@@ -806,28 +644,122 @@ Ext.define("MEM.model.Article", {
       { name: "IsKPIRecord", type: "bool", defaultValue: !1 },
     ]*/
 @Suppress("unused")
-class ArticleStore (
-    val Description : String, //string
-    val WorkOrderProjectId : String?, //int
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val CreatedId : String, //string
-    val FullDescription : String, //string
-    val ItemUnitId : String, //int
-    val ArticleNo : String, //string
-    val AccountNo : String, //string
-    val ArticleCategoryId : String?, //int
-    val Id : String, //int
-    val CostUnit : String, //float
-    val CreditProjectId : String?, //int
-    val Changed : String, //date
-    val Payoff : String, //bool
-    val ChangedId : String, //string
-    val HasKPIRelation : String, //bool
-    val IsKPIRecord : String, //bool
-    val PriceUnit : String, //float
-    val Chargeable : String, //bool
-    val WorkOrderId : String?, //int
+data class ArticleStore (
+    val AccountNo : String = "", //string
+    val ArticleCategoryId : String? = null, //int
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val CostUnit : String = "", //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditProjectId : String? = null, //int
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullDescription : String = "", //string
+    val HasKPIRelation : String = "", //bool
+    val Id : String = "", //int
+    val IsKPIRecord : String = "", //bool
+    val ItemUnitId : String = "", //int
+    val Payoff : String = "", //bool
+    val PriceUnit : String = "", //float
+    val WorkOrderId : String? = null, //int
+    val WorkOrderProjectId : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ArticleStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ArticleStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.ArticleCategory", {
+  extend: MEM.model.Base,
+  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
+@Suppress("unused")
+data class ArticleCategoryStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ArticleCategoryStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ArticleCategoryStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.ArticleCustomer", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore");
+          var b;
+          b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return a.get("Description") + " (" + b.get("Description") + ")";
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "CustomerId", type: "int" },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+@Suppress("unused")
+data class ArticleCustomerStore (
+    val AccountNo : String = "", //string
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val Payoff : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ArticleCustomerStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ArticleCustomerStore> = ArrayList()
 )
 
 /*
@@ -879,20 +811,31 @@ Ext.define("MEM.model.ChecklistDiary", {
       },
     ]*/
 @Suppress("unused")
-class ChecklistDiaryStore (
-    val Changed : String, //date
-    val Id : String, //int
-    val ChangedId : String, //string
-    val ItemNo : String?, //string
-    val ItemDescription : String, //string
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val Checked : String, //bool
-    val CheckedById : String?, //int
-    val CheckDate : String, //date
-    val CheckNote : String, //string
-    val CreatedId : String, //string
-    val DiaryId : String, //int
+data class ChecklistDiaryStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CheckDate : String = "", //date
+    val CheckNote : String = "", //string
+    val Checked : String = "", //bool
+    val CheckedById : String? = null, //int
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val ItemDescription : String = "", //string
+    val ItemNo : String? = null, //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ChecklistDiaryStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ChecklistDiaryStore> = ArrayList()
 )
 
 /*
@@ -944,20 +887,31 @@ Ext.define("MEM.model.ChecklistRow", {
       },
     ]*/
 @Suppress("unused")
-class ChecklistRowStore (
-    val ItemDescription : String, //string
-    val CheckedById : String?, //int
-    val ChangedId : String, //string
-    val CheckDate : String, //date
-    val Disabled : String, //boolean
-    val Id : String, //int
-    val CreatedId : String, //string
-    val Checked : String, //bool
-    val Created : String, //date
-    val ItemNo : String?, //string
-    val WorkOrderId : String, //int
-    val Changed : String, //date
-    val CheckNote : String, //string
+data class ChecklistRowStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CheckDate : String = "", //date
+    val CheckNote : String = "", //string
+    val Checked : String = "", //bool
+    val CheckedById : String? = null, //int
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val ItemDescription : String = "", //string
+    val ItemNo : String? = null, //string
+    val WorkOrderId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ChecklistRowStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ChecklistRowStore> = ArrayList()
 )
 
 /*
@@ -965,14 +919,25 @@ Ext.define("MEM.model.ConstructionType", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
 @Suppress("unused")
-class ConstructionTypeStore (
-    val Disabled : String, //boolean
-    val ChangedId : String, //string
-    val TypeName : String, //string
-    val CreatedId : String, //string
-    val Id : String, //int
-    val Changed : String, //date
-    val Created : String, //date
+data class ConstructionTypeStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val TypeName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ConstructionTypeStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ConstructionTypeStore> = ArrayList()
 )
 
 /*
@@ -1066,41 +1031,52 @@ Ext.define("MEM.model.Cost", {
       },
     ]*/
 @Suppress("unused")
-class CostStore (
-    val Locked : String, //bool
-    val LedgerDate : String, //date
-    val VatAmount : String, //float
-    val VerificationNo : String, //string
-    val ScannedUrl : String?, //string
-    val IsScanned : String, //bool
-    val Mark1 : String?, //string
-    val ProjectId : String, //int
-    val Invoiceable : String, //bool
-    val WorkOrderNo : String?, //int
-    val InvoiceAmount : String, //float
-    val Notes : String?, //string
-    val ExtVerificationId : String?, //string
-    val SupplierInvoiceId : String, //int
-    val CustomerPrice : String, //float
-    val WorkOrderId : String?, //int
-    val ApprovedByProduction : String, //bool
-    val CustomerNo : String?, //string
-    val Mark2 : String?, //string
-    val TransactionNote : String, //string
-    val Id : String, //int
-    val Invoiced : String, //bool
-    val ExtInvoiceNo : String?, //string
-    val Created : String, //date
-    val WorkOrderName : String?, //int
-    val MarkupAmount : String, //float
-    val InvoiceId : String?, //int
-    val RevenueTransaction : String, //bool
-    val TransactionType : String, //string
-    val ChangedId : String, //string
-    val AccountNo : String, //string
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val Disabled : String, //boolean
+data class CostStore (
+    val AccountNo : String = "", //string
+    val ApprovedByProduction : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerNo : String? = null, //string
+    val CustomerPrice : String = "", //float
+    val Disabled : String = "", //boolean
+    val ExtInvoiceNo : String? = null, //string
+    val ExtVerificationId : String? = null, //string
+    val Id : String = "", //int
+    val InvoiceAmount : String = "", //float
+    val InvoiceId : String? = null, //int
+    val Invoiceable : String = "", //bool
+    val Invoiced : String = "", //bool
+    val IsScanned : String = "", //bool
+    val LedgerDate : String = "", //date
+    val Locked : String = "", //bool
+    val Mark1 : String? = null, //string
+    val Mark2 : String? = null, //string
+    val MarkupAmount : String = "", //float
+    val Notes : String? = null, //string
+    val ProjectId : String = "", //int
+    val RevenueTransaction : String = "", //bool
+    val ScannedUrl : String? = null, //string
+    val SupplierInvoiceId : String = "", //int
+    val TransactionNote : String = "", //string
+    val TransactionType : String = "", //string
+    val VatAmount : String = "", //float
+    val VerificationNo : String = "", //string
+    val WorkOrderId : String? = null, //int
+    val WorkOrderName : String? = null, //int
+    val WorkOrderNo : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CostStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CostStore> = ArrayList()
 )
 
 /*
@@ -1114,109 +1090,28 @@ Ext.define("MEM.model.Currency", {
       { name: "Base", type: "boolean" },
     ]*/
 @Suppress("unused")
-class CurrencyStore (
-    val Disabled : String, //boolean
-    val Id : String, //int
-    val CurrencyCode : String, //string
-    val Currency : String, //string
-    val Xrate : String, //float
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Base : String, //boolean
+data class CurrencyStore (
+    val Base : String = "", //boolean
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Currency : String = "", //string
+    val CurrencyCode : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Xrate : String = "", //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.CustomerContact", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerId", type: "int" },
-      { name: "ContactName", type: "string", max: 50 },
-      { name: "Mobile", type: "string", max: 30 },
-      { name: "Phone", type: "string", max: 30 },
-      { name: "Email", type: "string", max: 50 },
-      { name: "OrganizationNo", type: "string", max: 12 },
-      { name: "CustomerRef", type: "string", max: 50 },
-      { name: "DefaultExternalWorkOrderStatusId", type: "int", useNull: !0 },
-      { name: "isSelected", type: "bool", persist: !1, defaultValue: !1 },
-    ]*/
 @Suppress("unused")
-class CustomerContactStore (
-    val OrganizationNo : String, //string
-    val Changed : String, //date
-    val isSelected : String, //bool
-    val DefaultExternalWorkOrderStatusId : String?, //int
-    val ContactName : String, //string
-    val Mobile : String, //string
-    val Email : String, //string
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val CustomerId : String, //int
-    val CustomerRef : String, //string
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val Phone : String, //string
-)
-
-/*
-Ext.define("MEM.model.CustomerList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
-      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
-      { name: "CreditRisk", type: "boolean" },
-      {
-        name: "CustomerId",
-        type: "int",
-        persist: !1,
-        convert: function (b, a) {
-          return a.get("Id");
-        },
-      },
-    ]*/
-@Suppress("unused")
-class CustomerListStore (
-    val Disabled : String, //boolean
-    val CustomerNo : String, //string
-    val CreditRisk : String, //boolean
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Created : String, //date
-    val Id : String, //int
-    val CustomerId : String, //int
-    val CustomerName : String, //string
-)
-
-/*
-Ext.define("MEM.model.CustomerPricelistItem", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CustomerId", type: "int", meType: "meMediumText", useNull: !0 },
-      {
-        name: "ProfessionItemId",
-        type: "int",
-        meType: "meMediumText",
-        useNull: !0,
-      },
-      { name: "PriceUnit", type: "float", meType: "meMoney" },
-    ]*/
-@Suppress("unused")
-class CustomerPricelistItemStore (
-    val Id : String, //int
-    val CustomerId : String?, //int
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val Disabled : String, //boolean
-    val PriceUnit : String, //float
-    val ProfessionItemId : String?, //int
-    val ChangedId : String, //string
+data class CurrencyStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CurrencyStore> = ArrayList()
 )
 
 /*
@@ -1265,52 +1160,285 @@ Ext.define("MEM.model.Customer", {
       { name: "FrameworkContractId", type: "int", useNull: !0 },
     ]*/
 @Suppress("unused")
-class CustomerStore (
-    val ChangedId : String, //string
-    val CreatedId : String, //string
-    val BillAddress4 : String, //string
-    val Fax : String, //string
-    val BillAddress3 : String, //string
-    val SwiftBic : String, //string
-    val BankName : String, //string
-    val PaymentTermsCode : String, //string
-    val Mobile : String, //string
-    val ClearingNo : String, //string
-    val Changed : String, //date
-    val VatNo : String, //string
-    val Id : String, //int
-    val OrganizationNo2 : String, //string
-    val ApartmentNo : String, //string
-    val Email : String, //string
-    val InfoNoteId : String?, //int
-    val CreditRisk : String, //boolean
-    val DefaultExternalWorkOrderStatusId : String?, //int
-    val WebAddress : String, //string
-    val Iban : String, //string
-    val CustomerName2 : String, //string
-    val CustomerNote : String, //string
-    val Disabled : String, //boolean
-    val BankAccountNo : String, //string
-    val CountryCode : String, //string
-    val CurrencyId : String, //int
-    val CustomerNo : String, //string
-    val BillAddress1 : String, //string
-    val CustomerName : String, //string
-    val HousingCooperativeOrgNo : String, //string
-    val EanCode : String, //string
-    val EdiAddress : String, //string
-    val HasFavorites : String, //boolean
-    val BillAddress6 : String, //string
-    val PropertyName : String, //string
-    val BillAddress5 : String, //string
-    val FrameworkContractId : String?, //int
-    val SupplierNo : String, //string
-    val BillAddress2 : String, //string
-    val Created : String, //date
-    val CustomerTypeId : String, //int
-    val Phone : String, //string
-    val OrganizationNo : String, //string
-    val ConstructionCompany : String, //boolean
+data class CustomerStore (
+    val ApartmentNo : String = "", //string
+    val BankAccountNo : String = "", //string
+    val BankName : String = "", //string
+    val BillAddress1 : String = "", //string
+    val BillAddress2 : String = "", //string
+    val BillAddress3 : String = "", //string
+    val BillAddress4 : String = "", //string
+    val BillAddress5 : String = "", //string
+    val BillAddress6 : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ClearingNo : String = "", //string
+    val ConstructionCompany : String = "", //boolean
+    val CountryCode : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditRisk : String = "", //boolean
+    val CurrencyId : String = "", //int
+    val CustomerName : String = "", //string
+    val CustomerName2 : String = "", //string
+    val CustomerNo : String = "", //string
+    val CustomerNote : String = "", //string
+    val CustomerTypeId : String = "", //int
+    val DefaultExternalWorkOrderStatusId : String? = null, //int
+    val Disabled : String = "", //boolean
+    val EanCode : String = "", //string
+    val EdiAddress : String = "", //string
+    val Email : String = "", //string
+    val Fax : String = "", //string
+    val FrameworkContractId : String? = null, //int
+    val HasFavorites : String = "", //boolean
+    val HousingCooperativeOrgNo : String = "", //string
+    val Iban : String = "", //string
+    val Id : String = "", //int
+    val InfoNoteId : String? = null, //int
+    val Mobile : String = "", //string
+    val OrganizationNo : String = "", //string
+    val OrganizationNo2 : String = "", //string
+    val PaymentTermsCode : String = "", //string
+    val Phone : String = "", //string
+    val PropertyName : String = "", //string
+    val SupplierNo : String = "", //string
+    val SwiftBic : String = "", //string
+    val VatNo : String = "", //string
+    val WebAddress : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.CustomerContact", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerId", type: "int" },
+      { name: "ContactName", type: "string", max: 50 },
+      { name: "Mobile", type: "string", max: 30 },
+      { name: "Phone", type: "string", max: 30 },
+      { name: "Email", type: "string", max: 50 },
+      { name: "OrganizationNo", type: "string", max: 12 },
+      { name: "CustomerRef", type: "string", max: 50 },
+      { name: "DefaultExternalWorkOrderStatusId", type: "int", useNull: !0 },
+      { name: "isSelected", type: "bool", persist: !1, defaultValue: !1 },
+    ]*/
+@Suppress("unused")
+data class CustomerContactStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ContactName : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val CustomerRef : String = "", //string
+    val DefaultExternalWorkOrderStatusId : String? = null, //int
+    val Disabled : String = "", //boolean
+    val Email : String = "", //string
+    val Id : String = "", //int
+    val Mobile : String = "", //string
+    val OrganizationNo : String = "", //string
+    val Phone : String = "", //string
+    val isField : String = "", //boolean
+    val isSelected : String = "", //bool
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerContactStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerContactStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.CustomerContactList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerId", type: "int" },
+      { name: "ContactName", type: "string", max: 50 },
+      { name: "CustomerRef", type: "string", max: 50 },
+    ]*/
+@Suppress("unused")
+data class CustomerContactListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ContactName : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val CustomerRef : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerContactListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerContactListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.CustomerFavoriteArticle", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleId", type: "int" },
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore"),
+            b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return Ext.String.format(
+              "{0} ({1})",
+              a.get("Description"),
+              b.get("Description")
+            );
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "CustomerId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+@Suppress("unused")
+data class CustomerFavoriteArticleStore (
+    val AccountNo : String = "", //string
+    val ArticleId : String = "", //int
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FavoriteListId : String = "", //int
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val Payoff : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerFavoriteArticleStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerFavoriteArticleStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.CustomerList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
+      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
+      { name: "CreditRisk", type: "boolean" },
+      {
+        name: "CustomerId",
+        type: "int",
+        persist: !1,
+        convert: function (b, a) {
+          return a.get("Id");
+        },
+      },
+    ]*/
+@Suppress("unused")
+data class CustomerListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditRisk : String = "", //boolean
+    val CustomerId : String = "", //int
+    val CustomerName : String = "", //string
+    val CustomerNo : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.CustomerPricelistItem", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "CustomerId", type: "int", meType: "meMediumText", useNull: !0 },
+      {
+        name: "ProfessionItemId",
+        type: "int",
+        meType: "meMediumText",
+        useNull: !0,
+      },
+      { name: "PriceUnit", type: "float", meType: "meMoney" },
+    ]*/
+@Suppress("unused")
+data class CustomerPricelistItemStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String? = null, //int
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val PriceUnit : String = "", //float
+    val ProfessionItemId : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerPricelistItemStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerPricelistItemStore> = ArrayList()
 )
 
 /*
@@ -1318,14 +1446,25 @@ Ext.define("MEM.model.CustomerType", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
 @Suppress("unused")
-class CustomerTypeStore (
-    val ChangedId : String, //string
-    val Created : String, //date
-    val Changed : String, //date
-    val TypeName : String, //string
-    val Disabled : String, //boolean
-    val Id : String, //int
-    val CreatedId : String, //string
+data class CustomerTypeStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val TypeName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class CustomerTypeStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<CustomerTypeStore> = ArrayList()
 )
 
 /*
@@ -1382,34 +1521,45 @@ Ext.define("MEM.model.Diary", {
       { name: "MaterialTemp2", type: "float", meType: "meQty", useNull: !0 },
     ]*/
 @Suppress("unused")
-class DiaryStore (
-    val Time2 : String, //date
-    val WorkforceNotes : String, //string
-    val WorkforceCount : String, //int
-    val ChangedId : String, //string
-    val ChangeAdditionNotes : String, //string
-    val Time1Display : String, //string
-    val CreatedId : String, //string
-    val Precipitation1 : String, //string
-    val Time1 : String, //date
-    val Created : String, //date
-    val Changed : String, //date
-    val Time2Display : String, //string
-    val HasStaffLog : String, //boolean
-    val FinishedWork : String, //string
-    val Disabled : String, //boolean
-    val Id : String, //int
-    val UserId : String?, //int
-    val MaterialTemp2 : String?, //float
-    val ProjectId : String, //int
-    val MaterialTemp1 : String?, //float
-    val KPIName : String, //string
-    val WorkProblems : String, //string
-    val Precipitation2 : String, //string
-    val Temperature1 : String, //float
-    val RegDate : String, //string
-    val Temperature2 : String, //float
-    val CurrentWork : String, //string
+data class DiaryStore (
+    val ChangeAdditionNotes : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CurrentWork : String = "", //string
+    val Disabled : String = "", //boolean
+    val FinishedWork : String = "", //string
+    val HasStaffLog : String = "", //boolean
+    val Id : String = "", //int
+    val KPIName : String = "", //string
+    val MaterialTemp1 : String? = null, //float
+    val MaterialTemp2 : String? = null, //float
+    val Precipitation1 : String = "", //string
+    val Precipitation2 : String = "", //string
+    val ProjectId : String = "", //int
+    val RegDate : String = "", //string
+    val Temperature1 : String = "", //float
+    val Temperature2 : String = "", //float
+    val Time1 : String = "", //date
+    val Time1Display : String = "", //string
+    val Time2 : String = "", //date
+    val Time2Display : String = "", //string
+    val UserId : String? = null, //int
+    val WorkProblems : String = "", //string
+    val WorkforceCount : String = "", //int
+    val WorkforceNotes : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class DiaryStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<DiaryStore> = ArrayList()
 )
 
 /*
@@ -1424,33 +1574,29 @@ Ext.define("MEM.model.ExternalWorkOrderStatus", {
       { name: "IsSignatureStatus", type: "bool", defaultValue: !1 },
     ]*/
 @Suppress("unused")
-class ExternalWorkOrderStatusStore (
-    val StatusName : String, //string
-    val StatusCode : String, //int
-    val StatusColor : String, //string
-    val CreatedId : String, //string
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val IsSignatureStatus : String, //bool
-    val Id : String, //int
-    val ChangedId : String, //string
-    val IsDefaultStatus : String, //bool
-    val Changed : String, //date
+data class ExternalWorkOrderStatusStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val IsDefaultStatus : String = "", //bool
+    val IsSignatureStatus : String = "", //bool
+    val StatusCode : String = "", //int
+    val StatusColor : String = "", //string
+    val StatusName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.FactoryPricelist", {
-  extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
 @Suppress("unused")
-class FactoryPricelistStore (
-    val Id : String, //int
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Name : String, //string
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Disabled : String, //boolean
+data class ExternalWorkOrderStatusStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ExternalWorkOrderStatusStore> = ArrayList()
 )
 
 /*
@@ -1482,44 +1628,193 @@ Ext.define("MEM.model.FactoryArticleItem", {
       { name: "PriceUnit", type: "float" },
     ]*/
 @Suppress("unused")
-class FactoryArticleItemStore (
-    val ItemUnitId : String, //int
-    val CostUnit : String, //float
-    val Disabled : String, //boolean
-    val PriceUnit : String, //float
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Description : String, //string
-    val FullDescription : String, //string
-    val Created : String, //date
-    val CreatedId : String, //string
-    val ArticleId : String?, //int
-    val AccountNo : String, //string
-    val ArticleNo : String, //string
-    val Id : String, //int
-    val FactoryPricelistId : String, //int
+data class FactoryArticleItemStore (
+    val AccountNo : String = "", //string
+    val ArticleId : String? = null, //int
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CostUnit : String = "", //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FactoryPricelistId : String = "", //int
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val PriceUnit : String = "", //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FactoryArticleItemStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FactoryArticleItemStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.FrameworkContract", {
+Ext.define("MEM.model.FactoryPricelist", {
+  extend: MEM.model.Base,
+  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
+@Suppress("unused")
+data class FactoryPricelistStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FactoryPricelistStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FactoryPricelistStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.FavoriteArticle", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "Name", type: "string", max: 50 },
-      { name: "CustomerId", type: "int" },
-      { name: "LimitArticles", type: "bool" },
+      { name: "ArticleId", type: "int" },
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore"),
+            b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return Ext.String.format(
+              "{0} ({1})",
+              a.get("Description"),
+              b.get("Description")
+            );
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
     ]*/
 @Suppress("unused")
-class FrameworkContractStore (
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val Disabled : String, //boolean
-    val Name : String, //string
-    val Id : String, //int
-    val ChangedId : String, //string
-    val Created : String, //date
-    val LimitArticles : String, //bool
-    val CustomerId : String, //int
+data class FavoriteArticleStore (
+    val AccountNo : String = "", //string
+    val ArticleId : String = "", //int
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FavoriteListId : String = "", //int
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val Payoff : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FavoriteArticleStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FavoriteArticleStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.FavoriteList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Name", type: "string" },
+      { name: "IsCustomerList", type: "bool" },
+      { name: "IsGlobal", type: "bool" },
+    ]*/
+@Suppress("unused")
+data class FavoriteListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val IsCustomerList : String = "", //bool
+    val IsGlobal : String = "", //bool
+    val Name : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FavoriteListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FavoriteListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.FormValidation", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "StoreName", type: "string", max: 50 },
+      { name: "FieldName", type: "string", max: 50 },
+      { name: "AllowBlank", type: "boolean" },
+      { name: "ValidationType", type: "string", max: 50 },
+      { name: "RegEx", type: "string", max: 1000 },
+      { name: "Hidden", type: "boolean" },
+    ]*/
+@Suppress("unused")
+data class FormValidationStore (
+    val AllowBlank : String = "", //boolean
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FieldName : String = "", //string
+    val Hidden : String = "", //boolean
+    val Id : String = "", //int
+    val RegEx : String = "", //string
+    val StoreName : String = "", //string
+    val ValidationType : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FormValidationStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FormValidationStore> = ArrayList()
 )
 
 /*
@@ -1552,54 +1847,70 @@ Ext.define("MEM.model.FrameworkArticleItem", {
       { name: "Chargeable", type: "bool", defaultValue: !0 },
     ]*/
 @Suppress("unused")
-class FrameworkArticleItemStore (
-    val CostUnit : String, //float
-    val CreditProjectId : String?, //int
-    val Id : String, //int
-    val Description : String, //string
-    val ItemUnitId : String, //int
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val FrameworkContractId : String, //int
-    val Disabled : String, //boolean
-    val ArticleId : String?, //int
-    val PriceUnit : String, //float
-    val CreatedId : String, //string
-    val Chargeable : String, //bool
-    val ArticleNo : String, //string
-    val Created : String, //date
-    val FullDescription : String, //string
-    val AccountNo : String, //string
-    val ArticleCategoryId : String?, //int
-    val Payoff : String, //bool
+data class FrameworkArticleItemStore (
+    val AccountNo : String = "", //string
+    val ArticleCategoryId : String? = null, //int
+    val ArticleId : String? = null, //int
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val CostUnit : String = "", //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditProjectId : String? = null, //int
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FrameworkContractId : String = "", //int
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val Payoff : String = "", //bool
+    val PriceUnit : String = "", //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FrameworkArticleItemStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FrameworkArticleItemStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.FormValidation", {
+Ext.define("MEM.model.FrameworkContract", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "StoreName", type: "string", max: 50 },
-      { name: "FieldName", type: "string", max: 50 },
-      { name: "AllowBlank", type: "boolean" },
-      { name: "ValidationType", type: "string", max: 50 },
-      { name: "RegEx", type: "string", max: 1000 },
-      { name: "Hidden", type: "boolean" },
+      { name: "Name", type: "string", max: 50 },
+      { name: "CustomerId", type: "int" },
+      { name: "LimitArticles", type: "bool" },
     ]*/
 @Suppress("unused")
-class FormValidationStore (
-    val Disabled : String, //boolean
-    val ValidationType : String, //string
-    val ChangedId : String, //string
-    val Hidden : String, //boolean
-    val StoreName : String, //string
-    val Created : String, //date
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val AllowBlank : String, //boolean
-    val RegEx : String, //string
-    val Id : String, //int
-    val FieldName : String, //string
+data class FrameworkContractStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val LimitArticles : String = "", //bool
+    val Name : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class FrameworkContractStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<FrameworkContractStore> = ArrayList()
 )
 
 /*
@@ -1607,14 +1918,25 @@ Ext.define("MEM.model.Group", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "GroupName", type: "string", max: 50 }]*/
 @Suppress("unused")
-class GroupStore (
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
-    val GroupName : String, //string
-    val Created : String, //date
-    val Changed : String, //date
-    val ChangedId : String, //string
+data class GroupStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val GroupName : String = "", //string
+    val Id : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class GroupStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<GroupStore> = ArrayList()
 )
 
 /*
@@ -1631,20 +1953,31 @@ Ext.define("MEM.model.HourlyRate", {
       { name: "ProjectPrice", type: "float" },
     ]*/
 @Suppress("unused")
-class HourlyRateStore (
-    val UnitName : String, //string
-    val Created : String, //date
-    val CreatedId : String, //string
-    val ProfessionCode : String, //string
-    val ProfessionItemId : String, //int
-    val Id : String, //int
-    val ProjectPrice : String, //float
-    val CustomerPrice : String, //float
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val ProfessionDescription : String, //string
-    val PriceUnit : String, //float
+data class HourlyRateStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerPrice : String = "", //float
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val PriceUnit : String = "", //float
+    val ProfessionCode : String = "", //string
+    val ProfessionDescription : String = "", //string
+    val ProfessionItemId : String = "", //int
+    val ProjectPrice : String = "", //float
+    val UnitName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class HourlyRateStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<HourlyRateStore> = ArrayList()
 )
 
 /*
@@ -1664,17 +1997,28 @@ Ext.define("MEM.model.InfoMessage", {
       { name: "GroupId", type: "int" },
     ]*/
 @Suppress("unused")
-class InfoMessageStore (
-    val Date : String, //string
-    val Message : String, //string
-    val Created : String, //date
-    val Changed : String, //date
-    val Disabled : String, //boolean
-    val ChangedId : String, //string
-    val Id : String, //int
-    val ShowInMobile : String, //bool
-    val GroupId : String, //int
-    val CreatedId : String, //string
+data class InfoMessageStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Date : String = "", //string
+    val Disabled : String = "", //boolean
+    val GroupId : String = "", //int
+    val Id : String = "", //int
+    val Message : String = "", //string
+    val ShowInMobile : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class InfoMessageStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<InfoMessageStore> = ArrayList()
 )
 
 /*
@@ -1688,63 +2032,28 @@ Ext.define("MEM.model.InfoNote", {
       { name: "Note", type: "string" },
     ]*/
 @Suppress("unused")
-class InfoNoteStore (
-    val Changed : String, //date
-    val Id : String, //int
-    val CreatedId : String, //string
-    val TableId : String, //int
-    val Created : String, //date
-    val Disabled : String, //boolean
-    val Note : String, //string
-    val UserId : String, //int
-    val TableName : String, //string
-    val ChangedId : String, //string
+data class InfoNoteStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Note : String = "", //string
+    val TableId : String = "", //int
+    val TableName : String = "", //string
+    val UserId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.InvoiceRow", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "InvoiceId", type: "int" },
-      { name: "RowNo", type: "int" },
-      { name: "RowType", type: "string", max: 1 },
-      { name: "CodeNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      { name: "Unit", type: "string", max: 5 },
-      { name: "Amount", type: "int" },
-      { name: "PriceUnit", type: "float" },
-      { name: "Markup", type: "int" },
-      {
-        name: "TotalPrice",
-        type: "float",
-        persist: !1,
-        readOnly: !0,
-        convert: function (b, a) {
-          return a.get("Amount") * a.get("PriceUnit");
-        },
-      },
-      { name: "RowFormat", type: "string" },
-    ]*/
 @Suppress("unused")
-class InvoiceRowStore (
-    val RowNo : String, //int
-    val ChangedId : String, //string
-    val CreatedId : String, //string
-    val InvoiceId : String, //int
-    val Description : String, //string
-    val RowType : String, //string
-    val CodeNo : String, //string
-    val Amount : String, //int
-    val Disabled : String, //boolean
-    val Id : String, //int
-    val Unit : String, //string
-    val Created : String, //date
-    val RowFormat : String, //string
-    val PriceUnit : String, //float
-    val TotalPrice : String, //float
-    val Changed : String, //date
-    val Markup : String, //int
+data class InfoNoteStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<InfoNoteStore> = ArrayList()
 )
 
 /*
@@ -1773,24 +2082,92 @@ Ext.define("MEM.model.Invoice", {
       { name: "RowFormat", type: "string" },
     ]*/
 @Suppress("unused")
-class InvoiceStore (
-    val PriceUnit : String, //float
-    val Markup : String, //int
-    val TotalPrice : String, //float
-    val ChangedId : String, //string
-    val Changed : String, //date
-    val Description : String, //string
-    val InvoiceId : String, //int
-    val RowNo : String, //int
-    val Amount : String, //int
-    val Created : String, //date
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val RowFormat : String, //string
-    val CreatedId : String, //string
-    val RowType : String, //string
-    val Unit : String, //string
-    val CodeNo : String, //string
+data class InvoiceStore (
+    val Amount : String = "", //int
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CodeNo : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val InvoiceId : String = "", //int
+    val Markup : String = "", //int
+    val PriceUnit : String = "", //float
+    val RowFormat : String = "", //string
+    val RowNo : String = "", //int
+    val RowType : String = "", //string
+    val TotalPrice : String = "", //float
+    val Unit : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class InvoiceStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<InvoiceStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.InvoiceRow", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "InvoiceId", type: "int" },
+      { name: "RowNo", type: "int" },
+      { name: "RowType", type: "string", max: 1 },
+      { name: "CodeNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      { name: "Unit", type: "string", max: 5 },
+      { name: "Amount", type: "int" },
+      { name: "PriceUnit", type: "float" },
+      { name: "Markup", type: "int" },
+      {
+        name: "TotalPrice",
+        type: "float",
+        persist: !1,
+        readOnly: !0,
+        convert: function (b, a) {
+          return a.get("Amount") * a.get("PriceUnit");
+        },
+      },
+      { name: "RowFormat", type: "string" },
+    ]*/
+@Suppress("unused")
+data class InvoiceRowStore (
+    val Amount : String = "", //int
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CodeNo : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val InvoiceId : String = "", //int
+    val Markup : String = "", //int
+    val PriceUnit : String = "", //float
+    val RowFormat : String = "", //string
+    val RowNo : String = "", //int
+    val RowType : String = "", //string
+    val TotalPrice : String = "", //float
+    val Unit : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class InvoiceRowStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<InvoiceRowStore> = ArrayList()
 )
 
 /*
@@ -1802,15 +2179,26 @@ Ext.define("MEM.model.ItemUnit", {
       { name: "Description", type: "string", max: 10 },
     ]*/
 @Suppress("unused")
-class ItemUnitStore (
-    val CreatedId : String, //string
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val ChangedId : String, //string
-    val Changed : String, //date
-    val Description : String, //string
-    val UnitName : String, //string
-    val Created : String, //date
+data class ItemUnitStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val UnitName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ItemUnitStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ItemUnitStore> = ArrayList()
 )
 
 /*
@@ -1827,13 +2215,55 @@ Ext.define("MEM.model.MainMenu", {
       { name: "Title" },
     ]*/
 @Suppress("unused")
-class MainMenuStore (
-    val Id : String, //int
-    val Changed : String, //date
-    val Created : String, //date
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
+data class MainMenuStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class MainMenuStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<MainMenuStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.MarkupModel", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Name", type: "string", max: 50 },
+      { name: "Code", type: "string", max: 10 },
+    ]*/
+@Suppress("unused")
+data class MarkupModelStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Code : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class MarkupModelStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<MarkupModelStore> = ArrayList()
 )
 
 /*
@@ -1847,209 +2277,59 @@ Ext.define("MEM.model.MarkupModelItem", {
       { name: "MarkupCF", type: "int" },
     ]*/
 @Suppress("unused")
-class MarkupModelItemStore (
-    val CreatedId : String, //string
-    val ResourceAccount : String, //string
-    val Description : String, //string
-    val Disabled : String, //boolean
-    val MarkupCF : String, //int
-    val ChangedId : String, //string
-    val Changed : String, //date
-    val MarkupModelId : String, //int
-    val Id : String, //int
-    val Created : String, //date
+data class MarkupModelItemStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val MarkupCF : String = "", //int
+    val MarkupModelId : String = "", //int
+    val ResourceAccount : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class MarkupModelItemStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<MarkupModelItemStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.MarkupModel", {
+Ext.define("MEM.model.OfficeCompany", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "Name", type: "string", max: 50 },
-      { name: "Code", type: "string", max: 10 },
+      { name: "CompanyName", type: "string" },
+      { name: "AbsenceProjectId", type: "int" },
     ]*/
 @Suppress("unused")
-class MarkupModelStore (
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val Disabled : String, //boolean
-    val Code : String, //string
-    val ChangedId : String, //string
-    val Created : String, //date
-    val Id : String, //int
-    val Name : String, //string
+data class OfficeCompanyStore (
+    val AbsenceProjectId : String = "", //int
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CompanyName : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.Time", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "FullName", type: "string", max: 100 },
-      { name: "ProjectId", type: "int" },
-      { name: "AbsenceProjectId", type: "int", useNull: !0 },
-      {
-        name: "Absence",
-        type: "bool",
-        convert: function (c, b) {
-          var a = MEM.app.getController("Common");
-          return b.get("ProjectId") != a.absenceProjectId() ? 0 : 1;
-        },
-      },
-      {
-        name: "ProjectName",
-        type: "string",
-        max: 255,
-        sortable: !0,
-        convert: function (b, c) {
-          if (b) {
-            return b;
-          } else {
-            var d = Ext.getStore("MyCloneProjectListAllStore"),
-              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
-            if (a) {
-              return a.get("ProjectName");
-            } else {
-              return "";
-            }
-          }
-        },
-      },
-      {
-        name: "ProjectNo",
-        type: "string",
-        max: 20,
-        sortable: !0,
-        sortType: "asInt",
-        convert: function (b, c) {
-          if (b) {
-            return b;
-          } else {
-            var d = Ext.getStore("MyCloneProjectListAllStore"),
-              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
-            if (a) {
-              return a.get("ProjectNo");
-            } else {
-              return "";
-            }
-          }
-        },
-      },
-      {
-        name: "Project",
-        type: "string",
-        max: 255,
-        convert: function (d, b) {
-          var c = Ext.getStore("MyCloneProjectListAllStore"),
-            a;
-          a = c.findRecord("Id", b.get("ProjectId"), 0, !1, !0, !0);
-          if (a) {
-            return a.get("ProjectNo") + ", " + a.get("ProjectName");
-          }
-        },
-      },
-      {
-        name: "ProjectStatus",
-        type: "string",
-        max: 255,
-        convert: function (e, c) {
-          var d = Ext.getStore("MyCloneProjectListAllStore"),
-            b = Ext.getStore("MyProjectStatusStore"),
-            a;
-          a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
-          if (a) {
-            b = b.findRecord("Id", a.get("ProjectStatusId"), 0, !1, !0, !0);
-            return b.get("StatusCode");
-          } else {
-            return null;
-          }
-        },
-      },
-      { name: "WorkOrderId", type: "int", useNull: !0 },
-      {
-        name: "WorkOrderNo",
-        type: "int",
-        useNull: !0,
-        convert: function (b, c) {
-          var a = Ext.getStore("MyWorkOrderListStore").findRecord(
-            "Id",
-            c.get("WorkOrderId"),
-            0,
-            !1,
-            !0,
-            !0
-          );
-          if (a && a.get("Addition")) {
-            return AWOpad(b, 3);
-          }
-          return b;
-        },
-      },
-      { name: "WOAWONo", type: "string", max: 10, sortable: !0 },
-      { name: "WorkOrderName", type: "string", max: 255, sortable: !0 },
-      { name: "RegDate", type: "string", max: 10, sortType: "asDate" },
-      { name: "Debit", type: "boolean", defaultValue: !0 },
-      { name: "ProfessionItemId", type: "int" },
-      { name: "ProfessionCode", type: "string", max: 20 },
-      { name: "ProfessionAccountNo", type: "string", max: 5 },
-      { name: "Unit", type: "string", max: 5 },
-      {
-        name: "Hours",
-        type: "float",
-        convert: function (a, b) {
-          return a == null ? null : parseFloat(a);
-        },
-      },
-      {
-        name: "BreakTime",
-        type: "float",
-        convert: function (a, b) {
-          return a == null ? null : parseFloat(a);
-        },
-      },
-      {
-        name: "StartTime",
-        useNull: !0,
-        type: "date",
-        dateFormat: "Y-m-d H:i:s",
-        convert: function (b, h) {
-          var f,
-            d = new Date(h.get("RegDate")),
-            c,
-            e = getSetting("Time.Timestamp.Interval"),
-            g = e ? parseInt(e) : 15;
-          if (typeof b == "string") {
-            var a = b.split(/[-:T]*/
 @Suppress("unused")
-class TimeStore (
-    val ProjectNo : String, //string
-    val Changed : String, //date
-    val WorkOrderId : String?, //int
-    val WorkOrderNo : String?, //int
-    val ProjectStatus : String, //string
-    val ChangedId : String, //string
-    val ProfessionCode : String, //string
-    val FullName : String, //string
-    val Project : String, //string
-    val UserId : String, //int
-    val WorkOrderName : String, //string
-    val Created : String, //date
-    val ProfessionAccountNo : String, //string
-    val Unit : String, //string
-    val BreakTime : String, //float
-    val Absence : String, //bool
-    val Disabled : String, //boolean
-    val ProfessionItemId : String, //int
-    val ProjectId : String, //int
-    val Id : String, //int
-    val CreatedId : String, //string
-    val AbsenceProjectId : String?, //int
-    val WOAWONo : String, //string
-    val ProjectName : String, //string
-    val RegDate : String, //string
-    val Debit : String, //boolean
-    val Hours : String, //float
+data class OfficeCompanyStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<OfficeCompanyStore> = ArrayList()
 )
 
 /*
@@ -2062,36 +2342,27 @@ Ext.define("MEM.model.OptionValue", {
       { name: "SettingDescription", type: "string" },
     ]*/
 @Suppress("unused")
-class OptionValueStore (
-    val SettingDescription : String, //string
-    val Created : String, //date
-    val SettingKey : String, //string
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val Id : String, //int
-    val SettingValue : String, //string
-    val ChangedId : String, //string
+data class OptionValueStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val SettingDescription : String = "", //string
+    val SettingKey : String = "", //string
+    val SettingValue : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.OfficeCompany", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "CompanyName", type: "string" },
-      { name: "AbsenceProjectId", type: "int" },
-    ]*/
 @Suppress("unused")
-class OfficeCompanyStore (
-    val ChangedId : String, //string
-    val Id : String, //int
-    val CompanyName : String, //string
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
-    val AbsenceProjectId : String, //int
-    val Created : String, //date
-    val Changed : String, //date
+data class OptionValueStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<OptionValueStore> = ArrayList()
 )
 
 /*
@@ -2107,14 +2378,25 @@ Ext.define("MEM.model.Phrase", {
       },
     ]*/
 @Suppress("unused")
-class PhraseStore (
-    val ChangedId : String, //string
-    val Created : String, //date
-    val Disabled : String, //boolean
-    val Phrase : String, //string
-    val Changed : String, //date
-    val Id : String, //int
-    val CreatedId : String, //string
+data class PhraseStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Phrase : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class PhraseStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<PhraseStore> = ArrayList()
 )
 
 /*
@@ -2122,14 +2404,25 @@ Ext.define("MEM.model.PriceType", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
 @Suppress("unused")
-class PriceTypeStore (
-    val Created : String, //date
-    val Id : String, //int
-    val Changed : String, //date
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
-    val TypeName : String, //string
-    val ChangedId : String, //string
+data class PriceTypeStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val TypeName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class PriceTypeStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<PriceTypeStore> = ArrayList()
 )
 
 /*
@@ -2148,108 +2441,120 @@ Ext.define("MEM.model.ProfessionItem", {
       { name: "Chargeable", type: "bool" },
     ]*/
 @Suppress("unused")
-class ProfessionItemStore (
-    val CreatedId : String, //string
-    val SalaryNo : String, //string
-    val CostUnit : String, //float
-    val ItemUnitId : String, //int
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val PriceUnit : String, //float
-    val Chargeable : String, //bool
-    val ProfessionCode : String, //string
-    val Id : String, //int
-    val AccountNo : String, //string
-    val Created : String, //date
-    val ProfessionGroup : String, //string
-    val ChangedId : String, //string
-    val ProfessionDescription : String, //string
+data class ProfessionItemStore (
+    val AccountNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val CostUnit : String = "", //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val PriceUnit : String = "", //float
+    val ProfessionCode : String = "", //string
+    val ProfessionDescription : String = "", //string
+    val ProfessionGroup : String = "", //string
+    val SalaryNo : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProfessionItemStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProfessionItemStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.WorkOrderDocument", {
+Ext.define("MEM.model.Project", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "ProjectId", type: "int", meType: "meMediumText" },
-      { name: "WorkOrderId", type: "int", meType: "meMediumText" },
-      { name: "DiaryId", type: "int", meType: "meMediumText" },
-      { name: "DocumentDescription", type: "string", meType: "meLongText" },
-      { name: "Url", type: "string", meType: "meMediumText", max: 255 },
-      { name: "Title", type: "string", meType: "meMediumText", max: 255 },
-      { name: "Filename", type: "string", meType: "meMediumText", max: 255 },
-      {
-        name: "DocumentMimeType",
-        type: "string",
-        meType: "meMediumText",
-        max: 255,
-      },
-      { name: "DocumentSize", type: "int", meType: "meMediumText" },
-      { name: "DocumentData", type: "string" },
-      {
-        name: "ThumbnailMimeType",
-        type: "string",
-        meType: "meMediumText",
-        max: 255,
-      },
-      { name: "ThumbnailData", type: "string", meType: "meLongText" },
-      { name: "ImageWidth", type: "int", meType: "meInt" },
-      { name: "ImageHeight", type: "int", meType: "meInt" },
-      { name: "HideInPDA", type: "bool", persist: !1 },
-      { name: "EnlargeInReports", type: "bool" },
-      { name: "IncludeInReport", type: "bool" },
-      { name: "ShowInPortal", type: "bool" },
-      { name: "RegDate", type: "string" },
+      { name: "ParentProjectId", type: "int", allowBlank: !1, useNull: !0 },
+      { name: "ProjectNo", type: "int", persist: !1, sortType: "asInt" },
+      { name: "ProjectStatusId", type: "int" },
+      { name: "ProjectName", type: "string", max: 50, allowBlank: !1 },
+      { name: "PriceTypeId", type: "int" },
+      { name: "ProjectTypeId", type: "int" },
+      { name: "ProjectManagerId", type: "int" },
+      { name: "WorkLeaderId", type: "int" },
+      { name: "TagField1Id", type: "int", useNull: !0 },
+      { name: "TagField2Id", type: "int", useNull: !0 },
+      { name: "ProjectNote", type: "string", useNull: !0 },
+      { name: "CustomerId", type: "int", useNull: !0 },
+      { name: "CustomerName", type: "string" },
+      { name: "CreditRisk", type: "boolean" },
+      { name: "ContactName", type: "string" },
+      { name: "CustomerAgentId", type: "int", useNull: !0 },
+      { name: "CustomerRef", type: "string", max: 50 },
+      { name: "ProjectStart", type: "date", dateFormat: "Y-m-d" },
+      { name: "ProjectEnd", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "MarkupModelId", type: "int", allowBlank: !1 },
+      { name: "WorkplaceAddress1", type: "string", max: 50 },
+      { name: "WorkplaceAddress2", type: "string", max: 50 },
+      { name: "WorkplaceZipcode", type: "string", max: 50 },
+      { name: "WorkplaceCity", type: "string", max: 50 },
+      { name: "WorkplaceDistance", type: "int" },
+      { name: "FinalInspectionDate", type: "date", dateFormat: "Y-m-d" },
+      { name: "GuaranteeTime", type: "int" },
+      { name: "GuaranteeInspectionDate", type: "date", dateFormat: "Y-m-d" },
+      { name: "WOFavorite", type: "boolean", persist: !1 },
+      { name: "FrameworkContractId", type: "int", useNull: !0 },
     ]*/
 @Suppress("unused")
-class WorkOrderDocumentStore (
-    val ThumbnailMimeType : String, //string
-    val DocumentSize : String, //int
-    val EnlargeInReports : String, //bool
-    val IncludeInReport : String, //bool
-    val DocumentDescription : String, //string
-    val DiaryId : String, //int
-    val ProjectId : String, //int
-    val DocumentMimeType : String, //string
-    val RegDate : String, //string
-    val Filename : String, //string
-    val ChangedId : String, //string
-    val DocumentData : String, //string
-    val ThumbnailData : String, //string
-    val Id : String, //int
-    val CreatedId : String, //string
-    val ShowInPortal : String, //bool
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val ImageWidth : String, //int
-    val Changed : String, //date
-    val ImageHeight : String, //int
-    val Url : String, //string
-    val WorkOrderId : String, //int
-    val Title : String, //string
-    val HideInPDA : String, //bool
+data class ProjectStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ContactName : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditRisk : String = "", //boolean
+    val CustomerAgentId : String? = null, //int
+    val CustomerId : String? = null, //int
+    val CustomerName : String = "", //string
+    val CustomerRef : String = "", //string
+    val Disabled : String = "", //boolean
+    val FinalInspectionDate : String = "", //date
+    val FrameworkContractId : String? = null, //int
+    val GuaranteeInspectionDate : String = "", //date
+    val GuaranteeTime : String = "", //int
+    val Id : String = "", //int
+    val MarkupModelId : String = "", //int
+    val ParentProjectId : String? = null, //int
+    val PriceTypeId : String = "", //int
+    val ProjectEnd : String? = null, //date
+    val ProjectManagerId : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //int
+    val ProjectNote : String? = null, //string
+    val ProjectStart : String = "", //date
+    val ProjectStatusId : String = "", //int
+    val ProjectTypeId : String = "", //int
+    val TagField1Id : String? = null, //int
+    val TagField2Id : String? = null, //int
+    val WOFavorite : String = "", //boolean
+    val WorkLeaderId : String = "", //int
+    val WorkplaceAddress1 : String = "", //string
+    val WorkplaceAddress2 : String = "", //string
+    val WorkplaceCity : String = "", //string
+    val WorkplaceDistance : String = "", //int
+    val WorkplaceZipcode : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.ProjectEconomyBudget", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int" },
-      { name: "BudgetCost", type: "float" },
-      { name: "BudgetRevenue", type: "float" },
-    ]*/
 @Suppress("unused")
-class ProjectEconomyBudgetStore (
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val ProjectId : String, //int
-    val Created : String, //date
-    val BudgetRevenue : String, //float
-    val BudgetCost : String, //float
-    val CreatedId : String, //string
-    val ChangedId : String, //string
+data class ProjectStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectStore> = ArrayList()
 )
 
 /*
@@ -2265,19 +2570,282 @@ Ext.define("MEM.model.ProjectEconomy", {
       { name: "ContributionMarginPercent", type: "float" },
     ]*/
 @Suppress("unused")
-class ProjectEconomyStore (
-    val ProjectId : String, //int
-    val ContributionMargin : String, //float
-    val Revenue : String, //float
-    val Id : String, //int
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val Cost : String, //float
-    val ContributionMarginPercent : String, //float
-    val LineType : String, //int
+data class ProjectEconomyStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ContributionMargin : String = "", //float
+    val ContributionMarginPercent : String = "", //float
+    val Cost : String = "", //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val LineType : String = "", //int
+    val ProjectId : String = "", //int
+    val Revenue : String = "", //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectEconomyStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectEconomyStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.ProjectEconomyBudget", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int" },
+      { name: "BudgetCost", type: "float" },
+      { name: "BudgetRevenue", type: "float" },
+    ]*/
+@Suppress("unused")
+data class ProjectEconomyBudgetStore (
+    val BudgetCost : String = "", //float
+    val BudgetRevenue : String = "", //float
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val ProjectId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectEconomyBudgetStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectEconomyBudgetStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.ProjectLimited", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      {
+        name: "Project",
+        type: "string",
+        convert: function (b, a) {
+          return a.data.ProjectNo + ", " + a.data.ProjectName;
+        },
+      },
+      {
+        name: "ParentProjectId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Parent Project No"),
+      },
+      {
+        name: "ProjectNo",
+        type: "string",
+        meType: "meShortText",
+        max: 10,
+        persist: !0,
+        display: T("Project No"),
+      },
+      {
+        name: "ProjectStatusId",
+        type: "int",
+        meType: "meMediumText",
+        display: T("Project status") + T("Code"),
+      },
+      {
+        name: "ProjectStatusCode",
+        type: "int",
+        meType: "meMediumText",
+        display: T("Project status") + T("Code"),
+      },
+      {
+        name: "ProjectName",
+        type: "string",
+        meType: "meMediumText",
+        max: 50,
+        display: T("Project Name"),
+      },
+      {
+        name: "PriceTypeId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Pricetype") + T("Code"),
+      },
+      {
+        name: "ProjectTypeId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Project type") + T("Code"),
+      },
+      {
+        name: "ProjectManagerId",
+        type: "int",
+        meType: "meMediumText",
+        display: T("Project manager") + " " + T("Username"),
+      },
+      {
+        name: "WorkLeaderId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Work leader") + " " + T("Username"),
+      },
+      {
+        name: "TagField1Id",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Tag field 1"),
+      },
+      {
+        name: "TagField2Id",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Tag field 2"),
+      },
+      {
+        name: "CustomerId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Customer no"),
+      },
+      {
+        name: "CustomerAgentId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Customer Contact"),
+      },
+      {
+        name: "CustomerRef",
+        type: "string",
+        meType: "meMediumText",
+        max: 50,
+        display: T("Customer ref."),
+      },
+      {
+        name: "MarkupModelId",
+        type: "int",
+        meType: "meShortText",
+        display: T("Markup model"),
+      },
+      {
+        name: "CostCenterId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Costcenter"),
+      },
+      {
+        name: "SellerId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Seller") + " " + T("Username"),
+      },
+      {
+        name: "FrameworkContractId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Framework contract"),
+        translate: T("FrameworkContract"),
+      },
+      {
+        name: "PartnerSupplierId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("Partner supplier"),
+      },
+      {
+        name: "ProjectResourceGroupId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("ProjectResourceGroupProject"),
+      },
+      {
+        name: "WorkplaceId",
+        type: "string",
+        meType: "meMediumText",
+        max: 50,
+        allowNull: !0,
+        display: T("WorkplaceId"),
+      },
+      {
+        name: "BasicScopeId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+      },
+      {
+        name: "KPIRuleId",
+        type: "int",
+        meType: "meMediumText",
+        allowNull: !0,
+        display: T("KPI rule"),
+      },
+      { name: "WOFavorite", type: "boolean", persist: !1 },
+    ]*/
+@Suppress("unused")
+data class ProjectLimitedStore (
+    val BasicScopeId : String = "", //int
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CostCenterId : String = "", //int
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerAgentId : String = "", //int
+    val CustomerId : String = "", //int
+    val CustomerRef : String = "", //string
+    val Disabled : String = "", //boolean
+    val FrameworkContractId : String = "", //int
+    val Id : String = "", //int
+    val KPIRuleId : String = "", //int
+    val MarkupModelId : String = "", //int
+    val ParentProjectId : String = "", //int
+    val PartnerSupplierId : String = "", //int
+    val PriceTypeId : String = "", //int
+    val Project : String = "", //string
+    val ProjectManagerId : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectResourceGroupId : String = "", //int
+    val ProjectStatusCode : String = "", //int
+    val ProjectStatusId : String = "", //int
+    val ProjectTypeId : String = "", //int
+    val SellerId : String = "", //int
+    val TagField1Id : String = "", //int
+    val TagField2Id : String = "", //int
+    val WOFavorite : String = "", //boolean
+    val WorkLeaderId : String = "", //int
+    val WorkplaceId : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectLimitedStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectLimitedStore> = ArrayList()
 )
 
 /*
@@ -2317,56 +2885,35 @@ Ext.define("MEM.model.ProjectList", {
       { name: "KPIRuleId", type: "int", useNull: !0 },
     ]*/
 @Suppress("unused")
-class ProjectListStore (
-    val KPIRuleId : String?, //int
-    val Piecework : String, //bool
-    val CreatedId : String, //string
-    val ProjectNo : String, //string
-    val ProjectStatusId : String, //int
-    val CustomerId : String, //int
-    val WorkplaceId : String, //string
-    val Id : String, //int
-    val SecReadOnly : String, //bool
-    val ChangedId : String, //string
-    val StatusCode : String, //string
-    val Changed : String, //date
-    val Created : String, //date
-    val ProjectName : String, //string
-    val Project : String, //string
-    val Disabled : String, //boolean
-    val ProjectStatus : String, //string
+data class ProjectListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val KPIRuleId : String? = null, //int
+    val Piecework : String = "", //bool
+    val Project : String = "", //string
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectStatus : String = "", //string
+    val ProjectStatusId : String = "", //int
+    val SecReadOnly : String = "", //bool
+    val StatusCode : String = "", //string
+    val WorkplaceId : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.UserList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "FullName", type: "string" },
-      { name: "Signature", type: "string" },
-      { name: "EmployeeNo", type: "string" },
-      { name: "PersonalNo", type: "string" },
-      { name: "ProfessionCode", type: "string" },
-      { name: "ProfessionItemId", type: "int" },
-      { name: "OrganizationalProjectId", type: "int" },
-      { name: "PartnerSupplier", type: "bool" },
-    ]*/
 @Suppress("unused")
-class UserListStore (
-    val Signature : String, //string
-    val ProfessionItemId : String, //int
-    val PersonalNo : String, //string
-    val Disabled : String, //boolean
-    val FullName : String, //string
-    val ChangedId : String, //string
-    val EmployeeNo : String, //string
-    val ProfessionCode : String, //string
-    val CreatedId : String, //string
-    val Id : String, //int
-    val OrganizationalProjectId : String, //int
-    val PartnerSupplier : String, //bool
-    val Changed : String, //date
-    val Created : String, //date
+data class ProjectListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectListStore> = ArrayList()
 )
 
 /*
@@ -2652,46 +3199,90 @@ Ext.define("MEM.model.ProjectOverview", {
       },
     ]*/
 @Suppress("unused")
-class ProjectOverviewStore (
-    val CreatedId : String, //string
-    val ProjectStart : String?, //date
-    val SLPRevenue : String?, //float
-    val BookedCost : String?, //float
-    val WorkOrderCost : String?, //float
-    val BudgetHours : String?, //int
-    val ContributionMarginWO : String?, //float
-    val MaterialCost : String?, //float
-    val WorkCost : String?, //float
-    val EarnedRevenueNotInvoicedWithTax : String?, //float
-    val SLPCost : String?, //float
-    val CustomerId : String?, //int
-    val Disabled : String, //boolean
-    val ContributionMarginPercent : String?, //int
-    val ProjectStatusId : String?, //int
-    val BookedHours : String?, //int
-    val EarnedRevenue : String?, //float
-    val TagField1Id : String?, //int
-    val ContributionMarginPercentSLP : String?, //int
-    val ProjectNo : String, //string
-    val ContributionMarginAmount : String?, //float
-    val EarnedRevenueWithTax : String?, //float
-    val BookedRevenue : String?, //float
-    val TagField2Id : String?, //int
-    val ContributionMarginAmountSLP : String?, //float
-    val ProjectEnd : String?, //date
-    val Created : String, //date
-    val Changed : String, //date
-    val BudgetRevenue : String?, //float
-    val WorkOrderRevenue : String?, //float
-    val EarnedRevenueNotInvoiced : String?, //float
-    val BudgetCost : String?, //float
-    val ProjectName : String, //string
-    val ChangedId : String, //string
-    val WorkCostWithTax : String?, //float
-    val BudgetRevenueWithTax : String?, //float
-    val ProjectManagerId : String?, //int
-    val Id : String, //int
-    val ProjectId : String?, //int
+data class ProjectOverviewStore (
+    val BookedCost : String? = null, //float
+    val BookedHours : String? = null, //int
+    val BookedRevenue : String? = null, //float
+    val BudgetCost : String? = null, //float
+    val BudgetHours : String? = null, //int
+    val BudgetRevenue : String? = null, //float
+    val BudgetRevenueWithTax : String? = null, //float
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ContributionMarginAmount : String? = null, //float
+    val ContributionMarginAmountSLP : String? = null, //float
+    val ContributionMarginPercent : String? = null, //int
+    val ContributionMarginPercentSLP : String? = null, //int
+    val ContributionMarginWO : String? = null, //float
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String? = null, //int
+    val Disabled : String = "", //boolean
+    val EarnedRevenue : String? = null, //float
+    val EarnedRevenueNotInvoiced : String? = null, //float
+    val EarnedRevenueNotInvoicedWithTax : String? = null, //float
+    val EarnedRevenueWithTax : String? = null, //float
+    val Id : String = "", //int
+    val MaterialCost : String? = null, //float
+    val ProjectEnd : String? = null, //date
+    val ProjectId : String? = null, //int
+    val ProjectManagerId : String? = null, //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectStart : String? = null, //date
+    val ProjectStatusId : String? = null, //int
+    val SLPCost : String? = null, //float
+    val SLPRevenue : String? = null, //float
+    val TagField1Id : String? = null, //int
+    val TagField2Id : String? = null, //int
+    val WorkCost : String? = null, //float
+    val WorkCostWithTax : String? = null, //float
+    val WorkOrderCost : String? = null, //float
+    val WorkOrderRevenue : String? = null, //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectOverviewStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectOverviewStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.ProjectPricelist", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int" },
+      { name: "ServiceCarPriceDay", type: "float" },
+      { name: "ServiceCarPriceKm", type: "float" },
+    ]*/
+@Suppress("unused")
+data class ProjectPricelistStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val ProjectId : String = "", //int
+    val ServiceCarPriceDay : String = "", //float
+    val ServiceCarPriceKm : String = "", //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectPricelistStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectPricelistStore> = ArrayList()
 )
 
 /*
@@ -2709,38 +3300,60 @@ Ext.define("MEM.model.ProjectPricelistItem", {
       { name: "PriceUnit", type: "float", meType: "meMoney" },
     ]*/
 @Suppress("unused")
-class ProjectPricelistItemStore (
-    val ProjectId : String?, //int
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val ProfessionItemId : String?, //int
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val CreatedId : String, //string
-    val PriceUnit : String, //float
-    val Created : String, //date
+data class ProjectPricelistItemStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val PriceUnit : String = "", //float
+    val ProfessionItemId : String? = null, //int
+    val ProjectId : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectPricelistItemStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectPricelistItemStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.ProjectPricelist", {
+Ext.define("MEM.model.ProjectStatus", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "ProjectId", type: "int" },
-      { name: "ServiceCarPriceDay", type: "float" },
-      { name: "ServiceCarPriceKm", type: "float" },
+      { name: "StatusName", type: "string", max: 50 },
+      { name: "StatusCode", type: "int" },
+      { name: "StatusColor", type: "string", max: 20 },
     ]*/
 @Suppress("unused")
-class ProjectPricelistStore (
-    val Created : String, //date
-    val ChangedId : String, //string
-    val Id : String, //int
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ServiceCarPriceKm : String, //float
-    val ProjectId : String, //int
-    val Disabled : String, //boolean
-    val ServiceCarPriceDay : String, //float
+data class ProjectStatusStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val StatusCode : String = "", //int
+    val StatusColor : String = "", //string
+    val StatusName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectStatusStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectStatusStore> = ArrayList()
 )
 
 /*
@@ -2756,95 +3369,30 @@ Ext.define("MEM.model.ProjectStatusHistory", {
       { name: "FullName", type: "string", max: 50 },
     ]*/
 @Suppress("unused")
-class ProjectStatusHistoryStore (
-    val Changed : String, //date
-    val Created : String, //date
-    val Id : String, //int
-    val ChangedId : String, //string
-    val ProjectStatusHistoryId : String, //int
-    val StatusName : String, //string
-    val StatusCode : String, //int
-    val StatusColor : String, //string
-    val ProjectId : String, //int
-    val CreatedId : String, //string
-    val FullName : String, //string
-    val Disabled : String, //boolean
+data class ProjectStatusHistoryStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val ProjectId : String = "", //int
+    val ProjectStatusHistoryId : String = "", //int
+    val StatusCode : String = "", //int
+    val StatusColor : String = "", //string
+    val StatusName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.Project", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ParentProjectId", type: "int", allowBlank: !1, useNull: !0 },
-      { name: "ProjectNo", type: "int", persist: !1, sortType: "asInt" },
-      { name: "ProjectStatusId", type: "int" },
-      { name: "ProjectName", type: "string", max: 50, allowBlank: !1 },
-      { name: "PriceTypeId", type: "int" },
-      { name: "ProjectTypeId", type: "int" },
-      { name: "ProjectManagerId", type: "int" },
-      { name: "WorkLeaderId", type: "int" },
-      { name: "TagField1Id", type: "int", useNull: !0 },
-      { name: "TagField2Id", type: "int", useNull: !0 },
-      { name: "ProjectNote", type: "string", useNull: !0 },
-      { name: "CustomerId", type: "int", useNull: !0 },
-      { name: "CustomerName", type: "string" },
-      { name: "CreditRisk", type: "boolean" },
-      { name: "ContactName", type: "string" },
-      { name: "CustomerAgentId", type: "int", useNull: !0 },
-      { name: "CustomerRef", type: "string", max: 50 },
-      { name: "ProjectStart", type: "date", dateFormat: "Y-m-d" },
-      { name: "ProjectEnd", type: "date", useNull: !0, dateFormat: "Y-m-d" },
-      { name: "MarkupModelId", type: "int", allowBlank: !1 },
-      { name: "WorkplaceAddress1", type: "string", max: 50 },
-      { name: "WorkplaceAddress2", type: "string", max: 50 },
-      { name: "WorkplaceZipcode", type: "string", max: 50 },
-      { name: "WorkplaceCity", type: "string", max: 50 },
-      { name: "WorkplaceDistance", type: "int" },
-      { name: "FinalInspectionDate", type: "date", dateFormat: "Y-m-d" },
-      { name: "GuaranteeTime", type: "int" },
-      { name: "GuaranteeInspectionDate", type: "date", dateFormat: "Y-m-d" },
-      { name: "WOFavorite", type: "boolean", persist: !1 },
-      { name: "FrameworkContractId", type: "int", useNull: !0 },
-    ]*/
 @Suppress("unused")
-class ProjectStore (
-    val MarkupModelId : String, //int
-    val WorkplaceAddress2 : String, //string
-    val PriceTypeId : String, //int
-    val GuaranteeTime : String, //int
-    val TagField1Id : String?, //int
-    val ProjectManagerId : String, //int
-    val ProjectNo : String, //int
-    val ProjectEnd : String?, //date
-    val WorkLeaderId : String, //int
-    val WorkplaceAddress1 : String, //string
-    val ContactName : String, //string
-    val ProjectName : String, //string
-    val Id : String, //int
-    val Created : String, //date
-    val CreditRisk : String, //boolean
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val CustomerAgentId : String?, //int
-    val GuaranteeInspectionDate : String, //date
-    val WOFavorite : String, //boolean
-    val FinalInspectionDate : String, //date
-    val CreatedId : String, //string
-    val FrameworkContractId : String?, //int
-    val ParentProjectId : String?, //int
-    val ProjectStart : String, //date
-    val CustomerName : String, //string
-    val WorkplaceCity : String, //string
-    val WorkplaceDistance : String, //int
-    val TagField2Id : String?, //int
-    val CustomerRef : String, //string
-    val ProjectTypeId : String, //int
-    val ProjectStatusId : String, //int
-    val WorkplaceZipcode : String, //string
-    val ProjectNote : String?, //string
-    val CustomerId : String?, //int
+data class ProjectStatusHistoryStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectStatusHistoryStore> = ArrayList()
 )
 
 /*
@@ -2857,16 +3405,27 @@ Ext.define("MEM.model.ProjectTree", {
       { name: "ProjectNo", type: "string" },
     ]*/
 @Suppress("unused")
-class ProjectTreeStore (
-    val ChangedId : String, //string
-    val ProjectStatusId : String, //int
-    val ProjectName : String, //string
-    val Created : String, //date
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ProjectNo : String, //string
+data class ProjectTreeStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectStatusId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectTreeStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectTreeStore> = ArrayList()
 )
 
 /*
@@ -2874,14 +3433,25 @@ Ext.define("MEM.model.ProjectType", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
 @Suppress("unused")
-class ProjectTypeStore (
-    val Id : String, //int
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Created : String, //date
-    val TypeName : String, //string
-    val Disabled : String, //boolean
+data class ProjectTypeStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val TypeName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ProjectTypeStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ProjectTypeStore> = ArrayList()
 )
 
 /*
@@ -2904,19 +3474,30 @@ Ext.define("MEM.model.Resource", {
       { name: "CreditProjectName", type: "string" },
     ]*/
 @Suppress("unused")
-class ResourceStore (
-    val CreditProjectId : String, //int
-    val ResourceNo : String, //string
-    val CreditProjectNo : String, //string
-    val Created : String, //date
-    val CreditProjectName : String, //string
-    val Changed : String, //date
-    val Id : String, //int
-    val FullDescription : String, //string
-    val Description : String, //string
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
+data class ResourceStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditProjectId : String = "", //int
+    val CreditProjectName : String = "", //string
+    val CreditProjectNo : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ResourceNo : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ResourceStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ResourceStore> = ArrayList()
 )
 
 /*
@@ -3003,54 +3584,51 @@ Ext.define("MEM.model.Revenue", {
       { name: "Mark2", type: "string", max: 255, useNull: !0 },
     ]*/
 @Suppress("unused")
-class RevenueStore (
-    val TransactionType : String, //string
-    val RevenueTransaction : String, //bool
-    val ProjectId : String, //int
-    val MarkupAmount : String, //float
-    val InvoiceId : String?, //int
-    val IsScanned : String, //bool
-    val ExtVerificationId : String?, //string
-    val CustomerPrice : String, //float
-    val ApprovedByProduction : String, //bool
-    val Mark1 : String?, //string
-    val AccountNo : String, //string
-    val WorkOrderNo : String?, //int
-    val InvoiceAmount : String, //float
-    val Disabled : String, //boolean
-    val SupplierInvoiceId : String, //int
-    val Invoiceable : String, //bool
-    val TransactionNote : String, //string
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val Mark2 : String?, //string
-    val Notes : String?, //string
-    val CustomerNo : String?, //string
-    val Created : String, //date
-    val Id : String, //int
-    val ChangedId : String, //string
-    val VerificationNo : String, //string
-    val WorkOrderName : String?, //int
-    val LedgerDate : String, //date
-    val ScannedUrl : String?, //string
-    val WorkOrderId : String?, //int
-    val Invoiced : String, //bool
-    val ExtInvoiceNo : String?, //string
-    val Locked : String, //bool
+data class RevenueStore (
+    val AccountNo : String = "", //string
+    val ApprovedByProduction : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerNo : String? = null, //string
+    val CustomerPrice : String = "", //float
+    val Disabled : String = "", //boolean
+    val ExtInvoiceNo : String? = null, //string
+    val ExtVerificationId : String? = null, //string
+    val Id : String = "", //int
+    val InvoiceAmount : String = "", //float
+    val InvoiceId : String? = null, //int
+    val Invoiceable : String = "", //bool
+    val Invoiced : String = "", //bool
+    val IsScanned : String = "", //bool
+    val LedgerDate : String = "", //date
+    val Locked : String = "", //bool
+    val Mark1 : String? = null, //string
+    val Mark2 : String? = null, //string
+    val MarkupAmount : String = "", //float
+    val Notes : String? = null, //string
+    val ProjectId : String = "", //int
+    val RevenueTransaction : String = "", //bool
+    val ScannedUrl : String? = null, //string
+    val SupplierInvoiceId : String = "", //int
+    val TransactionNote : String = "", //string
+    val TransactionType : String = "", //string
+    val VerificationNo : String = "", //string
+    val WorkOrderId : String? = null, //int
+    val WorkOrderName : String? = null, //int
+    val WorkOrderNo : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.Setting", {
-  extend: Ext.data.Model,
-  config: { fields: [{ name: "Name" }, { name: "Value" }]*/
 @Suppress("unused")
-class SettingStore (
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
-    val Created : String, //date
-    val Id : String, //int
+data class RevenueStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<RevenueStore> = ArrayList()
 )
 
 /*
@@ -3058,14 +3636,50 @@ Ext.define("MEM.model.ServiceCategory", {
   extend: MEM.model.Base,
   config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
 @Suppress("unused")
-class ServiceCategoryStore (
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Name : String, //string
-    val Id : String, //int
+data class ServiceCategoryStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class ServiceCategoryStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<ServiceCategoryStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.Setting", {
+  extend: Ext.data.Model,
+  config: { fields: [{ name: "Name" }, { name: "Value" }]*/
+@Suppress("unused")
+data class SettingStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class SettingStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<SettingStore> = ArrayList()
 )
 
 /*
@@ -3112,28 +3726,133 @@ Ext.define("MEM.model.StaffList", {
       },
     ]*/
 @Suppress("unused")
-class StaffListStore (
-    val OriginId : String, //int
-    val Id : String, //int
-    val CustomerId : String, //int
-    val ChangedId : String, //string
-    val CustomerName : String, //string
-    val Disabled : String, //boolean
-    val DiaryId : String, //int
-    val FullName : String, //string
-    val CheckedIn : String, //date
-    val CheckedInTime : String, //string
-    val IdNo : String, //string
-    val CheckedOutTime : String, //string
-    val Created : String, //date
-    val Present : String, //string
-    val CheckedOut : String, //date
-    val LogId : String, //int
-    val ProjectId : String, //int
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val Origin : String?, //string
-    val isEmployee : String, //bool
+data class StaffListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val CheckedIn : String = "", //date
+    val CheckedInTime : String = "", //string
+    val CheckedOut : String = "", //date
+    val CheckedOutTime : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val CustomerName : String = "", //string
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val IdNo : String = "", //string
+    val LogId : String = "", //int
+    val Origin : String? = null, //string
+    val OriginId : String = "", //int
+    val Present : String = "", //string
+    val ProjectId : String = "", //int
+    val isEmployee : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class StaffListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<StaffListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.StaffLog", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "Created", type: "string", dateFormat: "time" },
+      { name: "CreatedId", type: "int" },
+      { name: "Changed", type: "string", dateFormat: "time" },
+      { name: "ChangedId", type: "int" },
+      { name: "DiaryId", type: "int" },
+      { name: "ProjectId", type: "int" },
+      { name: "IdNo", type: "string" },
+      { name: "Origin", type: "string", useNull: !0 },
+      { name: "OriginId", type: "int" },
+      { name: "CheckedIn", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
+      {
+        name: "CheckedInTime",
+        type: "string",
+        convert: function (b, a) {
+          return a.timeDisplay(b, a, "CheckedIn");
+        },
+      },
+      { name: "CheckedOut", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
+      { name: "FullName", type: "string" },
+    ]*/
+@Suppress("unused")
+data class StaffLogStore (
+    val Changed : String = "", //string
+    val ChangedId : String = "", //int
+    val CheckedIn : String = "", //date
+    val CheckedInTime : String = "", //string
+    val CheckedOut : String = "", //date
+    val Created : String = "", //string
+    val CreatedId : String = "", //int
+    val CreatedName : String = "", //string
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val IdNo : String = "", //string
+    val Origin : String? = null, //string
+    val OriginId : String = "", //int
+    val ProjectId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class StaffLogStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<StaffLogStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.StaffPreviousDay", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "Created", type: "string", dateFormat: "time" },
+      { name: "CreatedId", type: "int" },
+      { name: "Changed", type: "string", dateFormat: "time" },
+      { name: "ChangedId", type: "int" },
+      { name: "IdNo", type: "string" },
+      { name: "DiaryId", type: "int" },
+      { name: "ProjectId", type: "int" },
+    ]*/
+@Suppress("unused")
+data class StaffPreviousDayStore (
+    val Changed : String = "", //string
+    val ChangedId : String = "", //int
+    val Created : String = "", //string
+    val CreatedId : String = "", //int
+    val CreatedName : String = "", //string
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val IdNo : String = "", //string
+    val ProjectId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class StaffPreviousDayStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<StaffPreviousDayStore> = ArrayList()
 )
 
 /*
@@ -3147,16 +3866,61 @@ Ext.define("MEM.model.StatusHistory", {
       { name: "Changed", type: "data" },
     ]*/
 @Suppress("unused")
-class StatusHistoryStore (
-    val FullName : String, //string
-    val Id : String, //int
-    val CreatedId : String, //string
-    val Disabled : String, //boolean
-    val Changed : String, //data
-    val ChangedId : String, //string
-    val StatusName : String, //string
-    val Created : String, //date
-    val ProjectStatusHistoryId : String, //int
+data class StatusHistoryStore (
+    val Changed : String = "", //data
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val ProjectStatusHistoryId : String = "", //int
+    val StatusName : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class StatusHistoryStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<StatusHistoryStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.Supplier", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
+      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
+      { name: "OrganizationNo", type: "string", max: 15 },
+    ]*/
+@Suppress("unused")
+data class SupplierStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerName : String = "", //string
+    val CustomerNo : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val OrganizationNo : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class SupplierStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<SupplierStore> = ArrayList()
 )
 
 /*
@@ -3168,15 +3932,429 @@ Ext.define("MEM.model.Tag", {
       { name: "TagValue", type: "string", max: 50 },
     ]*/
 @Suppress("unused")
-class TagStore (
-    val TagName : String, //string
-    val Id : String, //int
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val TagValue : String, //string
-    val Changed : String, //date
+data class TagStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val TagName : String = "", //string
+    val TagValue : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class TagStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<TagStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.Time", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "FullName", type: "string", max: 100 },
+      { name: "ProjectId", type: "int" },
+      { name: "AbsenceProjectId", type: "int", useNull: !0 },
+      {
+        name: "Absence",
+        type: "bool",
+        convert: function (c, b) {
+          var a = MEM.app.getController("Common");
+          return b.get("ProjectId") != a.absenceProjectId() ? 0 : 1;
+        },
+      },
+      {
+        name: "ProjectName",
+        type: "string",
+        max: 255,
+        sortable: !0,
+        convert: function (b, c) {
+          if (b) {
+            return b;
+          } else {
+            var d = Ext.getStore("MyCloneProjectListAllStore"),
+              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
+            if (a) {
+              return a.get("ProjectName");
+            } else {
+              return "";
+            }
+          }
+        },
+      },
+      {
+        name: "ProjectNo",
+        type: "string",
+        max: 20,
+        sortable: !0,
+        sortType: "asInt",
+        convert: function (b, c) {
+          if (b) {
+            return b;
+          } else {
+            var d = Ext.getStore("MyCloneProjectListAllStore"),
+              a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
+            if (a) {
+              return a.get("ProjectNo");
+            } else {
+              return "";
+            }
+          }
+        },
+      },
+      {
+        name: "Project",
+        type: "string",
+        max: 255,
+        convert: function (d, b) {
+          var c = Ext.getStore("MyCloneProjectListAllStore"),
+            a;
+          a = c.findRecord("Id", b.get("ProjectId"), 0, !1, !0, !0);
+          if (a) {
+            return a.get("ProjectNo") + ", " + a.get("ProjectName");
+          }
+        },
+      },
+      {
+        name: "ProjectStatus",
+        type: "string",
+        max: 255,
+        convert: function (e, c) {
+          var d = Ext.getStore("MyCloneProjectListAllStore"),
+            b = Ext.getStore("MyProjectStatusStore"),
+            a;
+          a = d.findRecord("Id", c.get("ProjectId"), 0, !1, !0, !0);
+          if (a) {
+            b = b.findRecord("Id", a.get("ProjectStatusId"), 0, !1, !0, !0);
+            return b.get("StatusCode");
+          } else {
+            return null;
+          }
+        },
+      },
+      { name: "WorkOrderId", type: "int", useNull: !0 },
+      {
+        name: "WorkOrderNo",
+        type: "int",
+        useNull: !0,
+        convert: function (b, c) {
+          var a = Ext.getStore("MyWorkOrderListStore").findRecord(
+            "Id",
+            c.get("WorkOrderId"),
+            0,
+            !1,
+            !0,
+            !0
+          );
+          if (a && a.get("Addition")) {
+            return AWOpad(b, 3);
+          }
+          return b;
+        },
+      },
+      { name: "WOAWONo", type: "string", max: 10, sortable: !0 },
+      { name: "WorkOrderName", type: "string", max: 255, sortable: !0 },
+      { name: "RegDate", type: "string", max: 10, sortType: "asDate" },
+      { name: "Debit", type: "boolean", defaultValue: !0 },
+      { name: "ProfessionItemId", type: "int" },
+      { name: "ProfessionCode", type: "string", max: 20 },
+      { name: "ProfessionAccountNo", type: "string", max: 5 },
+      { name: "Unit", type: "string", max: 5 },
+      {
+        name: "Hours",
+        type: "float",
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      {
+        name: "BreakTime",
+        type: "float",
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      {
+        name: "StartTime",
+        useNull: !0,
+        type: "date",
+        dateFormat: "Y-m-d H:i:s",
+        convert: function (b, h) {
+          var f,
+            d = new Date(h.get("RegDate")),
+            c,
+            e = getSetting("Time.Timestamp.Interval"),
+            g = e ? parseInt(e) : 15;
+          if (typeof b == "string") {
+            var a = b.split(/[-:T]*/
+@Suppress("unused")
+data class TimeStore (
+    val Absence : String = "", //bool
+    val AbsenceProjectId : String? = null, //int
+    val BreakTime : String = "", //float
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Debit : String = "", //boolean
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Hours : String = "", //float
+    val Id : String = "", //int
+    val ProfessionAccountNo : String = "", //string
+    val ProfessionCode : String = "", //string
+    val ProfessionItemId : String = "", //int
+    val Project : String = "", //string
+    val ProjectId : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectStatus : String = "", //string
+    val RegDate : String = "", //string
+    val Unit : String = "", //string
+    val UserId : String = "", //int
+    val WOAWONo : String = "", //string
+    val WorkOrderId : String? = null, //int
+    val WorkOrderName : String = "", //string
+    val WorkOrderNo : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class TimeStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<TimeStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.User", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "FullName", type: "string" },
+      { name: "UserLogin", type: "string" },
+      { name: "PersonalNo", type: "string" },
+      { name: "Languagecode", type: "string" },
+    ]*/
+@Suppress("unused")
+data class UserStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val Languagecode : String = "", //string
+    val PersonalNo : String = "", //string
+    val UserLogin : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserAccess", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "ObjectRightId", type: "int" },
+      { name: "ObjectRightName", type: "string", max: 50 },
+      { name: "ObjectName", type: "string", max: 50 },
+      { name: "IsProjectRight", type: "bool" },
+      { name: "AccessRight", type: "int" },
+      { name: "WriteRight", type: "int" },
+      { name: "ReadRight", type: "int" },
+      { name: "OwnRight", type: "int" },
+    ]*/
+@Suppress("unused")
+data class UserAccessStore (
+    val AccessRight : String = "", //int
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val IsProjectRight : String = "", //bool
+    val ObjectName : String = "", //string
+    val ObjectRightId : String = "", //int
+    val ObjectRightName : String = "", //string
+    val OwnRight : String = "", //int
+    val ReadRight : String = "", //int
+    val UserId : String = "", //int
+    val WriteRight : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserAccessStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserAccessStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserFavoriteArticle", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleId", type: "int" },
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore"),
+            b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return Ext.String.format(
+              "{0} ({1})",
+              a.get("Description"),
+              b.get("Description")
+            );
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "UserId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ]*/
+@Suppress("unused")
+data class UserFavoriteArticleStore (
+    val AccountNo : String = "", //string
+    val ArticleId : String = "", //int
+    val ArticleNo : String = "", //string
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val FavoriteListId : String = "", //int
+    val FullDescription : String = "", //string
+    val Id : String = "", //int
+    val ItemUnitId : String = "", //int
+    val Payoff : String = "", //bool
+    val UserId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserFavoriteArticleStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserFavoriteArticleStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserFavoriteList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "FavoriteListId", type: "int" },
+      { name: "Name", type: "string" },
+    ]*/
+@Suppress("unused")
+data class UserFavoriteListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FavoriteListId : String = "", //int
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val UserId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserFavoriteListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserFavoriteListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "FullName", type: "string" },
+      { name: "Signature", type: "string" },
+      { name: "EmployeeNo", type: "string" },
+      { name: "PersonalNo", type: "string" },
+      { name: "ProfessionCode", type: "string" },
+      { name: "ProfessionItemId", type: "int" },
+      { name: "OrganizationalProjectId", type: "int" },
+      { name: "PartnerSupplier", type: "bool" },
+    ]*/
+@Suppress("unused")
+data class UserListStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val EmployeeNo : String = "", //string
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val OrganizationalProjectId : String = "", //int
+    val PartnerSupplier : String = "", //bool
+    val PersonalNo : String = "", //string
+    val ProfessionCode : String = "", //string
+    val ProfessionItemId : String = "", //int
+    val Signature : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserListStore> = ArrayList()
 )
 
 /*
@@ -3260,36 +4438,249 @@ Ext.define("MEM.model.UserPoolWorkOrderList", {
       { name: "ProjectFavorite", type: "boolean", persist: !1 },
     ]*/
 @Suppress("unused")
-class UserPoolWorkOrderListStore (
-    val Created : String, //date
-    val HaveDocument : String, //bool
-    val ProductionStartDateDisplay : String, //string
-    val ProductionEnd : String?, //date
-    val WorkOrderStatusId : String, //int
-    val ProjectNo : String, //string
-    val Project : String, //string
-    val Name : String, //string
-    val CustomerFavoritePriceList : String, //boolean
-    val ResponsibleForemanId : String, //int
-    val ProjectName : String, //string
-    val ProjectFavorite : String, //boolean
-    val Addition : String, //bool
-    val WorkOrderStatusCode : String, //int
-    val CustomerName : String, //string
-    val CustomerFavoriteArticlePrice : String, //boolean
-    val CreatedId : String, //string
-    val ProjectStatusCode : String, //int
-    val WorkOrderId : String, //int
-    val Id : String, //int
-    val ProductionStartWeekDay : String, //string
-    val ProductionStartTimeDisplay : String, //string
-    val ResponsibleServiceId : String, //int
-    val WorkOrderNo : String, //int
-    val ProductionStart : String?, //date
-    val ProjectId : String, //int
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val Changed : String, //date
+data class UserPoolWorkOrderListStore (
+    val Addition : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerFavoriteArticlePrice : String = "", //boolean
+    val CustomerFavoritePriceList : String = "", //boolean
+    val CustomerName : String = "", //string
+    val Disabled : String = "", //boolean
+    val HaveDocument : String = "", //bool
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val ProductionEnd : String? = null, //date
+    val ProductionStart : String? = null, //date
+    val ProductionStartDateDisplay : String = "", //string
+    val ProductionStartTimeDisplay : String = "", //string
+    val ProductionStartWeekDay : String = "", //string
+    val Project : String = "", //string
+    val ProjectFavorite : String = "", //boolean
+    val ProjectId : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectStatusCode : String = "", //int
+    val ResponsibleForemanId : String = "", //int
+    val ResponsibleServiceId : String = "", //int
+    val WorkOrderId : String = "", //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusCode : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserPoolWorkOrderListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserPoolWorkOrderListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserProjectWorkOrderList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int" },
+      { name: "ResponsibleServiceId", type: "int" },
+      { name: "WorkPoolId", type: "int" },
+      { name: "WorkOrderStatusId", type: "int" },
+      { name: "ProjectName", type: "string", max: 50 },
+      { name: "WorkOrderNo", type: "int", readOnly: !0 },
+      {
+        name: "BasicScope",
+        type: "bool",
+        readOnly: !0,
+        convert: function (b, a) {
+          if (a.get("WorkOrderNo") == 1) {
+            return !0;
+          }
+          return !1;
+        },
+      },
+      { name: "Addition", type: "bool", defaultValue: !1 },
+      { name: "Name", type: "string", max: 100 },
+      {
+        name: "FullName",
+        type: "string",
+        max: 100,
+        convert: function (b, a) {
+          if (a.get("Addition")) {
+            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          } else {
+            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          }
+        },
+      },
+      { name: "CustomerId", type: "int", persist: !1 },
+      { name: "CustomerFavoritePriceList", type: "boolean", persist: !1 },
+      { name: "CustomerFavoriteArticlePrice", type: "boolean", persist: !1 },
+      { name: "ProjectFavorite", type: "boolean", persist: !1 },
+    ]*/
+@Suppress("unused")
+data class UserProjectWorkOrderListStore (
+    val Addition : String = "", //bool
+    val BasicScope : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerFavoriteArticlePrice : String = "", //boolean
+    val CustomerFavoritePriceList : String = "", //boolean
+    val CustomerId : String = "", //int
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val ProjectFavorite : String = "", //boolean
+    val ProjectId : String = "", //int
+    val ProjectName : String = "", //string
+    val ResponsibleServiceId : String = "", //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val WorkPoolId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserProjectWorkOrderListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserProjectWorkOrderListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserRight", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "ObjectRightId", type: "int" },
+      { name: "ObjectRightName", type: "string", max: 50 },
+      { name: "ObjectName", type: "string", max: 50 },
+      { name: "WebClient", type: "bool" },
+      { name: "MobileClient", type: "bool" },
+      { name: "ApiClient", type: "bool" },
+      { name: "AdminClient", type: "bool" },
+    ]*/
+@Suppress("unused")
+data class UserRightStore (
+    val AdminClient : String = "", //bool
+    val ApiClient : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val MobileClient : String = "", //bool
+    val ObjectName : String = "", //string
+    val ObjectRightId : String = "", //int
+    val ObjectRightName : String = "", //string
+    val UserId : String = "", //int
+    val WebClient : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserRightStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserRightStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserSession", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "SessionId", type: "string", max: 128 },
+      { name: "SessionUserId", type: "int" },
+      { name: "ImpersonatedUserId", type: "int" },
+      { name: "Languagecode", type: "string" },
+      {
+        name: "FullName",
+        type: "string",
+        max: 50,
+        convert: function (d, b) {
+          var c = Ext.getStore("MyUserListStore"),
+            a;
+          a = c.findRecord("Id", b.get("ImpersonatedUserId"), 0, !1, !0, !0);
+          if (a) {
+            return a.get("FullName");
+          }
+          return "";
+        },
+      },
+    ]*/
+@Suppress("unused")
+data class UserSessionStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val ImpersonatedUserId : String = "", //int
+    val Languagecode : String = "", //string
+    val SessionId : String = "", //string
+    val SessionUserId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserSessionStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserSessionStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.UserSetting", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "UserId", type: "int" },
+      { name: "SettingKey", type: "string", max: 50 },
+      { name: "SettingValue", type: "string" },
+    ]*/
+@Suppress("unused")
+data class UserSettingStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val SettingKey : String = "", //string
+    val SettingValue : String = "", //string
+    val UserId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class UserSettingStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserSettingStore> = ArrayList()
 )
 
 /*
@@ -3382,226 +4773,45 @@ Ext.define("MEM.model.UserWorkOrderList", {
       { name: "CustomerName", type: "string", max: 50 },
     ]*/
 @Suppress("unused")
-class UserWorkOrderListStore (
-    val ProjectName : String, //string
-    val ChangedId : String, //string
-    val ResponsibleForemanId : String, //int
-    val ProductionStartDateDisplay : String, //string
-    val ResponsibleServiceId : String, //int
-    val Name : String, //string
-    val Changed : String, //date
-    val Addition : String, //bool
-    val ProductionStart : String?, //date
-    val ProjectId : String, //int
-    val ProjectStatusCode : String, //int
-    val ProductionStartWeekDay : String, //string
-    val WorkOrderNo : String, //int
-    val Disabled : String, //boolean
-    val ProductionStartTimeDisplay : String, //string
-    val ProductionEnd : String?, //date
-    val CreatedId : String, //string
-    val HaveDocument : String, //bool
-    val WorkOrderStatusId : String, //int
-    val WorkOrderId : String, //int
-    val WorkOrderStatusCode : String, //int
-    val Created : String, //date
-    val ProjectNo : String, //string
-    val Project : String, //string
-    val Id : String, //int
-    val CustomerName : String, //string
-    val FullName : String, //string
+data class UserWorkOrderListStore (
+    val Addition : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerName : String = "", //string
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val HaveDocument : String = "", //bool
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val ProductionEnd : String? = null, //date
+    val ProductionStart : String? = null, //date
+    val ProductionStartDateDisplay : String = "", //string
+    val ProductionStartTimeDisplay : String = "", //string
+    val ProductionStartWeekDay : String = "", //string
+    val Project : String = "", //string
+    val ProjectId : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ProjectStatusCode : String = "", //int
+    val ResponsibleForemanId : String = "", //int
+    val ResponsibleServiceId : String = "", //int
+    val WorkOrderId : String = "", //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusCode : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.UserProjectWorkOrderList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int" },
-      { name: "ResponsibleServiceId", type: "int" },
-      { name: "WorkPoolId", type: "int" },
-      { name: "WorkOrderStatusId", type: "int" },
-      { name: "ProjectName", type: "string", max: 50 },
-      { name: "WorkOrderNo", type: "int", readOnly: !0 },
-      {
-        name: "BasicScope",
-        type: "bool",
-        readOnly: !0,
-        convert: function (b, a) {
-          if (a.get("WorkOrderNo") == 1) {
-            return !0;
-          }
-          return !1;
-        },
-      },
-      { name: "Addition", type: "bool", defaultValue: !1 },
-      { name: "Name", type: "string", max: 100 },
-      {
-        name: "FullName",
-        type: "string",
-        max: 100,
-        convert: function (b, a) {
-          if (a.get("Addition")) {
-            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          } else {
-            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          }
-        },
-      },
-      { name: "CustomerId", type: "int", persist: !1 },
-      { name: "CustomerFavoritePriceList", type: "boolean", persist: !1 },
-      { name: "CustomerFavoriteArticlePrice", type: "boolean", persist: !1 },
-      { name: "ProjectFavorite", type: "boolean", persist: !1 },
-    ]*/
 @Suppress("unused")
-class UserProjectWorkOrderListStore (
-    val FullName : String, //string
-    val Disabled : String, //boolean
-    val CustomerId : String, //int
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ResponsibleServiceId : String, //int
-    val Created : String, //date
-    val Name : String, //string
-    val CustomerFavoritePriceList : String, //boolean
-    val CustomerFavoriteArticlePrice : String, //boolean
-    val WorkOrderStatusId : String, //int
-    val Id : String, //int
-    val WorkPoolId : String, //int
-    val WorkOrderNo : String, //int
-    val ProjectFavorite : String, //boolean
-    val BasicScope : String, //bool
-    val ProjectName : String, //string
-    val ChangedId : String, //string
-    val Addition : String, //bool
-    val ProjectId : String, //int
-)
-
-/*
-Ext.define("MEM.model.UserRight", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "ObjectRightId", type: "int" },
-      { name: "ObjectRightName", type: "string", max: 50 },
-      { name: "ObjectName", type: "string", max: 50 },
-      { name: "WebClient", type: "bool" },
-      { name: "MobileClient", type: "bool" },
-      { name: "ApiClient", type: "bool" },
-      { name: "AdminClient", type: "bool" },
-    ]*/
-@Suppress("unused")
-class UserRightStore (
-    val Created : String, //date
-    val AdminClient : String, //bool
-    val WebClient : String, //bool
-    val CreatedId : String, //string
-    val Id : String, //int
-    val ChangedId : String, //string
-    val UserId : String, //int
-    val ObjectRightId : String, //int
-    val Disabled : String, //boolean
-    val ObjectRightName : String, //string
-    val ObjectName : String, //string
-    val ApiClient : String, //bool
-    val Changed : String, //date
-    val MobileClient : String, //bool
-)
-
-/*
-Ext.define("MEM.model.UserAccess", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "ObjectRightId", type: "int" },
-      { name: "ObjectRightName", type: "string", max: 50 },
-      { name: "ObjectName", type: "string", max: 50 },
-      { name: "IsProjectRight", type: "bool" },
-      { name: "AccessRight", type: "int" },
-      { name: "WriteRight", type: "int" },
-      { name: "ReadRight", type: "int" },
-      { name: "OwnRight", type: "int" },
-    ]*/
-@Suppress("unused")
-class UserAccessStore (
-    val Created : String, //date
-    val WriteRight : String, //int
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val ReadRight : String, //int
-    val ObjectRightName : String, //string
-    val ObjectName : String, //string
-    val Id : String, //int
-    val UserId : String, //int
-    val IsProjectRight : String, //bool
-    val OwnRight : String, //int
-    val ObjectRightId : String, //int
-    val AccessRight : String, //int
-    val Disabled : String, //boolean
-)
-
-/*
-Ext.define("MEM.model.UserSession", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "SessionId", type: "string", max: 128 },
-      { name: "SessionUserId", type: "int" },
-      { name: "ImpersonatedUserId", type: "int" },
-      { name: "Languagecode", type: "string" },
-      {
-        name: "FullName",
-        type: "string",
-        max: 50,
-        convert: function (d, b) {
-          var c = Ext.getStore("MyUserListStore"),
-            a;
-          a = c.findRecord("Id", b.get("ImpersonatedUserId"), 0, !1, !0, !0);
-          if (a) {
-            return a.get("FullName");
-          }
-          return "";
-        },
-      },
-    ]*/
-@Suppress("unused")
-class UserSessionStore (
-    val Id : String, //int
-    val Created : String, //date
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val SessionUserId : String, //int
-    val ImpersonatedUserId : String, //int
-    val Languagecode : String, //string
-    val Changed : String, //date
-    val Disabled : String, //boolean
-    val FullName : String, //string
-    val SessionId : String, //string
-)
-
-/*
-Ext.define("MEM.model.UserSetting", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "UserId", type: "int" },
-      { name: "SettingKey", type: "string", max: 50 },
-      { name: "SettingValue", type: "string" },
-    ]*/
-@Suppress("unused")
-class UserSettingStore (
-    val SettingKey : String, //string
-    val UserId : String, //int
-    val Created : String, //date
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val SettingValue : String, //string
-    val Id : String, //int
-    val CreatedId : String, //string
+data class UserWorkOrderListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<UserWorkOrderListStore> = ArrayList()
 )
 
 /*
@@ -3625,248 +4835,26 @@ Ext.define("MEM.model.Vat", {
       },
     ]*/
 @Suppress("unused")
-class VatStore (
-    val Description : String, //string
-    val ChangedId : String, //string
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val VatPercent : String?, //float
-    val Id : String, //int
-    val Disabled : String, //boolean
+data class VatStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Description : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val VatPercent : String? = null, //float
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.WorkOrderAssignedLocation", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int", useNull: !0 },
-      { name: "WorkOrderNo", type: "int", max: 10 },
-      {
-        name: "WOAWONo",
-        type: "int",
-        meType: "meShortText",
-        persist: !1,
-        useNull: !0,
-        convert: function (b, a) {
-          if (a.get("Addition") == 1) {
-            return (
-              getSetting("System.Prefix.VariationNo") +
-              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
-            );
-          } else {
-            return a.get("WorkOrderNo");
-          }
-        },
-      },
-      { name: "Name", type: "string", meType: "meLongText", max: 100 },
-      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
-      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
-      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
-      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
-      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
-      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
-      { name: "ProjectStatusCode", type: "int" },
-      { name: "ProjectStatusId", type: "int" },
-      { name: "ResponsibleServiceId", type: "int" },
-    ]*/
 @Suppress("unused")
-class WorkOrderAssignedLocationStore (
-    val WorkOrderStatusId : String, //int
-    val ProjectStatusCode : String, //int
-    val WOAWONo : String?, //int
-    val Changed : String, //date
-    val ProjectId : String?, //int
-    val GpsY : String?, //int
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Name : String, //string
-    val ChangedId : String, //string
-    val WorkOrderStatusCode : String, //int
-    val CustomerName : String, //string
-    val ProjectStatusId : String, //int
-    val WorkOrderNo : String, //int
-    val Id : String, //int
-    val ResponsibleServiceId : String, //int
-    val GpsX : String?, //int
-    val WorkplaceAddress : String, //string
-)
-
-/*
-Ext.define("MEM.model.WorkOrderList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "ProjectId", type: "int" },
-      {
-        name: "WorkOrderId",
-        type: "int",
-        convert: function (a, b) {
-          if (a) {
-            return a;
-          }
-          return b.get("Id");
-        },
-      },
-      { name: "ResponsibleServiceId", type: "int" },
-      { name: "ResponsibleForemanId", type: "int" },
-      { name: "CustomerId", type: "int" },
-      { name: "WorkPoolId", type: "int" },
-      { name: "WorkOrderStatusId", type: "int" },
-      { name: "ProjectNo", type: "string", max: 50 },
-      { name: "ProjectName", type: "string", max: 50 },
-      { name: "WorkOrderNo", type: "int", readOnly: !0 },
-      {
-        name: "BasicScope",
-        type: "bool",
-        readOnly: !0,
-        convert: function (b, a) {
-          if (a.get("WorkOrderNo") == 1) {
-            return !0;
-          }
-          return !1;
-        },
-      },
-      { name: "Addition", type: "bool", defaultValue: !1 },
-      { name: "Name", type: "string", max: 100 },
-      {
-        name: "FullName",
-        type: "string",
-        max: 100,
-        convert: function (b, a) {
-          if (a.get("Addition")) {
-            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          } else {
-            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
-          }
-        },
-      },
-    ]*/
-@Suppress("unused")
-class WorkOrderListStore (
-    val WorkOrderNo : String, //int
-    val ResponsibleServiceId : String, //int
-    val ResponsibleForemanId : String, //int
-    val FullName : String, //string
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val ProjectName : String, //string
-    val Addition : String, //bool
-    val ProjectId : String, //int
-    val Created : String, //date
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val CustomerId : String, //int
-    val ProjectNo : String, //string
-    val Id : String, //int
-    val WorkPoolId : String, //int
-    val BasicScope : String, //bool
-    val WorkOrderStatusId : String, //int
-    val WorkOrderId : String, //int
-    val Name : String, //string
-)
-
-/*
-Ext.define("MEM.model.WorkOrderLocation", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectId", type: "int", useNull: !0 },
-      { name: "WorkOrderNo", type: "int", max: 10 },
-      {
-        name: "WOAWONo",
-        type: "int",
-        meType: "meShortText",
-        persist: !1,
-        useNull: !0,
-        convert: function (b, a) {
-          if (a.get("Addition") == 1) {
-            return (
-              getSetting("System.Prefix.VariationNo") +
-              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
-            );
-          } else {
-            return a.get("WorkOrderNo");
-          }
-        },
-      },
-      { name: "Name", type: "string", meType: "meLongText", max: 100 },
-      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
-      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
-      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
-      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
-      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
-      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
-    ]*/
-@Suppress("unused")
-class WorkOrderLocationStore (
-    val Created : String, //date
-    val CreatedId : String, //string
-    val CustomerName : String, //string
-    val WOAWONo : String?, //int
-    val Disabled : String, //boolean
-    val WorkOrderStatusCode : String, //int
-    val GpsX : String?, //int
-    val WorkplaceAddress : String, //string
-    val ChangedId : String, //string
-    val Name : String, //string
-    val GpsY : String?, //int
-    val WorkOrderNo : String, //int
-    val Changed : String, //date
-    val Id : String, //int
-    val ProjectId : String?, //int
-    val WorkOrderStatusId : String, //int
-)
-
-/*
-Ext.define("MEM.model.WorkOrderStatus", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "StatusName", type: "string", max: 50 },
-      { name: "StatusCode", type: "int", sortable: !0, sortType: "asInt" },
-      { name: "StatusColor", type: "string", max: 20 },
-      { name: "TempRec", type: "bool", persist: !1, defaultValue: !1 },
-    ]*/
-@Suppress("unused")
-class WorkOrderStatusStore (
-    val ChangedId : String, //string
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val Changed : String, //date
-    val Created : String, //date
-    val StatusColor : String, //string
-    val TempRec : String, //bool
-    val CreatedId : String, //string
-    val StatusCode : String, //int
-    val StatusName : String, //string
-)
-
-/*
-Ext.define("MEM.model.WorkOrderStatusRelations", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "WorkOrderStatusId", type: "int", useNull: !0 },
-      { name: "ExternalWorkOrderStatusId", type: "int", useNull: !0 },
-      { name: "AllowExternal", type: "bool", defaultValue: !1 },
-      { name: "RequireExternal", type: "bool", defaultValue: !1 },
-    ]*/
-@Suppress("unused")
-class WorkOrderStatusRelationsStore (
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val ExternalWorkOrderStatusId : String?, //int
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val Changed : String, //date
-    val AllowExternal : String, //bool
-    val RequireExternal : String, //bool
-    val Created : String, //date
-    val WorkOrderStatusId : String?, //int
+data class VatStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<VatStore> = ArrayList()
 )
 
 /*
@@ -3968,158 +4956,143 @@ Ext.define("MEM.model.WorkOrder", {
       { name: "KPIName", type: "string", persist: !1 },
     ]*/
 @Suppress("unused")
-class WorkOrderStore (
-    val CostProjectId : String, //int
-    val CachedWorkCost : String?, //float
-    val FrameworkContractId : String?, //int
-    val District : String, //string
-    val WorkFeedback : String, //string
-    val ServiceCategoryId : String?, //int
-    val WorkOrderDocumentId : String, //int
-    val CreatedId : String, //string
-    val ConstructionTypeId : String, //int
-    val SignOnSite : String, //bool
-    val ExternalStatusName : String, //string
-    val Created : String, //date
-    val GpsY : String?, //int
-    val WorkOrderStatusId : String, //int
-    val OrderAmount : String?, //float
-    val InvoiceId : String?, //int
-    val Id : String, //int
-    val UpdatePrices : String, //bool
-    val KPIRuleId : String?, //int
-    val Changed : String, //date
-    val Invoiced : String, //bool
-    val ExternalStatusComment : String, //string
-    val InvoiceDate : String?, //date
-    val CustomerRefNo : String, //string
-    val WorkOrderStatusCode : String, //int
-    val KPIName : String, //string
-    val CachedWorkRevenue : String?, //float
-    val ReportSign : String, //string
-    val ProductionEnd : String?, //date
-    val WorkPoolId : String?, //int
-    val ContactName : String, //string
-    val ProductionStartClockXX : String?, //string
-    val WorkDescription : String, //string
-    val ResponsibleServiceId : String?, //int
-    val CustomerName : String, //string
-    val CustomerAgentId : String?, //int
-    val BudgetLevelId : String, //int
-    val WorkplaceAddress : String, //string
-    val MarkupModelId : String, //int
-    val GpsX : String?, //int
-    val ChangedId : String, //string
-    val ResponsibleForemanId : String?, //int
-    val ProductionStart : String?, //date
-    val OrderDate : String, //date
-    val ExternalWorkOrderStatusId : String?, //int
-    val FixedPrice : String, //bool
-    val ProjectId : String, //int
-    val Disabled : String, //boolean
-    val WorkOrderNo : String, //int
-    val Addition : String, //bool
-    val CustomerId : String, //int
-    val ProductionEndClockXX : String?, //string
-    val Name : String, //string
-    val ReportTimestamp : String, //string
-    val CreditRisk : String, //boolean
-    val AdditionStatusId : String, //int
+data class WorkOrderStore (
+    val Addition : String = "", //bool
+    val AdditionStatusId : String = "", //int
+    val BudgetLevelId : String = "", //int
+    val CachedWorkCost : String? = null, //float
+    val CachedWorkRevenue : String? = null, //float
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ConstructionTypeId : String = "", //int
+    val ContactName : String = "", //string
+    val CostProjectId : String = "", //int
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditRisk : String = "", //boolean
+    val CustomerAgentId : String? = null, //int
+    val CustomerId : String = "", //int
+    val CustomerName : String = "", //string
+    val CustomerRefNo : String = "", //string
+    val Disabled : String = "", //boolean
+    val District : String = "", //string
+    val ExternalStatusComment : String = "", //string
+    val ExternalStatusName : String = "", //string
+    val ExternalWorkOrderStatusId : String? = null, //int
+    val FixedPrice : String = "", //bool
+    val FrameworkContractId : String? = null, //int
+    val GpsX : String? = null, //int
+    val GpsY : String? = null, //int
+    val Id : String = "", //int
+    val InvoiceDate : String? = null, //date
+    val InvoiceId : String? = null, //int
+    val Invoiced : String = "", //bool
+    val KPIName : String = "", //string
+    val KPIRuleId : String? = null, //int
+    val MarkupModelId : String = "", //int
+    val Name : String = "", //string
+    val OrderAmount : String? = null, //float
+    val OrderDate : String = "", //date
+    val ProductionEnd : String? = null, //date
+    val ProductionEndClockXX : String? = null, //string
+    val ProductionStart : String? = null, //date
+    val ProductionStartClockXX : String? = null, //string
+    val ProjectId : String = "", //int
+    val ReportSign : String = "", //string
+    val ReportTimestamp : String = "", //string
+    val ResponsibleForemanId : String? = null, //int
+    val ResponsibleServiceId : String? = null, //int
+    val ServiceCategoryId : String? = null, //int
+    val SignOnSite : String = "", //bool
+    val UpdatePrices : String = "", //bool
+    val WorkDescription : String = "", //string
+    val WorkFeedback : String = "", //string
+    val WorkOrderDocumentId : String = "", //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusCode : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val WorkPoolId : String? = null, //int
+    val WorkplaceAddress : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class WorkOrderStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.StaffLog", {
+Ext.define("MEM.model.WorkOrderAssignedLocation", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "Id", type: "int" },
-      { name: "Created", type: "string", dateFormat: "time" },
-      { name: "CreatedId", type: "int" },
-      { name: "Changed", type: "string", dateFormat: "time" },
-      { name: "ChangedId", type: "int" },
-      { name: "DiaryId", type: "int" },
-      { name: "ProjectId", type: "int" },
-      { name: "IdNo", type: "string" },
-      { name: "Origin", type: "string", useNull: !0 },
-      { name: "OriginId", type: "int" },
-      { name: "CheckedIn", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
+      { name: "ProjectId", type: "int", useNull: !0 },
+      { name: "WorkOrderNo", type: "int", max: 10 },
       {
-        name: "CheckedInTime",
-        type: "string",
+        name: "WOAWONo",
+        type: "int",
+        meType: "meShortText",
+        persist: !1,
+        useNull: !0,
         convert: function (b, a) {
-          return a.timeDisplay(b, a, "CheckedIn");
+          if (a.get("Addition") == 1) {
+            return (
+              getSetting("System.Prefix.VariationNo") +
+              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
+            );
+          } else {
+            return a.get("WorkOrderNo");
+          }
         },
       },
-      { name: "CheckedOut", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
-      { name: "FullName", type: "string" },
+      { name: "Name", type: "string", meType: "meLongText", max: 100 },
+      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
+      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
+      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
+      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
+      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
+      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
+      { name: "ProjectStatusCode", type: "int" },
+      { name: "ProjectStatusId", type: "int" },
+      { name: "ResponsibleServiceId", type: "int" },
     ]*/
 @Suppress("unused")
-class StaffLogStore (
-    val CreatedId : String, //int
-    val Origin : String?, //string
-    val CheckedInTime : String, //string
-    val ChangedId : String, //int
-    val Changed : String, //string
-    val ProjectId : String, //int
-    val Created : String, //string
-    val Disabled : String, //boolean
-    val CheckedIn : String, //date
-    val IdNo : String, //string
-    val OriginId : String, //int
-    val CheckedOut : String, //date
-    val FullName : String, //string
-    val Id : String, //int
-    val DiaryId : String, //int
+data class WorkOrderAssignedLocationStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerName : String = "", //string
+    val Disabled : String = "", //boolean
+    val GpsX : String? = null, //int
+    val GpsY : String? = null, //int
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val ProjectId : String? = null, //int
+    val ProjectStatusCode : String = "", //int
+    val ProjectStatusId : String = "", //int
+    val ResponsibleServiceId : String = "", //int
+    val WOAWONo : String? = null, //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusCode : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val WorkplaceAddress : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.StaffPreviousDay", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "Created", type: "string", dateFormat: "time" },
-      { name: "CreatedId", type: "int" },
-      { name: "Changed", type: "string", dateFormat: "time" },
-      { name: "ChangedId", type: "int" },
-      { name: "IdNo", type: "string" },
-      { name: "DiaryId", type: "int" },
-      { name: "ProjectId", type: "int" },
-    ]*/
 @Suppress("unused")
-class StaffPreviousDayStore (
-    val Created : String, //string
-    val IdNo : String, //string
-    val Id : String, //int
-    val ChangedId : String, //int
-    val CreatedId : String, //int
-    val Changed : String, //string
-    val ProjectId : String, //int
-    val Disabled : String, //boolean
-    val DiaryId : String, //int
-)
-
-/*
-Ext.define("MEM.model.Supplier", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Id", type: "int" },
-      { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
-      { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
-      { name: "OrganizationNo", type: "string", max: 15 },
-    ]*/
-@Suppress("unused")
-class SupplierStore (
-    val CustomerName : String, //string
-    val OrganizationNo : String, //string
-    val Disabled : String, //boolean
-    val ChangedId : String, //string
-    val Created : String, //date
-    val Id : String, //int
-    val CreatedId : String, //string
-    val CustomerNo : String, //string
-    val Changed : String, //date
+data class WorkOrderAssignedLocationStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderAssignedLocationStore> = ArrayList()
 )
 
 /*
@@ -4137,497 +5110,481 @@ Ext.define("MEM.model.WorkOrderContact", {
       { name: "CustomerName", type: "string", max: 50 },
     ]*/
 @Suppress("unused")
-class WorkOrderContactStore (
-    val CustomerAgentId : String, //int
-    val Phone : String, //string
-    val ContactName : String, //string
-    val Email : String, //string
-    val Disabled : String, //boolean
-    val CustomerName : String, //string
-    val Mobile : String, //string
-    val CustomerId : String, //int
-    val Changed : String, //date
-    val CreatedId : String, //string
-    val WorkOrderId : String, //int
-    val Created : String, //date
-    val Id : String, //int
-    val ChangedId : String, //string
+data class WorkOrderContactStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val ContactName : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerAgentId : String = "", //int
+    val CustomerId : String = "", //int
+    val CustomerName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Email : String = "", //string
+    val Id : String = "", //int
+    val Mobile : String = "", //string
+    val Phone : String = "", //string
+    val WorkOrderId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.User", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "FullName", type: "string" },
-      { name: "UserLogin", type: "string" },
-      { name: "PersonalNo", type: "string" },
-      { name: "Languagecode", type: "string" },
-    ]*/
 @Suppress("unused")
-class UserStore (
-    val Changed : String, //date
-    val PersonalNo : String, //string
-    val CreatedId : String, //string
-    val FullName : String, //string
-    val Created : String, //date
-    val Id : String, //int
-    val UserLogin : String, //string
-    val Disabled : String, //boolean
-    val Languagecode : String, //string
-    val ChangedId : String, //string
+data class WorkOrderContactStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderContactStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.CustomerContactList", {
+Ext.define("MEM.model.WorkOrderDocument", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "CustomerId", type: "int" },
-      { name: "ContactName", type: "string", max: 50 },
-      { name: "CustomerRef", type: "string", max: 50 },
-    ]*/
-@Suppress("unused")
-class CustomerContactListStore (
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val Created : String, //date
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val CustomerId : String, //int
-    val ContactName : String, //string
-    val CustomerRef : String, //string
-)
-
-/*
-Ext.define("MEM.model.ProjectLimited", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
+      { name: "ProjectId", type: "int", meType: "meMediumText" },
+      { name: "WorkOrderId", type: "int", meType: "meMediumText" },
+      { name: "DiaryId", type: "int", meType: "meMediumText" },
+      { name: "DocumentDescription", type: "string", meType: "meLongText" },
+      { name: "Url", type: "string", meType: "meMediumText", max: 255 },
+      { name: "Title", type: "string", meType: "meMediumText", max: 255 },
+      { name: "Filename", type: "string", meType: "meMediumText", max: 255 },
       {
-        name: "Project",
+        name: "DocumentMimeType",
         type: "string",
+        meType: "meMediumText",
+        max: 255,
+      },
+      { name: "DocumentSize", type: "int", meType: "meMediumText" },
+      { name: "DocumentData", type: "string" },
+      {
+        name: "ThumbnailMimeType",
+        type: "string",
+        meType: "meMediumText",
+        max: 255,
+      },
+      { name: "ThumbnailData", type: "string", meType: "meLongText" },
+      { name: "ImageWidth", type: "int", meType: "meInt" },
+      { name: "ImageHeight", type: "int", meType: "meInt" },
+      { name: "HideInPDA", type: "bool", persist: !1 },
+      { name: "EnlargeInReports", type: "bool" },
+      { name: "IncludeInReport", type: "bool" },
+      { name: "ShowInPortal", type: "bool" },
+      { name: "RegDate", type: "string" },
+    ]*/
+@Suppress("unused")
+data class WorkOrderDocumentStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val DocumentData : String = "", //string
+    val DocumentDescription : String = "", //string
+    val DocumentMimeType : String = "", //string
+    val DocumentSize : String = "", //int
+    val EnlargeInReports : String = "", //bool
+    val Filename : String = "", //string
+    val HideInPDA : String = "", //bool
+    val Id : String = "", //int
+    val ImageHeight : String = "", //int
+    val ImageWidth : String = "", //int
+    val IncludeInReport : String = "", //bool
+    val ProjectId : String = "", //int
+    val RegDate : String = "", //string
+    val ShowInPortal : String = "", //bool
+    val ThumbnailData : String = "", //string
+    val ThumbnailMimeType : String = "", //string
+    val Title : String = "", //string
+    val Url : String = "", //string
+    val WorkOrderId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class WorkOrderDocumentStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderDocumentStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.WorkOrderList", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "Id", type: "int" },
+      { name: "ProjectId", type: "int" },
+      {
+        name: "WorkOrderId",
+        type: "int",
+        convert: function (a, b) {
+          if (a) {
+            return a;
+          }
+          return b.get("Id");
+        },
+      },
+      { name: "ResponsibleServiceId", type: "int" },
+      { name: "ResponsibleForemanId", type: "int" },
+      { name: "CustomerId", type: "int" },
+      { name: "WorkPoolId", type: "int" },
+      { name: "WorkOrderStatusId", type: "int" },
+      { name: "ProjectNo", type: "string", max: 50 },
+      { name: "ProjectName", type: "string", max: 50 },
+      { name: "WorkOrderNo", type: "int", readOnly: !0 },
+      {
+        name: "BasicScope",
+        type: "bool",
+        readOnly: !0,
         convert: function (b, a) {
-          return a.data.ProjectNo + ", " + a.data.ProjectName;
+          if (a.get("WorkOrderNo") == 1) {
+            return !0;
+          }
+          return !1;
+        },
+      },
+      { name: "Addition", type: "bool", defaultValue: !1 },
+      { name: "Name", type: "string", max: 100 },
+      {
+        name: "FullName",
+        type: "string",
+        max: 100,
+        convert: function (b, a) {
+          if (a.get("Addition")) {
+            return AWOpad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          } else {
+            return pad(a.get("WorkOrderNo"), 3) + ", " + a.get("Name");
+          }
+        },
+      },
+    ]*/
+@Suppress("unused")
+data class WorkOrderListStore (
+    val Addition : String = "", //bool
+    val BasicScope : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerId : String = "", //int
+    val Disabled : String = "", //boolean
+    val FullName : String = "", //string
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val ProjectId : String = "", //int
+    val ProjectName : String = "", //string
+    val ProjectNo : String = "", //string
+    val ResponsibleForemanId : String = "", //int
+    val ResponsibleServiceId : String = "", //int
+    val WorkOrderId : String = "", //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val WorkPoolId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class WorkOrderListStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderListStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.WorkOrderLocation", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectId", type: "int", useNull: !0 },
+      { name: "WorkOrderNo", type: "int", max: 10 },
+      {
+        name: "WOAWONo",
+        type: "int",
+        meType: "meShortText",
+        persist: !1,
+        useNull: !0,
+        convert: function (b, a) {
+          if (a.get("Addition") == 1) {
+            return (
+              getSetting("System.Prefix.VariationNo") +
+              Ext.String.leftPad(a.get("WorkOrderNo"), 3, "0")
+            );
+          } else {
+            return a.get("WorkOrderNo");
+          }
+        },
+      },
+      { name: "Name", type: "string", meType: "meLongText", max: 100 },
+      { name: "CustomerName", type: "string", meType: "meLongText", max: 100 },
+      { name: "WorkplaceAddress", type: "string", meType: "meMediumText" },
+      { name: "WorkOrderStatusId", type: "int", meType: "meMediumText" },
+      { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
+      { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
+      { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
+    ]*/
+@Suppress("unused")
+data class WorkOrderLocationStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CustomerName : String = "", //string
+    val Disabled : String = "", //boolean
+    val GpsX : String? = null, //int
+    val GpsY : String? = null, //int
+    val Id : String = "", //int
+    val Name : String = "", //string
+    val ProjectId : String? = null, //int
+    val WOAWONo : String? = null, //int
+    val WorkOrderNo : String = "", //int
+    val WorkOrderStatusCode : String = "", //int
+    val WorkOrderStatusId : String = "", //int
+    val WorkplaceAddress : String = "", //string
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class WorkOrderLocationStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderLocationStore> = ArrayList()
+)
+
+/*
+Ext.define("MEM.model.WorkOrderRow", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "WorkOrderId", type: "int" },
+      { name: "RowType", type: "string", max: 1, defaultValue: "" },
+      { name: "ArticleId", type: "int" },
+      { name: "BasePriceUsed", type: "bool" },
+      { name: "CostUnitPricelist", type: "string", max: 50, defaultValue: "" },
+      { name: "PriceUnitPricelist", type: "string", max: 50, defaultValue: "" },
+      {
+        name: "PayoffUnitPricelist",
+        type: "string",
+        max: 50,
+        defaultValue: "",
+      },
+      { name: "CodeNo", type: "string", max: 10, defaultValue: "" },
+      { name: "Title", type: "string", max: 128000, defaultValue: "" },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "PlannedQty", type: "float" },
+      { name: "Days", type: "float" },
+      { name: "StartQty", type: "float" },
+      { name: "EndQty", type: "float" },
+      { name: "UsedQty", type: "float" },
+      { name: "CostUnit", type: "float" },
+      { name: "PriceUnit", type: "float" },
+      { name: "Amount", type: "float", defaultValue: 1 },
+      { name: "DeliveryDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "ReturnDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "PerformedDate", type: "date", useNull: !0, dateFormat: "Y-m-d" },
+      { name: "PerformedUserId", type: "int", useNull: !0 },
+      { name: "Comment", type: "string", defaultValue: "" },
+      { name: "RowFormat", type: "string", max: 3 },
+      { name: "RowStatus", type: "string", max: 1 },
+      { name: "DiaryId", type: "int" },
+      { name: "TimeId", type: "int", useNull: !0 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+      { name: "Invoiced", type: "bool", defaultValue: !1, persist: !1 },
+      { name: "IsPaidOff", type: "bool", defaultValue: !1, persist: !1 },
+      { name: "ParentIsReadOnly", type: "bool", defaultValue: !1, persist: !1 },
+      {
+        name: "Locked",
+        type: "bool",
+        convert: function (b, a) {
+          return (
+            a.get("Invoiced") || a.get("IsPaidOff") || a.get("ParentIsReadOnly")
+          );
+        },
+      },
+      { name: "CreditProjectId", type: "int", useNull: !0 },
+      { name: "ResourceId", type: "int", useNull: !0 },
+      { name: "FactoryPricelistId", type: "int", useNull: !0 },
+      { name: "ArticleCategoryId", type: "int", useNull: !0 },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      {
+        name: "PlannedQty_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "PlannedQty");
         },
       },
       {
-        name: "ParentProjectId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Parent Project No"),
-      },
-      {
-        name: "ProjectNo",
+        name: "Days_fmt",
         type: "string",
-        meType: "meShortText",
-        max: 10,
-        persist: !0,
-        display: T("Project No"),
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "Days");
+        },
       },
       {
-        name: "ProjectStatusId",
-        type: "int",
-        meType: "meMediumText",
-        display: T("Project status") + T("Code"),
-      },
-      {
-        name: "ProjectStatusCode",
-        type: "int",
-        meType: "meMediumText",
-        display: T("Project status") + T("Code"),
-      },
-      {
-        name: "ProjectName",
+        name: "UsedQty_fmt",
         type: "string",
-        meType: "meMediumText",
-        max: 50,
-        display: T("Project Name"),
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "UsedQty");
+        },
       },
+      { name: "KPIValue", type: "float", allowNull: !0, persist: !1 },
       {
-        name: "PriceTypeId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Pricetype") + T("Code"),
-      },
-      {
-        name: "ProjectTypeId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Project type") + T("Code"),
-      },
-      {
-        name: "ProjectManagerId",
-        type: "int",
-        meType: "meMediumText",
-        display: T("Project manager") + " " + T("Username"),
-      },
-      {
-        name: "WorkLeaderId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Work leader") + " " + T("Username"),
-      },
-      {
-        name: "TagField1Id",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Tag field 1"),
-      },
-      {
-        name: "TagField2Id",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Tag field 2"),
-      },
-      {
-        name: "CustomerId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Customer no"),
-      },
-      {
-        name: "CustomerAgentId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Customer Contact"),
-      },
-      {
-        name: "CustomerRef",
+        name: "KPIValue_fmt",
         type: "string",
-        meType: "meMediumText",
-        max: 50,
-        display: T("Customer ref."),
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "KPIValue", 1, this);
+        },
       },
-      {
-        name: "MarkupModelId",
-        type: "int",
-        meType: "meShortText",
-        display: T("Markup model"),
-      },
-      {
-        name: "CostCenterId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Costcenter"),
-      },
-      {
-        name: "SellerId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Seller") + " " + T("Username"),
-      },
-      {
-        name: "FrameworkContractId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Framework contract"),
-        translate: T("FrameworkContract"),
-      },
-      {
-        name: "PartnerSupplierId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("Partner supplier"),
-      },
-      {
-        name: "ProjectResourceGroupId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("ProjectResourceGroupProject"),
-      },
-      {
-        name: "WorkplaceId",
-        type: "string",
-        meType: "meMediumText",
-        max: 50,
-        allowNull: !0,
-        display: T("WorkplaceId"),
-      },
-      {
-        name: "BasicScopeId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-      },
-      {
-        name: "KPIRuleId",
-        type: "int",
-        meType: "meMediumText",
-        allowNull: !0,
-        display: T("KPI rule"),
-      },
-      { name: "WOFavorite", type: "boolean", persist: !1 },
+      { name: "RelatedWorkOrderRowId", type: "int" },
     ]*/
 @Suppress("unused")
-class ProjectLimitedStore (
-    val CustomerId : String, //int
-    val PriceTypeId : String, //int
-    val ProjectResourceGroupId : String, //int
-    val KPIRuleId : String, //int
-    val WorkplaceId : String, //string
-    val ProjectTypeId : String, //int
-    val Changed : String, //date
-    val ProjectManagerId : String, //int
-    val WorkLeaderId : String, //int
-    val WOFavorite : String, //boolean
-    val Created : String, //date
-    val SellerId : String, //int
-    val TagField2Id : String, //int
-    val CustomerAgentId : String, //int
-    val Disabled : String, //boolean
-    val CustomerRef : String, //string
-    val ProjectName : String, //string
-    val MarkupModelId : String, //int
-    val CostCenterId : String, //int
-    val TagField1Id : String, //int
-    val PartnerSupplierId : String, //int
-    val ParentProjectId : String, //int
-    val BasicScopeId : String, //int
-    val Project : String, //string
-    val Id : String, //int
-    val ChangedId : String, //string
-    val ProjectStatusCode : String, //int
-    val ProjectNo : String, //string
-    val CreatedId : String, //string
-    val ProjectStatusId : String, //int
-    val FrameworkContractId : String, //int
+data class WorkOrderRowStore (
+    val AccountNo : String = "", //string
+    val Amount : String = "", //float
+    val ArticleCategoryId : String? = null, //int
+    val ArticleId : String = "", //int
+    val BasePriceUsed : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Chargeable : String = "", //bool
+    val CodeNo : String = "", //string
+    val Comment : String = "", //string
+    val CostUnit : String = "", //float
+    val CostUnitPricelist : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val CreditProjectId : String? = null, //int
+    val Days : String = "", //float
+    val Days_fmt : String = "", //string
+    val DeliveryDate : String? = null, //date
+    val DiaryId : String = "", //int
+    val Disabled : String = "", //boolean
+    val EndQty : String = "", //float
+    val FactoryPricelistId : String? = null, //int
+    val Id : String = "", //int
+    val Invoiced : String = "", //bool
+    val IsPaidOff : String = "", //bool
+    val ItemUnitId : String = "", //int
+    val KPIValue : String = "", //float
+    val KPIValue_fmt : String = "", //string
+    val Locked : String = "", //bool
+    val ParentIsReadOnly : String = "", //bool
+    val Payoff : String = "", //bool
+    val PayoffUnitPricelist : String = "", //string
+    val PerformedDate : String? = null, //date
+    val PerformedUserId : String? = null, //int
+    val PlannedQty : String = "", //float
+    val PlannedQty_fmt : String = "", //string
+    val PriceUnit : String = "", //float
+    val PriceUnitPricelist : String = "", //string
+    val RelatedWorkOrderRowId : String = "", //int
+    val ResourceId : String? = null, //int
+    val ReturnDate : String? = null, //date
+    val RowFormat : String = "", //string
+    val RowStatus : String = "", //string
+    val RowType : String = "", //string
+    val StartQty : String = "", //float
+    val TimeId : String? = null, //int
+    val Title : String = "", //string
+    val UsedQty : String = "", //float
+    val UsedQty_fmt : String = "", //string
+    val WorkOrderId : String = "", //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class WorkOrderRowStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderRowStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.ProjectStatus", {
+Ext.define("MEM.model.WorkOrderStatus", {
   extend: MEM.model.Base,
   config: {
     fields: [
       { name: "StatusName", type: "string", max: 50 },
-      { name: "StatusCode", type: "int" },
+      { name: "StatusCode", type: "int", sortable: !0, sortType: "asInt" },
       { name: "StatusColor", type: "string", max: 20 },
+      { name: "TempRec", type: "bool", persist: !1, defaultValue: !1 },
     ]*/
 @Suppress("unused")
-class ProjectStatusStore (
-    val Id : String, //int
-    val Disabled : String, //boolean
-    val CreatedId : String, //string
-    val StatusCode : String, //int
-    val StatusName : String, //string
-    val Changed : String, //date
-    val StatusColor : String, //string
-    val Created : String, //date
-    val ChangedId : String, //string
+data class WorkOrderStatusStore (
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val Id : String = "", //int
+    val StatusCode : String = "", //int
+    val StatusColor : String = "", //string
+    val StatusName : String = "", //string
+    val TempRec : String = "", //bool
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
+)
+
+@Suppress("unused")
+data class WorkOrderStatusStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderStatusStore> = ArrayList()
 )
 
 /*
-Ext.define("MEM.model.UserFavoriteList", {
+Ext.define("MEM.model.WorkOrderStatusRelations", {
   extend: MEM.model.Base,
   config: {
     fields: [
-      { name: "UserId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "Name", type: "string" },
+      { name: "WorkOrderStatusId", type: "int", useNull: !0 },
+      { name: "ExternalWorkOrderStatusId", type: "int", useNull: !0 },
+      { name: "AllowExternal", type: "bool", defaultValue: !1 },
+      { name: "RequireExternal", type: "bool", defaultValue: !1 },
     ]*/
 @Suppress("unused")
-class UserFavoriteListStore (
-    val CreatedId : String, //string
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val Id : String, //int
-    val UserId : String, //int
-    val Created : String, //date
-    val FavoriteListId : String, //int
-    val Changed : String, //date
-    val Name : String, //string
+data class WorkOrderStatusRelationsStore (
+    val AllowExternal : String = "", //bool
+    val Changed : String = "", //date
+    val ChangedId : String = "", //string
+    val Created : String = "", //date
+    val CreatedId : String = "", //string
+    val CreatedName : String = "", //string
+    val Disabled : String = "", //boolean
+    val ExternalWorkOrderStatusId : String? = null, //int
+    val Id : String = "", //int
+    val RequireExternal : String = "", //bool
+    val WorkOrderStatusId : String? = null, //int
+    val isField : String = "", //boolean
+    val isTmpRec : String = "", //boolean
 )
 
-/*
-Ext.define("MEM.model.UserFavoriteArticle", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleId", type: "int" },
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore"),
-            b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return Ext.String.format(
-              "{0} ({1})",
-              a.get("Description"),
-              b.get("Description")
-            );
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "UserId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
 @Suppress("unused")
-class UserFavoriteArticleStore (
-    val ItemUnitId : String, //int
-    val ChangedId : String, //string
-    val Disabled : String, //boolean
-    val FavoriteListId : String, //int
-    val Payoff : String, //bool
-    val FullDescription : String, //string
-    val Description : String, //string
-    val Chargeable : String, //bool
-    val UserId : String, //int
-    val AccountNo : String, //string
-    val Changed : String, //date
-    val Created : String, //date
-    val ArticleId : String, //int
-    val ArticleNo : String, //string
-    val CreatedId : String, //string
-    val Id : String, //int
-)
-
-/*
-Ext.define("MEM.model.CustomerFavoriteArticle", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleId", type: "int" },
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore"),
-            b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return Ext.String.format(
-              "{0} ({1})",
-              a.get("Description"),
-              b.get("Description")
-            );
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "CustomerId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-@Suppress("unused")
-class CustomerFavoriteArticleStore (
-    val Disabled : String, //boolean
-    val CustomerId : String, //int
-    val Created : String, //date
-    val Payoff : String, //bool
-    val FavoriteListId : String, //int
-    val FullDescription : String, //string
-    val Chargeable : String, //bool
-    val ItemUnitId : String, //int
-    val CreatedId : String, //string
-    val Changed : String, //date
-    val ArticleNo : String, //string
-    val ChangedId : String, //string
-    val Id : String, //int
-    val Description : String, //string
-    val AccountNo : String, //string
-    val ArticleId : String, //int
-)
-
-/*
-Ext.define("MEM.model.FavoriteList", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "Name", type: "string" },
-      { name: "IsCustomerList", type: "bool" },
-      { name: "IsGlobal", type: "bool" },
-    ]*/
-@Suppress("unused")
-class FavoriteListStore (
-    val Name : String, //string
-    val Created : String, //date
-    val IsGlobal : String, //bool
-    val Disabled : String, //boolean
-    val IsCustomerList : String, //bool
-    val Id : String, //int
-    val Changed : String, //date
-    val ChangedId : String, //string
-    val CreatedId : String, //string
-)
-
-/*
-Ext.define("MEM.model.FavoriteArticle", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ArticleId", type: "int" },
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore"),
-            b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return Ext.String.format(
-              "{0} ({1})",
-              a.get("Description"),
-              b.get("Description")
-            );
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "FavoriteListId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-@Suppress("unused")
-class FavoriteArticleStore (
-    val CreatedId : String, //string
-    val ArticleId : String, //int
-    val Changed : String, //date
-    val AccountNo : String, //string
-    val FullDescription : String, //string
-    val ChangedId : String, //string
-    val Created : String, //date
-    val ArticleNo : String, //string
-    val Chargeable : String, //bool
-    val Payoff : String, //bool
-    val Disabled : String, //boolean
-    val FavoriteListId : String, //int
-    val Id : String, //int
-    val Description : String, //string
-    val ItemUnitId : String, //int
+data class WorkOrderStatusRelationsStoreResponse (
+	val success: Boolean = false,
+	val errors: String? = null,
+	val error_code: Integer? = null, 
+	val rows: ArrayList<WorkOrderStatusRelationsStore> = ArrayList()
 )
 

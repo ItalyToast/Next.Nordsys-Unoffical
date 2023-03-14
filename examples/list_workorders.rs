@@ -9,7 +9,7 @@ fn main(){
 
     let (server_id, username, password) = utils::get_test_credentials();
 
-    let client = NClient::login(server_id, &username, &password);
+    let client = NClient::login(server_id, &username, &password).unwrap();
     let sessions = client.datastore::<UserSessionStore>().get_all().unwrap();
     let session = sessions.first().unwrap();
     let workorders = client.datastore::<UserWorkOrderListStore>()

@@ -1,5 +1,7 @@
 use std::{time::{SystemTime, UNIX_EPOCH}};
 
+use chrono::{DateTime, NaiveDateTime};
+
 pub fn params_dc_only() ->[(&'static str, String); 1]{
     [
         ("_dc", dc()),
@@ -55,6 +57,12 @@ pub fn dc() -> String {
         .as_millis();
 
     timestamp.to_string()
+}
+
+pub fn parse_date(date : &str) -> NaiveDateTime {
+    //2022-11-10T12:35:54
+    let dt = NaiveDateTime::parse_from_str(&date, "%Y-%m-%dT%H:%M:%S");
+    dt.unwrap()
 }
 
 pub fn get_test_credentials() -> (u64, String, String) {

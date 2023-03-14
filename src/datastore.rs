@@ -49,6 +49,10 @@ impl<TABLE> DatastoreContext<'_, TABLE>
         Ok(response.rows.unwrap())
     }
 
+    ///filter:
+    ///[{"property":"Id","value":10}]
+    ///json:
+    ///{"Checked":false,"CheckDate":null,"Id":10}
     pub fn put(&self, json : &str, filter: &str) -> reqwest::Result<ApiResponse<TABLE>> {
         let form : HashMap<&str, &str> = HashMap::from([
             ("type", "json"),
