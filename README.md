@@ -18,4 +18,12 @@ let settings = client.datastore::<OptionValueStore>().get_all();
 
 Replace **OptionValueStore** with any of the available tables in **tables.rs**
 
+# Examples
 
+You can find more examples in /examples. Run them with:
+```
+cargo run --example
+```
+```
+cargo run --example list_workorders
+```
