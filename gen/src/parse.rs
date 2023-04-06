@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use regex::{Regex, RegexBuilder, Captures};
 
 lazy_static::lazy_static!{
-    static ref CLASS_REGEX : Regex = RegexBuilder::new("Ext\\.define\\(\"MEM\\.model\\.([a-zA-Z]+)\".*?fields(.*?)]")
+    static ref CLASS_REGEX : Regex = RegexBuilder::new("Ext\\.define\\(\"MEM\\.model\\.([a-zA-Z]+)\".*?fields(.*?)],?\\s*},\\s*}\\);")
         .dot_matches_new_line(true)
         .build().unwrap();
     
@@ -135,4 +135,17 @@ fn translate(text : &str) -> String {
         _ => text,
     };
     res.to_string()
+}
+
+#[cfg(test)]
+mod tests {
+    // Note this useful idiom: importing names from outer (for mod tests) scope.
+    use super::*;
+
+    #[test]
+    fn test_contains() {
+        let classes = parse_next_js();
+        assert!(classes.iter().any(|p| p.class_name == "ProfessionItem"));
+        assert!(classes.iter().any(|p| p.class_name == "WorkOrderRow"));
+    }
 }

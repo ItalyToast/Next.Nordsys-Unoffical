@@ -29,14 +29,11 @@ pub trait TableTrait {
 }
 
 // Available tables:
-// -AccountChartStore
 // -AdditionalWorkOrderStore
 // -AdditionalWorkOrderRowStore
 // -AdditionalWorkOrderStatusStore
 // -ArticleStore
-// -ArticleCategoryStore
 // -ArticleCustomerStore
-// -ChecklistDiaryStore
 // -ChecklistRowStore
 // -ConstructionTypeStore
 // -CostStore
@@ -91,7 +88,6 @@ pub trait TableTrait {
 // -StaffListStore
 // -StaffLogStore
 // -StaffPreviousDayStore
-// -StatusHistoryStore
 // -SupplierStore
 // -TagStore
 // -TimeStore
@@ -117,80 +113,6 @@ pub trait TableTrait {
 // -WorkOrderStatusStore
 // -WorkOrderStatusRelationsStore
 /*
-Ext.define("MEM.model.AccountChart", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "AccountNo", type: "string", meType: "meShortText", max: 5 },
-      {
-        name: "Account",
-        type: "string",
-        meType: "meShortText",
-        max: 5,
-        convert: function (b, a) {
-          return a.get("AccountNo") + " " + a.get("Description");
-        },
-      },
-      { name: "Description", type: "string", meType: "meMediumText", max: 50 },
-      { name: "Cost", type: "bool", meType: "meBool" },
-      { name: "Work", type: "bool", meType: "meBool" },
-      { name: "Material", type: "bool", meType: "meBool" },
-      { name: "VatCode", type: "string", meType: "meShortText", max: 10 },
-      {
-        name: "ComplementAccount",
-        type: "string",
-        meType: "meShortText",
-        max: 5,
-      },
-      { name: "VatDuty", type: "bool", meType: "meBool" },
-      { name: "InvoiceOnImport", type: "bool", meType: "meBool" },
-      { name: "RotShare", type: "int", meType: "meInt" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct AccountChartStore {
-    #[serde(default)]
-    pub Account : String, //string
-    #[serde(default)]
-    pub AccountNo : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub ComplementAccount : String, //string
-    #[serde(default)]
-    pub Cost : String, //bool
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CreatedName : String, //string
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub InvoiceOnImport : String, //bool
-    #[serde(default)]
-    pub Material : String, //bool
-    #[serde(default)]
-    pub RotShare : String, //int
-    #[serde(default)]
-    pub VatCode : String, //string
-    #[serde(default)]
-    pub VatDuty : String, //bool
-    #[serde(default)]
-    pub Work : String, //bool
-    #[serde(default)]
-    pub isField : String, //boolean
-    #[serde(default)]
-    pub isTmpRec : String, //boolean
-}
-
-impl TableTrait for AccountChartStore { fn name() -> &'static str { "AccountChartStore" }}/*
 Ext.define("MEM.model.AdditionalWorkOrder", {
   extend: MEM.model.Base,
   config: {
@@ -460,7 +382,9 @@ Ext.define("MEM.model.AdditionalWorkOrder", {
         useNull: !0,
       },
       { name: "PriceTypeId", type: "int", meType: "meMediumText", useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct AdditionalWorkOrderStore {
@@ -599,7 +523,9 @@ Ext.define("MEM.model.AdditionalWorkOrderRow", {
       { name: "DiaryId", type: "int", persist: !1 },
       { name: "TimeId", type: "int", persist: !1 },
       { name: "Invoiced", type: "bool", persist: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct AdditionalWorkOrderRowStore {
@@ -672,7 +598,9 @@ Ext.define("MEM.model.AdditionalWorkOrderStatus", {
       { name: "StatusName", type: "string", max: 50 },
       { name: "StatusCode", type: "int" },
       { name: "StatusColor", type: "string", max: 20 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct AdditionalWorkOrderStatusStore {
@@ -731,154 +659,32 @@ Ext.define("MEM.model.Article", {
       { name: "WorkOrderProjectId", type: "int", useNull: !0 },
       { name: "HasKPIRelation", type: "bool", defaultValue: !1 },
       { name: "IsKPIRecord", type: "bool", defaultValue: !1 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ArticleStore {
-    #[serde(default)]
-    pub AccountNo : String, //string
-    #[serde(default)]
-    pub ArticleCategoryId : Option<String>, //int
-    #[serde(default)]
-    pub ArticleNo : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    #[serde(default)]
-    pub CostUnit : String, //float
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CreatedName : String, //string
-    #[serde(default)]
-    pub CreditProjectId : Option<String>, //int
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub FullDescription : String, //string
-    #[serde(default)]
-    pub HasKPIRelation : String, //bool
-    pub Id : String, //int
-    #[serde(default)]
-    pub IsKPIRecord : String, //bool
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub PriceUnit : String, //float
-    #[serde(default)]
-    pub WorkOrderId : Option<String>, //int
-    #[serde(default)]
-    pub WorkOrderProjectId : Option<String>, //int
-    #[serde(default)]
-    pub isField : String, //boolean
-    #[serde(default)]
-    pub isTmpRec : String, //boolean
-}
-
-impl TableTrait for ArticleStore { fn name() -> &'static str { "ArticleStore" }}/*
-Ext.define("MEM.model.ArticleCategory", {
-  extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ArticleCategoryStore {
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CreatedName : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    pub Id : String, //int
-    #[serde(default)]
-    pub Name : String, //string
-    #[serde(default)]
-    pub isField : String, //boolean
-    #[serde(default)]
-    pub isTmpRec : String, //boolean
-}
-
-impl TableTrait for ArticleCategoryStore { fn name() -> &'static str { "ArticleCategoryStore" }}/*
-Ext.define("MEM.model.ArticleCustomer", {
-  extend: MEM.model.Base,
+    ],
+  },
+  get: function (a) {
+    switch (a) {
+      case "ArticleId":
+        return this.get("Id");
+        break;
+      default:
+        return this.callParent(arguments);
+        break;
+    }
+  },
+});
+Ext.define("MEM.store.MyArticleStore", {
+  extend: MEM.ux.data.MyBaseStore,
+  alias: "store.myarticlestorealias",
   config: {
-    fields: [
-      { name: "ArticleNo", type: "string", max: 10 },
-      { name: "Description", type: "string", max: 50 },
-      {
-        name: "FullDescription",
-        type: "string",
-        max: 50,
-        convert: function (d, a) {
-          var c = Ext.getStore("MyItemUnitStore");
-          var b;
-          b = c.findRecord("Id", a.get("ItemUnitId"));
-          if (b) {
-            return a.get("Description") + " (" + b.get("Description") + ")";
-          } else {
-            return a.get("Description");
-          }
-        },
-      },
-      { name: "CustomerId", type: "int" },
-      { name: "AccountNo", type: "string", max: 5 },
-      { name: "ItemUnitId", type: "int" },
-      { name: "Payoff", type: "bool", defaultValue: !1 },
-      { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct ArticleCustomerStore {
-    #[serde(default)]
-    pub AccountNo : String, //string
-    #[serde(default)]
-    pub ArticleNo : String, //string
-    #[serde(default)]
-    pub Changed : String, //date
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Chargeable : String, //bool
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CreatedName : String, //string
-    #[serde(default)]
-    pub CustomerId : String, //int
-    #[serde(default)]
-    pub Description : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub FullDescription : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub ItemUnitId : String, //int
-    #[serde(default)]
-    pub Payoff : String, //bool
-    #[serde(default)]
-    pub isField : String, //boolean
-    #[serde(default)]
-    pub isTmpRec : String, //boolean
-}
-
-impl TableTrait for ArticleCustomerStore { fn name() -> &'static str { "ArticleCustomerStore" }}/*
+    model: "MEM.model.Article",
+    storeId: "MyArticleStore",
+    autoLoad: !1,
+    autoSync: !1,
+    remoteFilter: !1,
+    sorters: [{ property: "Description", direction: "ASC" }],
+    proxy: { type: "myproxy", url: Me.STORE_URL + "ArticleStore" },
+  },
+});
 Ext.define("MEM.model.ChecklistDiary", {
   extend: MEM.model.Base,
   config: {
@@ -925,14 +731,28 @@ Ext.define("MEM.model.ChecklistDiary", {
           }
         },
       },
-    ]*/
+    ],
+    validations: [
+      { type: "presence", field: "ItemNo" },
+      { type: "presence", field: "ItemDescription" },
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
-pub struct ChecklistDiaryStore {
+pub struct ArticleStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub ArticleCategoryId : Option<String>, //int
+    #[serde(default)]
+    pub ArticleNo : String, //string
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
     pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
     #[serde(default)]
     pub CheckDate : String, //date
     #[serde(default)]
@@ -942,27 +762,145 @@ pub struct ChecklistDiaryStore {
     #[serde(default)]
     pub CheckedById : Option<String>, //int
     #[serde(default)]
+    pub CostUnit : String, //float
+    #[serde(default)]
     pub Created : String, //date
     #[serde(default)]
     pub CreatedId : String, //string
     #[serde(default)]
     pub CreatedName : String, //string
     #[serde(default)]
+    pub CreditProjectId : Option<String>, //int
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
     pub DiaryId : String, //int
     #[serde(default)]
     pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullDescription : String, //string
+    #[serde(default)]
+    pub HasKPIRelation : String, //bool
     pub Id : String, //int
+    #[serde(default)]
+    pub IsKPIRecord : String, //bool
     #[serde(default)]
     pub ItemDescription : String, //string
     #[serde(default)]
     pub ItemNo : Option<String>, //string
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub PriceUnit : String, //float
+    #[serde(default)]
+    pub WorkOrderId : Option<String>, //int
+    #[serde(default)]
+    pub WorkOrderProjectId : Option<String>, //int
     #[serde(default)]
     pub isField : String, //boolean
     #[serde(default)]
     pub isTmpRec : String, //boolean
 }
 
-impl TableTrait for ChecklistDiaryStore { fn name() -> &'static str { "ChecklistDiaryStore" }}/*
+impl TableTrait for ArticleStore { fn name() -> &'static str { "ArticleStore" }}/*
+Ext.define("MEM.model.ArticleCustomer", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ArticleNo", type: "string", max: 10 },
+      { name: "Description", type: "string", max: 50 },
+      {
+        name: "FullDescription",
+        type: "string",
+        max: 50,
+        convert: function (d, a) {
+          var c = Ext.getStore("MyItemUnitStore");
+          var b;
+          b = c.findRecord("Id", a.get("ItemUnitId"));
+          if (b) {
+            return a.get("Description") + " (" + b.get("Description") + ")";
+          } else {
+            return a.get("Description");
+          }
+        },
+      },
+      { name: "CustomerId", type: "int" },
+      { name: "AccountNo", type: "string", max: 5 },
+      { name: "ItemUnitId", type: "int" },
+      { name: "Payoff", type: "bool", defaultValue: !1 },
+      { name: "Chargeable", type: "bool", defaultValue: !0 },
+    ],
+  },
+  get: function (a) {
+    switch (a) {
+      case "ArticleId":
+        return this.get("Id");
+        break;
+      default:
+        return this.callParent(arguments);
+        break;
+    }
+  },
+});
+Ext.define("MEM.store.MyArticleCustomerStore", {
+  extend: MEM.ux.data.MyBaseStore,
+  config: {
+    model: "MEM.model.ArticleCustomer",
+    storeId: "MyArticleCustomerStore",
+    autoLoad: !1,
+    autoSync: !1,
+    remoteFilter: !1,
+    sorters: [{ property: "Description", direction: "ASC" }],
+    proxy: { type: "myproxy", url: Me.STORE_URL + "ArticleCustomerStore" },
+  },
+});
+Ext.define("MEM.model.ArticleCategory", {
+  extend: MEM.model.Base,
+  config: { fields: [{ name: "Name", type: "string", max: 50 }] },
+});*/
+#[allow(non_snake_case)]
+#[derive(Serialize, Deserialize, Clone)]
+pub struct ArticleCustomerStore {
+    #[serde(default)]
+    pub AccountNo : String, //string
+    #[serde(default)]
+    pub ArticleNo : String, //string
+    #[serde(default)]
+    pub Changed : String, //date
+    #[serde(default)]
+    pub ChangedId : String, //string
+    #[serde(default)]
+    pub Chargeable : String, //bool
+    #[serde(default)]
+    pub Created : String, //date
+    #[serde(default)]
+    pub CreatedId : String, //string
+    #[serde(default)]
+    pub CreatedName : String, //string
+    #[serde(default)]
+    pub CustomerId : String, //int
+    #[serde(default)]
+    pub Description : String, //string
+    #[serde(default)]
+    pub Disabled : String, //boolean
+    #[serde(default)]
+    pub FullDescription : String, //string
+    pub Id : String, //int
+    #[serde(default)]
+    pub ItemUnitId : String, //int
+    #[serde(default)]
+    pub Name : String, //string
+    #[serde(default)]
+    pub Payoff : String, //bool
+    #[serde(default)]
+    pub isField : String, //boolean
+    #[serde(default)]
+    pub isTmpRec : String, //boolean
+}
+
+impl TableTrait for ArticleCustomerStore { fn name() -> &'static str { "ArticleCustomerStore" }}/*
 Ext.define("MEM.model.ChecklistRow", {
   extend: MEM.model.Base,
   config: {
@@ -1009,7 +947,13 @@ Ext.define("MEM.model.ChecklistRow", {
           }
         },
       },
-    ]*/
+    ],
+    validations: [
+      { type: "presence", field: "ItemNo" },
+      { type: "presence", field: "ItemDescription" },
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ChecklistRowStore {
@@ -1049,7 +993,8 @@ pub struct ChecklistRowStore {
 impl TableTrait for ChecklistRowStore { fn name() -> &'static str { "ChecklistRowStore" }}/*
 Ext.define("MEM.model.ConstructionType", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "TypeName", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ConstructionTypeStore {
@@ -1163,7 +1108,9 @@ Ext.define("MEM.model.Cost", {
           return Math.round(a == null ? 0 : a);
         },
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CostStore {
@@ -1251,7 +1198,9 @@ Ext.define("MEM.model.Currency", {
       { name: "Currency", type: "string", max: 50 },
       { name: "Xrate", type: "float" },
       { name: "Base", type: "boolean" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CurrencyStore {
@@ -1326,7 +1275,9 @@ Ext.define("MEM.model.Customer", {
       { name: "DefaultExternalWorkOrderStatusId", type: "int", useNull: !0 },
       { name: "HasFavorites", type: "boolean" },
       { name: "FrameworkContractId", type: "int", useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerStore {
@@ -1441,7 +1392,10 @@ Ext.define("MEM.model.CustomerContact", {
       { name: "CustomerRef", type: "string", max: 50 },
       { name: "DefaultExternalWorkOrderStatusId", type: "int", useNull: !0 },
       { name: "isSelected", type: "bool", persist: !1, defaultValue: !1 },
-    ]*/
+    ],
+    validations: [{ type: "email", field: "Email" }],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerContactStore {
@@ -1490,7 +1444,9 @@ Ext.define("MEM.model.CustomerContactList", {
       { name: "CustomerId", type: "int" },
       { name: "ContactName", type: "string", max: 50 },
       { name: "CustomerRef", type: "string", max: 50 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerContactListStore {
@@ -1551,7 +1507,9 @@ Ext.define("MEM.model.CustomerFavoriteArticle", {
       { name: "CustomerId", type: "int" },
       { name: "Payoff", type: "bool", defaultValue: !1 },
       { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerFavoriteArticleStore {
@@ -1610,7 +1568,9 @@ Ext.define("MEM.model.CustomerList", {
           return a.get("Id");
         },
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerListStore {
@@ -1654,7 +1614,9 @@ Ext.define("MEM.model.CustomerPricelistItem", {
         useNull: !0,
       },
       { name: "PriceUnit", type: "float", meType: "meMoney" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerPricelistItemStore {
@@ -1686,7 +1648,8 @@ pub struct CustomerPricelistItemStore {
 impl TableTrait for CustomerPricelistItemStore { fn name() -> &'static str { "CustomerPricelistItemStore" }}/*
 Ext.define("MEM.model.CustomerType", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "TypeName", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct CustomerTypeStore {
@@ -1763,7 +1726,9 @@ Ext.define("MEM.model.Diary", {
       { name: "KPIName", type: "string" },
       { name: "MaterialTemp1", type: "float", meType: "meQty", useNull: !0 },
       { name: "MaterialTemp2", type: "float", meType: "meQty", useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct DiaryStore {
@@ -1838,7 +1803,9 @@ Ext.define("MEM.model.ExternalWorkOrderStatus", {
       { name: "StatusColor", type: "string", max: 20 },
       { name: "IsDefaultStatus", type: "bool", defaultValue: !1 },
       { name: "IsSignatureStatus", type: "bool", defaultValue: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ExternalWorkOrderStatusStore {
@@ -1898,7 +1865,9 @@ Ext.define("MEM.model.FactoryArticleItem", {
       { name: "ItemUnitId", type: "int" },
       { name: "CostUnit", type: "float" },
       { name: "PriceUnit", type: "float" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FactoryArticleItemStore {
@@ -1942,7 +1911,8 @@ pub struct FactoryArticleItemStore {
 impl TableTrait for FactoryArticleItemStore { fn name() -> &'static str { "FactoryArticleItemStore" }}/*
 Ext.define("MEM.model.FactoryPricelist", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "Name", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FactoryPricelistStore {
@@ -1998,7 +1968,9 @@ Ext.define("MEM.model.FavoriteArticle", {
       { name: "FavoriteListId", type: "int" },
       { name: "Payoff", type: "bool", defaultValue: !1 },
       { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FavoriteArticleStore {
@@ -2047,7 +2019,9 @@ Ext.define("MEM.model.FavoriteList", {
       { name: "Name", type: "string" },
       { name: "IsCustomerList", type: "bool" },
       { name: "IsGlobal", type: "bool" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FavoriteListStore {
@@ -2087,7 +2061,9 @@ Ext.define("MEM.model.FormValidation", {
       { name: "ValidationType", type: "string", max: 50 },
       { name: "RegEx", type: "string", max: 1000 },
       { name: "Hidden", type: "boolean" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FormValidationStore {
@@ -2150,7 +2126,9 @@ Ext.define("MEM.model.FrameworkArticleItem", {
       { name: "ArticleCategoryId", type: "int", useNull: !0 },
       { name: "Payoff", type: "bool", defaultValue: !1 },
       { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FrameworkArticleItemStore {
@@ -2207,7 +2185,9 @@ Ext.define("MEM.model.FrameworkContract", {
       { name: "Name", type: "string", max: 50 },
       { name: "CustomerId", type: "int" },
       { name: "LimitArticles", type: "bool" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct FrameworkContractStore {
@@ -2239,7 +2219,8 @@ pub struct FrameworkContractStore {
 impl TableTrait for FrameworkContractStore { fn name() -> &'static str { "FrameworkContractStore" }}/*
 Ext.define("MEM.model.Group", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "GroupName", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "GroupName", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct GroupStore {
@@ -2276,7 +2257,9 @@ Ext.define("MEM.model.HourlyRate", {
       { name: "UnitName", type: "string", max: 50 },
       { name: "CustomerPrice", type: "float" },
       { name: "ProjectPrice", type: "float" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct HourlyRateStore {
@@ -2328,7 +2311,9 @@ Ext.define("MEM.model.InfoMessage", {
       { name: "Message", type: "string" },
       { name: "ShowInMobile", type: "bool" },
       { name: "GroupId", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InfoMessageStore {
@@ -2368,7 +2353,9 @@ Ext.define("MEM.model.InfoNote", {
       { name: "TableId", type: "int" },
       { name: "UserId", type: "int" },
       { name: "Note", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InfoNoteStore {
@@ -2423,7 +2410,20 @@ Ext.define("MEM.model.Invoice", {
         },
       },
       { name: "RowFormat", type: "string" },
-    ]*/
+    ],
+    validations: [
+      {
+        type: "custom",
+        field: "InvoiceTotal",
+        validate: function (b, a) {
+          return a.get("TaxReductionAmount") <= b;
+        },
+        message:
+          "Tax Reduction Amount should be less or equeal to Invoice Total value.",
+      },
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InvoiceStore {
@@ -2492,7 +2492,9 @@ Ext.define("MEM.model.InvoiceRow", {
         },
       },
       { name: "RowFormat", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct InvoiceRowStore {
@@ -2544,7 +2546,9 @@ Ext.define("MEM.model.ItemUnit", {
     fields: [
       { name: "UnitName", type: "string", max: 10 },
       { name: "Description", type: "string", max: 10 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ItemUnitStore {
@@ -2583,7 +2587,9 @@ Ext.define("MEM.model.MainMenu", {
       { name: "Active" },
       { name: "Picto" },
       { name: "Title" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct MainMenuStore {
@@ -2613,7 +2619,9 @@ Ext.define("MEM.model.MarkupModel", {
     fields: [
       { name: "Name", type: "string", max: 50 },
       { name: "Code", type: "string", max: 10 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct MarkupModelStore {
@@ -2649,7 +2657,9 @@ Ext.define("MEM.model.MarkupModelItem", {
       { name: "ResourceAccount", type: "string", max: 5 },
       { name: "Description", type: "string", max: 50 },
       { name: "MarkupCF", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct MarkupModelItemStore {
@@ -2687,7 +2697,9 @@ Ext.define("MEM.model.OfficeCompany", {
     fields: [
       { name: "CompanyName", type: "string" },
       { name: "AbsenceProjectId", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct OfficeCompanyStore {
@@ -2722,7 +2734,9 @@ Ext.define("MEM.model.OptionValue", {
       { name: "SettingKey", type: "string", max: 50 },
       { name: "SettingValue", type: "string" },
       { name: "SettingDescription", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct OptionValueStore {
@@ -2762,7 +2776,9 @@ Ext.define("MEM.model.Phrase", {
         meType: "meMediumText",
         display: T("Phrasetext"),
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct PhraseStore {
@@ -2790,7 +2806,8 @@ pub struct PhraseStore {
 impl TableTrait for PhraseStore { fn name() -> &'static str { "PhraseStore" }}/*
 Ext.define("MEM.model.PriceType", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "TypeName", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct PriceTypeStore {
@@ -2829,7 +2846,9 @@ Ext.define("MEM.model.ProfessionItem", {
       { name: "CostUnit", type: "float" },
       { name: "ProfessionGroup", type: "string", max: 50 },
       { name: "Chargeable", type: "bool" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProfessionItemStore {
@@ -2905,7 +2924,9 @@ Ext.define("MEM.model.Project", {
       { name: "GuaranteeInspectionDate", type: "date", dateFormat: "Y-m-d" },
       { name: "WOFavorite", type: "boolean", persist: !1 },
       { name: "FrameworkContractId", type: "int", useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectStore {
@@ -2999,7 +3020,9 @@ Ext.define("MEM.model.ProjectEconomy", {
       { name: "Revenue", type: "float" },
       { name: "ContributionMargin", type: "float" },
       { name: "ContributionMarginPercent", type: "float" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectEconomyStore {
@@ -3042,7 +3065,9 @@ Ext.define("MEM.model.ProjectEconomyBudget", {
       { name: "ProjectId", type: "int" },
       { name: "BudgetCost", type: "float" },
       { name: "BudgetRevenue", type: "float" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectEconomyBudgetStore {
@@ -3243,7 +3268,9 @@ Ext.define("MEM.model.ProjectLimited", {
         display: T("KPI rule"),
       },
       { name: "WOFavorite", type: "boolean", persist: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectLimitedStore {
@@ -3351,7 +3378,9 @@ Ext.define("MEM.model.ProjectList", {
       { name: "SecReadOnly", type: "bool", persist: !1 },
       { name: "Piecework", type: "bool", persist: !1 },
       { name: "KPIRuleId", type: "int", useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectListStore {
@@ -3677,7 +3706,9 @@ Ext.define("MEM.model.ProjectOverview", {
           return a.get("EarnedRevenueNotInvoiced") * Me.Moms;
         },
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectOverviewStore {
@@ -3774,7 +3805,9 @@ Ext.define("MEM.model.ProjectPricelist", {
       { name: "ProjectId", type: "int" },
       { name: "ServiceCarPriceDay", type: "float" },
       { name: "ServiceCarPriceKm", type: "float" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectPricelistStore {
@@ -3816,7 +3849,9 @@ Ext.define("MEM.model.ProjectPricelistItem", {
         useNull: !0,
       },
       { name: "PriceUnit", type: "float", meType: "meMoney" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectPricelistItemStore {
@@ -3853,7 +3888,9 @@ Ext.define("MEM.model.ProjectStatus", {
       { name: "StatusName", type: "string", max: 50 },
       { name: "StatusCode", type: "int" },
       { name: "StatusColor", type: "string", max: 20 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectStatusStore {
@@ -3893,7 +3930,9 @@ Ext.define("MEM.model.ProjectStatusHistory", {
       { name: "StatusCode", type: "int" },
       { name: "StatusColor", type: "string", max: 20 },
       { name: "FullName", type: "string", max: 50 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectStatusHistoryStore {
@@ -3936,7 +3975,9 @@ Ext.define("MEM.model.ProjectTree", {
       { name: "ProjectStatusId", type: "int" },
       { name: "ProjectName", type: "string" },
       { name: "ProjectNo", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectTreeStore {
@@ -3968,7 +4009,8 @@ pub struct ProjectTreeStore {
 impl TableTrait for ProjectTreeStore { fn name() -> &'static str { "ProjectTreeStore" }}/*
 Ext.define("MEM.model.ProjectType", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "TypeName", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "TypeName", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ProjectTypeStore {
@@ -4011,7 +4053,9 @@ Ext.define("MEM.model.Resource", {
       { name: "CreditProjectId", type: "int" },
       { name: "CreditProjectNo", type: "string" },
       { name: "CreditProjectName", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ResourceStore {
@@ -4128,7 +4172,9 @@ Ext.define("MEM.model.Revenue", {
       { name: "Notes", type: "string", max: 255, useNull: !0 },
       { name: "Mark1", type: "string", max: 255, useNull: !0 },
       { name: "Mark2", type: "string", max: 255, useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct RevenueStore {
@@ -4208,7 +4254,8 @@ pub struct RevenueStore {
 impl TableTrait for RevenueStore { fn name() -> &'static str { "RevenueStore" }}/*
 Ext.define("MEM.model.ServiceCategory", {
   extend: MEM.model.Base,
-  config: { fields: [{ name: "Name", type: "string", max: 50 }]*/
+  config: { fields: [{ name: "Name", type: "string", max: 50 }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct ServiceCategoryStore {
@@ -4236,7 +4283,8 @@ pub struct ServiceCategoryStore {
 impl TableTrait for ServiceCategoryStore { fn name() -> &'static str { "ServiceCategoryStore" }}/*
 Ext.define("MEM.model.Setting", {
   extend: Ext.data.Model,
-  config: { fields: [{ name: "Name" }, { name: "Value" }]*/
+  config: { fields: [{ name: "Name" }, { name: "Value" }] },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct SettingStore {
@@ -4301,12 +4349,64 @@ Ext.define("MEM.model.StaffList", {
           }
         },
       },
-    ]*/
+    ],
+  },
+  set: function (a, b) {
+    this.callParent(arguments);
+    switch (a) {
+      case "CheckedIn":
+        this.set("CheckedInTime", "");
+        this.set("Present", "");
+        break;
+      case "CheckedOut":
+        this.set("CheckedOutTime", "");
+        this.set("Present", "");
+        break;
+    }
+  },
+});
+Ext.define("MEM.store.MyStaffListStore", {
+  extend: MEM.ux.data.MyBaseStore,
+  alias: "store.mystaffliststorealias",
+  config: {
+    model: "MEM.model.StaffList",
+    storeId: "MyStaffListStore",
+    autoLoad: !1,
+    sorters: [
+      { property: "isEmployee" },
+      { property: "CustomerName" },
+      { property: "FullName" },
+    ],
+    grouper: {
+      groupFn: function (a) {
+        if (a.get("isEmployee") == !0) {
+          return T("Own Staff");
+        } else {
+          return a.get("CustomerName");
+        }
+      },
+      sortProperty: "isEmployee",
+      direction: "DESC",
+    },
+    proxy: { type: "myproxy", url: Me.STORE_URL + "StaffListStore" },
+  },
+});
+Ext.define("MEM.model.StatusHistory", {
+  extend: MEM.model.Base,
+  config: {
+    fields: [
+      { name: "ProjectStatusHistoryId", type: "int" },
+      { name: "StatusName", type: "string", max: 50 },
+      { name: "FullName", type: "string", max: 50 },
+      { name: "Changed", type: "data" },
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct StaffListStore {
     #[serde(default)]
-    pub Changed : String, //date
+    pub Changed : String, //data
     #[serde(default)]
     pub ChangedId : String, //string
     #[serde(default)]
@@ -4347,6 +4447,10 @@ pub struct StaffListStore {
     #[serde(default)]
     pub ProjectId : String, //int
     #[serde(default)]
+    pub ProjectStatusHistoryId : String, //int
+    #[serde(default)]
+    pub StatusName : String, //string
+    #[serde(default)]
     pub isEmployee : String, //bool
     #[serde(default)]
     pub isField : String, //boolean
@@ -4379,7 +4483,9 @@ Ext.define("MEM.model.StaffLog", {
       },
       { name: "CheckedOut", type: "date", dateFormat: "Y-m-d\\TH:i:s" },
       { name: "FullName", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct StaffLogStore {
@@ -4434,7 +4540,9 @@ Ext.define("MEM.model.StaffPreviousDay", {
       { name: "IdNo", type: "string" },
       { name: "DiaryId", type: "int" },
       { name: "ProjectId", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct StaffPreviousDayStore {
@@ -4465,44 +4573,6 @@ pub struct StaffPreviousDayStore {
 }
 
 impl TableTrait for StaffPreviousDayStore { fn name() -> &'static str { "StaffPreviousDayStore" }}/*
-Ext.define("MEM.model.StatusHistory", {
-  extend: MEM.model.Base,
-  config: {
-    fields: [
-      { name: "ProjectStatusHistoryId", type: "int" },
-      { name: "StatusName", type: "string", max: 50 },
-      { name: "FullName", type: "string", max: 50 },
-      { name: "Changed", type: "data" },
-    ]*/
-#[allow(non_snake_case)]
-#[derive(Serialize, Deserialize, Clone)]
-pub struct StatusHistoryStore {
-    #[serde(default)]
-    pub Changed : String, //data
-    #[serde(default)]
-    pub ChangedId : String, //string
-    #[serde(default)]
-    pub Created : String, //date
-    #[serde(default)]
-    pub CreatedId : String, //string
-    #[serde(default)]
-    pub CreatedName : String, //string
-    #[serde(default)]
-    pub Disabled : String, //boolean
-    #[serde(default)]
-    pub FullName : String, //string
-    pub Id : String, //int
-    #[serde(default)]
-    pub ProjectStatusHistoryId : String, //int
-    #[serde(default)]
-    pub StatusName : String, //string
-    #[serde(default)]
-    pub isField : String, //boolean
-    #[serde(default)]
-    pub isTmpRec : String, //boolean
-}
-
-impl TableTrait for StatusHistoryStore { fn name() -> &'static str { "StatusHistoryStore" }}/*
 Ext.define("MEM.model.Supplier", {
   extend: MEM.model.Base,
   config: {
@@ -4511,7 +4581,9 @@ Ext.define("MEM.model.Supplier", {
       { name: "CustomerNo", type: "string", max: 50, allowBlank: !1 },
       { name: "CustomerName", type: "string", max: 50, allowBlank: !1 },
       { name: "OrganizationNo", type: "string", max: 15 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct SupplierStore {
@@ -4548,7 +4620,9 @@ Ext.define("MEM.model.Tag", {
     fields: [
       { name: "TagName", type: "string", max: 50 },
       { name: "TagValue", type: "string", max: 50 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct TagStore {
@@ -4715,7 +4789,229 @@ Ext.define("MEM.model.Time", {
             e = getSetting("Time.Timestamp.Interval"),
             g = e ? parseInt(e) : 15;
           if (typeof b == "string") {
-            var a = b.split(/[-:T]*/
+            var a = b.split(/[-:T]/);
+            c = new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
+          } else {
+            if (
+              getSetting("Time.Timestamp.Show.Project") == 1 ||
+              getSetting("Time.Timestamp.Show.Absence") == 1
+            ) {
+              c = b ? b : new Date();
+            } else {
+              return b;
+            }
+          }
+          f = new Date(
+            d.getFullYear(),
+            d.getMonth(),
+            d.getDate(),
+            c.getHours(),
+            b ? c.getMinutes() : (Math.round(c.getMinutes() / g) * g) % 60
+          );
+          return f;
+        },
+      },
+      {
+        name: "StopTime",
+        dateFormat: "Y-m-d H:i:s",
+        type: "date",
+        persist: !1,
+        convert: function (b, c) {
+          var h = c.get("StartTime"),
+            e,
+            g = getSetting("Time.Timestamp.Interval"),
+            i = g ? parseInt(g) : 15;
+          if (c.get("Hours") && !b) {
+            Date.prototype.addHours = function (a) {
+              this.setTime(this.getTime() + a * 60 * 60 * 1000);
+              return this;
+            };
+            if (h) {
+              e = new Date(h).addHours(c.get("Hours") + c.get("BreakTime"));
+            }
+          } else {
+            if (b) {
+              var d,
+                f = new Date(c.get("RegDate"));
+              if (typeof b == "string") {
+                var a = b.split(/[-:T]/);
+                d = new Date(a[0], a[1] - 1, a[2], a[3], a[4], a[5]);
+              } else {
+                d = b;
+              }
+              e = new Date(
+                f.getFullYear(),
+                f.getMonth(),
+                f.getDate(),
+                d.getHours(),
+                b ? d.getMinutes() : (Math.round(d.getMinutes() / i) * i) % 60
+              );
+            }
+          }
+          return e;
+        },
+      },
+      { name: "Description", type: "string", defaultValue: "" },
+      { name: "TotalCost", type: "float" },
+      {
+        name: "Travel1Km",
+        type: "float",
+        useNull: !0,
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      { name: "Travel1PriceKm", type: "float", useNull: !0 },
+      {
+        name: "Travel2Km",
+        type: "float",
+        useNull: !0,
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      {
+        name: "Travel3Km",
+        type: "float",
+        useNull: !0,
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      { name: "Travel3Driver", type: "int", useNull: !0 },
+      { name: "Travel3IsDriver", type: "boolean" },
+      { name: "Travel4", type: "bool", useNull: !0, defaultValue: !1 },
+      { name: "Invoiced", type: "bool", defaultValue: !1 },
+      { name: "InvoiceId", type: "int", useNull: !0 },
+      {
+        name: "SalaryTransferDate",
+        type: "date",
+        useNull: !0,
+        dateFormat: "Y-m-d",
+      },
+      { name: "Locked", type: "bool", useNull: !0 },
+      { name: "Approved", type: "bool", useNull: !0, defaultValue: !1 },
+      {
+        name: "Approved2",
+        type: "bool",
+        useNull: !0,
+        defaultValue: !1,
+        persist: !1,
+      },
+      {
+        name: "Addition",
+        type: "bool",
+        useNull: !0,
+        defaultValue: !1,
+        persist: !1,
+      },
+      { name: "CarPooling", type: "bool", useNull: !0 },
+      { name: "InfoNoteId", type: "int", useNull: !0, persist: !1 },
+      {
+        name: "AllowanceQty",
+        type: "float",
+        convert: function (a, b) {
+          return a == null ? null : parseFloat(a);
+        },
+      },
+      { name: "MoveAll", type: "boolean", meType: "meBool", defaultValue: !1 },
+      { name: "PieceWork", type: "bool", useNull: !0, defaultValue: !1 },
+      { name: "CustomerId", type: "int", useNull: !0, persist: !1 },
+      {
+        name: "DisplayTitle",
+        convert: function (d, a) {
+          var b = getSetting("MEM.TimeRowFormat");
+          if (!b) {
+            b = "{p} - {pn}";
+          }
+          var c = Ext.getStore("MyCloneProfessionItemStore").getById(
+            a.get("ProfessionItemId")
+          );
+          b = Me.templateRender(b, {
+            p: a.get("ProjectNo"),
+            pn: a.get("ProjectName"),
+            w: a.get("WOAWONo"),
+            wn: a.get("WorkOrderName"),
+            r: a.get("ProfessionCode"),
+            a: a.get("Addition"),
+            rn: c ? c.get("ProfessionDescription") : "",
+          });
+          return b;
+        },
+      },
+      {
+        name: "Hours_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "Hours");
+        },
+      },
+      {
+        name: "StartTime_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (c, b) {
+          var a = b.get("StartTime");
+          if (a instanceof Date) {
+            return Ext.util.Format.date(a, "H:i");
+          }
+        },
+      },
+      {
+        name: "StopTime_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (c, b) {
+          var a = b.get("StopTime");
+          if (a instanceof Date) {
+            return Ext.util.Format.date(a, "H:i");
+          }
+        },
+      },
+      {
+        name: "BreakTime_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "BreakTime");
+        },
+      },
+      {
+        name: "Travel1Km_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "Travel1Km");
+        },
+      },
+      {
+        name: "Travel2Km_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "Travel2Km");
+        },
+      },
+      {
+        name: "Travel3Km_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "Travel3Km");
+        },
+      },
+      {
+        name: "AllowanceQty_fmt",
+        type: "string",
+        persist: !1,
+        convert: function (b, a) {
+          return getFormattedNumeric(a, "AllowanceQty");
+        },
+      },
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct TimeStore {
@@ -4724,7 +5020,21 @@ pub struct TimeStore {
     #[serde(default)]
     pub AbsenceProjectId : Option<String>, //int
     #[serde(default)]
+    pub Addition : Option<String>, //bool
+    #[serde(default)]
+    pub AllowanceQty : String, //float
+    #[serde(default)]
+    pub AllowanceQty_fmt : String, //string
+    #[serde(default)]
+    pub Approved : Option<String>, //bool
+    #[serde(default)]
+    pub Approved2 : Option<String>, //bool
+    #[serde(default)]
     pub BreakTime : String, //float
+    #[serde(default)]
+    pub BreakTime_fmt : String, //string
+    #[serde(default)]
+    pub CarPooling : Option<String>, //bool
     #[serde(default)]
     pub Changed : String, //date
     #[serde(default)]
@@ -4736,14 +5046,32 @@ pub struct TimeStore {
     #[serde(default)]
     pub CreatedName : String, //string
     #[serde(default)]
+    pub CustomerId : Option<String>, //int
+    #[serde(default)]
     pub Debit : String, //boolean
+    #[serde(default)]
+    pub Description : String, //string
     #[serde(default)]
     pub Disabled : String, //boolean
     #[serde(default)]
     pub FullName : String, //string
     #[serde(default)]
     pub Hours : String, //float
+    #[serde(default)]
+    pub Hours_fmt : String, //string
     pub Id : String, //int
+    #[serde(default)]
+    pub InfoNoteId : Option<String>, //int
+    #[serde(default)]
+    pub InvoiceId : Option<String>, //int
+    #[serde(default)]
+    pub Invoiced : String, //bool
+    #[serde(default)]
+    pub Locked : Option<String>, //bool
+    #[serde(default)]
+    pub MoveAll : String, //boolean
+    #[serde(default)]
+    pub PieceWork : Option<String>, //bool
     #[serde(default)]
     pub ProfessionAccountNo : String, //string
     #[serde(default)]
@@ -4762,6 +5090,34 @@ pub struct TimeStore {
     pub ProjectStatus : String, //string
     #[serde(default)]
     pub RegDate : String, //string
+    #[serde(default)]
+    pub SalaryTransferDate : Option<String>, //date
+    #[serde(default)]
+    pub StartTime_fmt : String, //string
+    #[serde(default)]
+    pub StopTime_fmt : String, //string
+    #[serde(default)]
+    pub TotalCost : String, //float
+    #[serde(default)]
+    pub Travel1Km : Option<String>, //float
+    #[serde(default)]
+    pub Travel1Km_fmt : String, //string
+    #[serde(default)]
+    pub Travel1PriceKm : Option<String>, //float
+    #[serde(default)]
+    pub Travel2Km : Option<String>, //float
+    #[serde(default)]
+    pub Travel2Km_fmt : String, //string
+    #[serde(default)]
+    pub Travel3Driver : Option<String>, //int
+    #[serde(default)]
+    pub Travel3IsDriver : String, //boolean
+    #[serde(default)]
+    pub Travel3Km : Option<String>, //float
+    #[serde(default)]
+    pub Travel3Km_fmt : String, //string
+    #[serde(default)]
+    pub Travel4 : Option<String>, //bool
     #[serde(default)]
     pub Unit : String, //string
     #[serde(default)]
@@ -4789,7 +5145,9 @@ Ext.define("MEM.model.User", {
       { name: "UserLogin", type: "string" },
       { name: "PersonalNo", type: "string" },
       { name: "Languagecode", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserStore {
@@ -4834,7 +5192,9 @@ Ext.define("MEM.model.UserAccess", {
       { name: "WriteRight", type: "int" },
       { name: "ReadRight", type: "int" },
       { name: "OwnRight", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserAccessStore {
@@ -4907,7 +5267,9 @@ Ext.define("MEM.model.UserFavoriteArticle", {
       { name: "UserId", type: "int" },
       { name: "Payoff", type: "bool", defaultValue: !1 },
       { name: "Chargeable", type: "bool", defaultValue: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserFavoriteArticleStore {
@@ -4958,7 +5320,9 @@ Ext.define("MEM.model.UserFavoriteList", {
       { name: "UserId", type: "int" },
       { name: "FavoriteListId", type: "int" },
       { name: "Name", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserFavoriteListStore {
@@ -5000,7 +5364,9 @@ Ext.define("MEM.model.UserList", {
       { name: "ProfessionItemId", type: "int" },
       { name: "OrganizationalProjectId", type: "int" },
       { name: "PartnerSupplier", type: "bool" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserListStore {
@@ -5118,7 +5484,9 @@ Ext.define("MEM.model.UserPoolWorkOrderList", {
       { name: "CustomerFavoritePriceList", type: "boolean", persist: !1 },
       { name: "CustomerFavoriteArticlePrice", type: "boolean", persist: !1 },
       { name: "ProjectFavorite", type: "boolean", persist: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserPoolWorkOrderListStore {
@@ -5227,7 +5595,9 @@ Ext.define("MEM.model.UserProjectWorkOrderList", {
       { name: "CustomerFavoritePriceList", type: "boolean", persist: !1 },
       { name: "CustomerFavoriteArticlePrice", type: "boolean", persist: !1 },
       { name: "ProjectFavorite", type: "boolean", persist: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserProjectWorkOrderListStore {
@@ -5291,7 +5661,9 @@ Ext.define("MEM.model.UserRight", {
       { name: "MobileClient", type: "bool" },
       { name: "ApiClient", type: "bool" },
       { name: "AdminClient", type: "bool" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserRightStore {
@@ -5353,7 +5725,9 @@ Ext.define("MEM.model.UserSession", {
           return "";
         },
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserSessionStore {
@@ -5394,7 +5768,9 @@ Ext.define("MEM.model.UserSetting", {
       { name: "UserId", type: "int" },
       { name: "SettingKey", type: "string", max: 50 },
       { name: "SettingValue", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserSettingStore {
@@ -5511,7 +5887,9 @@ Ext.define("MEM.model.UserWorkOrderList", {
       },
       { name: "HaveDocument", type: "bool", defaultValue: !1 },
       { name: "CustomerName", type: "string", max: 50 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct UserWorkOrderListStore {
@@ -5595,7 +5973,9 @@ Ext.define("MEM.model.Vat", {
         max: 50,
         display: T("Description"),
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct VatStore {
@@ -5719,7 +6099,9 @@ Ext.define("MEM.model.WorkOrder", {
       { name: "UpdatePrices", type: "bool", defaultValue: !1 },
       { name: "KPIRuleId", type: "int", useNull: !0 },
       { name: "KPIName", type: "string", persist: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderStore {
@@ -5876,7 +6258,9 @@ Ext.define("MEM.model.WorkOrderAssignedLocation", {
       { name: "ProjectStatusCode", type: "int" },
       { name: "ProjectStatusId", type: "int" },
       { name: "ResponsibleServiceId", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderAssignedLocationStore {
@@ -5938,7 +6322,9 @@ Ext.define("MEM.model.WorkOrderContact", {
       { name: "CustomerId", type: "int" },
       { name: "ContactName", type: "string", max: 50 },
       { name: "CustomerName", type: "string", max: 50 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderContactStore {
@@ -6011,7 +6397,9 @@ Ext.define("MEM.model.WorkOrderDocument", {
       { name: "IncludeInReport", type: "bool" },
       { name: "ShowInPortal", type: "bool" },
       { name: "RegDate", type: "string" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderDocumentStore {
@@ -6122,7 +6510,9 @@ Ext.define("MEM.model.WorkOrderList", {
           }
         },
       },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderListStore {
@@ -6205,7 +6595,9 @@ Ext.define("MEM.model.WorkOrderLocation", {
       { name: "WorkOrderStatusCode", type: "int", meType: "meMediumText" },
       { name: "GpsX", type: "int", meType: "meShortText", useNull: !0 },
       { name: "GpsY", type: "int", meType: "meShortText", useNull: !0 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderLocationStore {
@@ -6338,7 +6730,9 @@ Ext.define("MEM.model.WorkOrderRow", {
         },
       },
       { name: "RelatedWorkOrderRowId", type: "int" },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderRowStore {
@@ -6458,7 +6852,9 @@ Ext.define("MEM.model.WorkOrderStatus", {
       { name: "StatusCode", type: "int", sortable: !0, sortType: "asInt" },
       { name: "StatusColor", type: "string", max: 20 },
       { name: "TempRec", type: "bool", persist: !1, defaultValue: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderStatusStore {
@@ -6498,7 +6894,9 @@ Ext.define("MEM.model.WorkOrderStatusRelations", {
       { name: "ExternalWorkOrderStatusId", type: "int", useNull: !0 },
       { name: "AllowExternal", type: "bool", defaultValue: !1 },
       { name: "RequireExternal", type: "bool", defaultValue: !1 },
-    ]*/
+    ],
+  },
+});*/
 #[allow(non_snake_case)]
 #[derive(Serialize, Deserialize, Clone)]
 pub struct WorkOrderStatusRelationsStore {
