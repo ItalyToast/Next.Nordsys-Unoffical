@@ -3,15 +3,15 @@ use std::collections::HashMap;
 use regex::{Regex, RegexBuilder, Captures};
 
 lazy_static::lazy_static!{
-    static ref CLASS_REGEX : Regex = RegexBuilder::new("Ext\\.define\\(\"MEM\\.model\\.([a-zA-Z]+)\".*?fields(.*?)],?\\s*},\\s*}\\);")
+    static ref CLASS_REGEX : Regex = RegexBuilder::new(r#"Ext\.define\("MEM\.model\.([a-zA-Z]+)".*?fields(.*?)],?\s*},\s*}\);"#)
         .dot_matches_new_line(true)
         .build().unwrap();
     
-    static ref FIELDS_REGEX : Regex = RegexBuilder::new("\\{([ \r\n]*)name: \"(\\w*)\",([ \r\n]*) type: \"(\\w*)\".*?\\}")
+    static ref FIELDS_REGEX : Regex = RegexBuilder::new(r#"\{([ \r\n]*)name: "(\w*)",([ \r\n]*) type: "(\w*)".*?\}"#)
         .dot_matches_new_line(true)
         .build().unwrap();
 
-    static ref PROP_REGEX : Regex = Regex::new("(\\w+?): ([^,\\}]+)").unwrap();
+    static ref PROP_REGEX : Regex = Regex::new(r#"(\w+?): ([^,\\}]+)"#).unwrap();
 }
 
 #[derive(Debug, Clone)]
