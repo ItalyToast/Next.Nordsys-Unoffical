@@ -1,7 +1,7 @@
 # Next.Nordsys-Unoffical
 An unoffical API for "next.nordsys.se".
 
-Currently powering [btd.asuscomm.com](https://btd.asuscomm.com) which is a WIP alternate frontend.
+Currently powering [brutal.rs](https://brutal.rs) which is a WIP alternate frontend.
 
 # Usage
 
